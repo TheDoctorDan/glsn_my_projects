@@ -1,0 +1,19 @@
+<HTML>
+<HEAD><TITLE>Welcome to CGI Educational Center</TITLE></HEAD>
+<BODY>
+<H1>Add New Student</H1>
+<HR>
+<FORM ACTION="/cgi-bin/student.pl?add" METHOD="POST">
+<PRE>
+Student Name:       <INPUT TYPE="text" NAME="Student" SIZE=40>
+Year of Graduation: <INPUT TYPE="text" NAME="YOG" SIZE=4 MAXLENGTH=4>
+
+Address (Mailing Information):
+<TEXTAREA NAME="Address" ROWS=4 COLS=40></TEXTAREA>
+</PRE>
+<INPUT TYPE="submit" VALUE="Add New Student">
+<INPUT TYPE="reset"  VALUE="Clear the Information">
+</FORM>
+<HR>
+</BODY>
+</HTML>

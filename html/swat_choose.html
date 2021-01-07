@@ -1,0 +1,35 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+<HEAD>
+<TITLE>Samba Web Administration Tool</TITLE>
+</HEAD>
+<BODY bgcolor="white">
+<CENTER>
+<IMG SRC="/swat/images/samba.gif" ALT="[ Samba ]" border=0><BR>
+<TABLE WIDTH="98%" CELLSPACING=1 CELLPADDING=4 BORDER=1>
+<TR><TD BGCOLOR="#ddddd0">
+<A HREF="/"><img border="0" src="/swat/images/home.gif" alt="Home"></A>
+<A HREF="/globals"><img border="0" src="/swat/images/globals.gif" alt="Globals"></A>
+<A HREF="/shares"><img border="0" src="/swat/images/shares.gif" alt="Shares"></A>
+<A HREF="/printers"><img border="0" src="/swat/images/printers.gif" alt="Printers"></A>
+<A HREF="/status"><img border="0" src="/swat/images/status.gif" alt="Status"></A>
+<A HREF="/viewconfig"><img border="0" src="/swat/images/viewconfig.gif" alt="View Config"></A>
+<A HREF="/passwd"><img border="0" src="/swat/images/passwd.gif" alt="Password Management"></A>
+<HR>
+<H2>Share Parameters</H2>
+<FORM name="swatform" method=post>
+<table>
+<tr>
+<td><input type=submit name=selectshare value="Choose Share"></td>
+<td><select name=share>
+<option value=" ">
+<option  value="homes">homes
+</select></td>
+<td><input type=submit name="Delete" value="Delete Share"></td>
+</tr>
+</table><table><tr>
+<td><input type=submit name=createshare value="Create Share"></td>
+<td><input type=text size=30 name=newshare></td></tr>
+</table></FORM>
+</TD></TR></TABLE></CENTER>
+</BODY>

@@ -1,0 +1,39 @@
+#
+# Copyright Milan Technology Inc., 1991, 1992
+#
+
+# @(#)MakeSVR4 2.0 10/15/92
+
+# Makes binaries for SVR 4 machines
+
+#If you wish to use prototyping (e.g. for gcc) define the flag -DANSI
+
+HOME=/usr/gleeson
+BIN=$(HOME)/bin
+
+CC=cc 
+
+#CFLAGS= -g -DLP -DSYSTEMV -DESIX
+CFLAGS= -g -DSYSTEMV  -DLP -DESIX
+
+FILTEROBJECTS= fpfilter.o printer.o errors.o options.o system.o udpstat.o
+
+PROGS= fpfilter fpstatus
+
+SRCFILES= dp.h errors.c errors.h fpfilter.c fpstatus.c options.c printer.c std.h system.c udp.h udpstat.c Makefile errors.init
+
+.KEEP_STATE:
+all: errors.h $(PROGS)
+
+fpfilter: $(BIN)/fpfilter
+
+$(BIN)/fpfilter:	$(FILTEROBJECTS) errors.h 
+	$(CC) $(CFLAGS) -o $@ $(FILTEROBJECTS)
+
+fpstatus: $(BIN)/fpstatus
+
+$(BIN)/fpstatus: fpstatus.o udpstat.o udp.h dp.h
+	$(CC) $(CFLAGS) -o $@ fpstatus.o udpstat.o 
+
+clean:
+	rm -f *.o $(PROGS)

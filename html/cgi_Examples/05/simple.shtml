@@ -1,0 +1,15 @@
+<HTML>
+<HEAD><TITLE>Welcome!</TITLE></HEAD>
+<BODY>
+<H1>Welcome to my server at <!--#echo var="SERVER_NAME"-->...</H1>
+<HR>
+Dear user from <!--#echo var="REMOTE_HOST"-->,
+<P>
+There are many links to various CGI documents throughout the Web,
+so feel free to explore.
+	.
+	.
+	.
+<HR>
+<ADDRESS>Shishir Gundavaram (<!--#echo var="DATE_LOCAL"-->)</ADDRESS>
+</BODY></HTML>

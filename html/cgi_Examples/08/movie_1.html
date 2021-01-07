@@ -1,0 +1,32 @@
+<HTML>
+<HEAD><TITLE>Television/Movie Survey</TITLE></HEAD>
+<BODY>
+<H1>Movie Survey</H1>
+<HR>
+Welcome! We are glad that you have decided to fill out our movie
+survey. Please read all questions carefully. When you are finished, press the
+Submit button for Part 2 of the survey.
+<P>
+The current time is: <!--#insert var="DATE_TIME"--><BR>
+<HR>
+<FORM ACTION="/cgi-bin/survey.pl?cgi_cookie=<!--#insert var="COOKIE"-->&cgi_survey=<!--#insert var="SURVEY"-->&cgi_form_num=<!--#insert var="NUMBER"-->" METHOD="POST">
+What is your favorite action movie?
+<BR>
+<INPUT TYPE="radio" NAME="07 Action Movie" VALUE="Hunt for CGI Developer">Hunt for CGI Developer<BR>
+<INPUT TYPE="radio" NAME="07 Action Movie" VALUE="WebWorld">WebWorld<BR>
+<INPUT TYPE="radio" NAME="07 Action Movie" VALUE="Server Under Siege" CHECKED>Server Under Siege<BR>
+<INPUT TYPE="radio" NAME="07 Action Movie" VALUE="The Web">The Web<BR>
+<P>
+Who is your favorite actor in a action movie?
+<BR>
+<INPUT TYPE="radio" NAME="08 Action Movie Star" VALUE="Ray Connery" CHECKED>Ray Connery<BR>
+<INPUT TYPE="radio" NAME="08 Action Movie Star" VALUE="Tom Costner">Tim Costner<BR>
+<INPUT TYPE="radio" NAME="08 Action Movie Star" VALUE="John Seagal">John Seagal<BR>
+<INPUT TYPE="radio" NAME="08 Action Movie Star" VALUE="Steve Moore">Steve Moore<BR>
+<P>
+<INPUT TYPE="submit" VALUE="Submit the survey">
+<INPUT TYPE="reset"  VALUE="Clear all fields">
+</FORM>
+<HR>
+</BODY>
+</HTML>

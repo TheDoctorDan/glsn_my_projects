@@ -1,0 +1,47 @@
+<HTML>
+<HEAD><TITLE>Health/Exercise Survey</TITLE></HEAD>
+<BODY>
+<H1>Health/Exercise Survey</H1>
+<HR>
+<FORM ACTION="\cgi-win\exercise.exe" METHOD="POST">
+<EM>What is your name?</EM><BR>
+<INPUT TYPE="text" NAME="name" SIZE=40><BR>
+<P>
+<EM>Do you exercise regularly?</EM><BR>
+<INPUT TYPE="radio" NAME="regular" VALUE="Yes">Yes<BR>
+<INPUT TYPE="radio" NAME="regular" VALUE="No">No<BR>
+<P>
+<EM>Why do you exercise?</EM><BR>
+<INPUT TYPE="radio" NAME="why" VALUE="health">Health Benefits<BR>
+<INPUT TYPE="radio" NAME="why" VALUE="athlete">Athletic Training<BR>
+<INPUT TYPE="radio" NAME="why" VALUE="forced">Forced upon you<BR>
+<INPUT TYPE="radio" NAME="why" VALUE="enjoy">Enjoyment<BR>
+<INPUT TYPE="radio" NAME="why" VALUE="other">Other reasons<BR>
+<P>
+<EM>What sport do you <B>primarily</B> participate in?</EM><BR>
+<SELECT NAME="sports" SIZE=1>
+<OPTION>Tennis
+<OPTION>Swimming
+<OPTION>Basketball
+<OPTION>Running/Walking
+<OPTION>Cycling
+<OPTION>Skating/Rollerblading
+<OPTION>Skiing
+<OPTION>Climbing Stairs
+<OPTION>Jumping Rope
+<OPTION>Other
+</SELECT>
+<P>
+<EM>How often do you exercise?</EM><BR>
+<INPUT TYPE="radio" NAME="interval" VALUE="0">Not at all<BR>
+<INPUT TYPE="radio" NAME="interval" VALUE="1">Once a week<BR>
+<INPUT TYPE="radio" NAME="interval" VALUE="3">Three times a week<BR>
+<INPUT TYPE="radio" NAME="interval" VALUE="5">Five times a week<BR>
+<INPUT TYPE="radio" NAME="interval" VALUE="7">Every day of the week<BR>
+<P>
+<INPUT TYPE="submit" VALUE="Submit the form">
+<INPUT TYPE="reset"  VALUE="Clear all fields">
+</FORM>
+<HR>
+</BODY>
+</HTML>

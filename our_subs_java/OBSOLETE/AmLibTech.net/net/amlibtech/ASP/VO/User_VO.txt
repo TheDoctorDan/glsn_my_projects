@@ -1,0 +1,130 @@
+/*
+ * User_VO.java
+ *
+ * Created on March 17, 2005 3:23:42 PM CST
+ */
+
+/**
+ *|------------------------------------------------------------------------------|
+ *|       Copyright (c) 1985 thru 1999, 2000, 2001, 2002, 2003, 2004, 2005       |
+ *|       American Liberator Technologies                                        |
+ *|       All Rights Reserved                                                    |
+ *|                                                                              |
+ *|       THIS IS UNPUBLISHED PROPRIETARY SOURCE CODE OF                         |
+ *|       American Liberator Technologies                                        |
+ *|       The copyright notice above does not evidence any                       |
+ *|       actual or intended publication of such source code.                    |
+ *|------------------------------------------------------------------------------|
+ */
+
+package net.amlibtech.ASP.VO;
+
+import java.util.*;
+import javax.servlet.http.*;
+
+import net.amlibtech.ASP.data.*;
+import com.amlibtech.database.*;
+
+public class User_VO  {
+
+    private	String	user_Id;
+    private	String	first_Name;
+    private	String	last_Name;
+    private	String	password;
+    private	String	description;
+    private	String	timeZone_Name;
+    private	String	reference_Type;
+    private	String	reference_Id;
+
+    public	User_VO(User user, Database_Front database_Front, String passed_TimeZone_Name) {
+    TimeZone tz = TimeZone.getTimeZone(passed_TimeZone_Name);
+        this.user_Id = user.getUser_Id();
+        this.first_Name = user.getFirst_Name();
+        this.last_Name = user.getLast_Name();
+        this.password = user.getPassword();
+        this.description = user.getDescription();
+        this.timeZone_Name = user.getTimeZone_Name();
+        this.reference_Type = user.getReference_Type();
+        this.reference_Id = user.getReference_Id();
+	}
+
+
+    public static String process_Field_Request(HttpServletRequest request, String field_Name){
+        String parameter_Value;
+        parameter_Value = request.getParameter(field_Name);
+        if(parameter_Value == null){
+            return "";
+        }else{
+            return parameter_Value;
+        }
+    }
+
+    public void process_Request(HttpServletRequest request) {
+        this.user_Id = process_Field_Request(request, "user_Id");
+        this.first_Name = process_Field_Request(request, "first_Name");
+        this.last_Name = process_Field_Request(request, "last_Name");
+        this.password = process_Field_Request(request, "password");
+        this.description = process_Field_Request(request, "description");
+        this.timeZone_Name = process_Field_Request(request, "timeZone_Name");
+        this.reference_Type = process_Field_Request(request, "reference_Type");
+        this.reference_Id = process_Field_Request(request, "reference_Id");
+	}
+
+
+    public void setUser_Id(String user_Id){
+        this.user_Id = user_Id;
+    }
+
+    public String getUser_Id(){ return user_Id; }
+
+
+    public void setFirst_Name(String first_Name){
+        this.first_Name = first_Name;
+    }
+
+    public String getFirst_Name(){ return first_Name; }
+
+
+    public void setLast_Name(String last_Name){
+        this.last_Name = last_Name;
+    }
+
+    public String getLast_Name(){ return last_Name; }
+
+
+    public void setPassword(String password){
+        this.password = password;
+    }
+
+    public String getPassword(){ return password; }
+
+
+    public void setDescription(String description){
+        this.description = description;
+    }
+
+    public String getDescription(){ return description; }
+
+
+    public void setTimeZone_Name(String timeZone_Name){
+        this.timeZone_Name = timeZone_Name;
+    }
+
+    public String getTimeZone_Name(){ return timeZone_Name; }
+
+
+    public void setReference_Type(String reference_Type){
+        this.reference_Type = reference_Type;
+    }
+
+    public String getReference_Type(){ return reference_Type; }
+
+
+    public void setReference_Id(String reference_Id){
+        this.reference_Id = reference_Id;
+    }
+
+    public String getReference_Id(){ return reference_Id; }
+
+
+}

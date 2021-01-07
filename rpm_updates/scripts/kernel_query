@@ -1,0 +1,31 @@
+# kernel_query
+rpm -q kernel kernel-doc kernel-headers kernel-ibcs kernel-smp kernel-source kernel-utils                                                 
+exit 0
+
+kernel-2.2.16-22
+kernel-smp-2.2.16-22
+
+kernel-headers-2.4.0-0.26
+kernel-utils-2.2.16-22
+
+ls $HOME/DOWNLOADS/redhat/rpm_updates/*/ker*
+
+/root/DOWNLOADS/redhat/rpm_updates/i386/kernel-2.2.17-14.i386.rpm
+/root/DOWNLOADS/redhat/rpm_updates/i386/kernel-BOOT-2.2.17-14.i386.rpm
+/root/DOWNLOADS/redhat/rpm_updates/i386/kernel-doc-2.2.17-14.i386.rpm
+/root/DOWNLOADS/redhat/rpm_updates/i386/kernel-ibcs-2.2.17-14.i386.rpm
+/root/DOWNLOADS/redhat/rpm_updates/i386/kernel-pcmcia-cs-2.2.17-14.i386.rpm
+/root/DOWNLOADS/redhat/rpm_updates/i386/kernel-smp-2.2.17-14.i386.rpm
+/root/DOWNLOADS/redhat/rpm_updates/i386/kernel-source-2.2.17-14.i386.rpm
+/root/DOWNLOADS/redhat/rpm_updates/i386/kernel-utils-2.2.17-14.i386.rpm
+
+/root/DOWNLOADS/redhat/rpm_updates/i686/kernel-2.2.17-14.i686.rpm
+/root/DOWNLOADS/redhat/rpm_updates/i686/kernel-smp-2.2.17-14.i686.rpm
+
+#DIR=/root/DOWNLOADS/redhat/rpm_updates
+#for i in `ls $DIR/*/kernel*`
+#do
+#f=`basename $i`
+#echo $f |sed 's/^\(k.*\)\-[0-9].*$/\1/g'
+#done
+

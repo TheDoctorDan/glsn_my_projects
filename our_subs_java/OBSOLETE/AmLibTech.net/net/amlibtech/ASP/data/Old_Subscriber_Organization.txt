@@ -1,0 +1,446 @@
+/*
+ * Subscriber_Organization.java
+ *
+ * Created on March 17, 2005 3:02:11 PM CST
+ */
+
+/**
+ *|------------------------------------------------------------------------------|
+ *|       Copyright (c) 1985 thru 1999, 2000, 2001, 2002, 2003, 2004, 2005       |
+ *|       American Liberator Technologies                                        |
+ *|       All Rights Reserved                                                    |
+ *|                                                                              |
+ *|       THIS IS UNPUBLISHED PROPRIETARY SOURCE CODE OF                         |
+ *|       American Liberator Technologies                                        |
+ *|       The copyright notice above does not evidence any                       |
+ *|       actual or intended publication of such source code.                    |
+ *|------------------------------------------------------------------------------|
+ */
+
+package net.amlibtech.ASP.data;
+
+import java.util.*;
+import javax.servlet.http.*;
+
+import com.amlibtech.web.data.*;
+import com.amlibtech.web.servlet_exceptions.*;
+import com.amlibtech.database.*;
+import com.amlibtech.util.*;
+import com.amlibtech.web.util.*;
+
+
+
+public class Old_Subscriber_Organization implements Database_Record {
+    
+    
+    // Declaration Section
+    
+    private	String	subscriber_Organization_Id;
+    private	String	name;
+    private	String	description;
+    private	String	database_Server_URL;
+    private	String	database_Name;
+    private	String	database_Access_Login_Name;
+    private	String	database_Access_Login_Password;
+    private	String	destination_URL;
+    
+    public static final int SUBSCRIBER_ORGANIZATION_ID_LEN = 30;
+    
+    
+    public static Field_Description_List field_Description_List=null;
+    private static Subscriber_Organization subscriber_Organization_Instance = new Subscriber_Organization();
+    
+    
+    // Field Description List Section
+    
+    private static void initialize_Field_Description_List(){
+        if(field_Description_List==null){
+            field_Description_List = new Field_Description_List();
+            
+            field_Description_List.add_Node_Filled_String("subscriber_Organization_Id",		"Subscriber_Organization Id",
+            1, SUBSCRIBER_ORGANIZATION_ID_LEN, Field_Description_Node.FILL_TYPE_LEFT, ' ');
+            
+            field_Description_List.add_Node_String("name",			"Name",
+            1, 38);
+            
+            field_Description_List.add_Node_String("description",			"Description",
+            1, 100);
+            
+            field_Description_List.add_Node_String("database_Server_URL",			"Database Server URL",
+            1, 200);
+            
+            field_Description_List.add_Node_String("database_Name",			"Database Name",
+            1, 100);
+            
+            field_Description_List.add_Node_String("database_Access_Login_Name",			"Database Access Login Name",
+            1, 30);
+            
+            field_Description_List.add_Node_String("database_Access_Login_Password",			"Database Access Login Password",
+            1, 30);
+            field_Description_List.add_Node_String("destination_URL",			"Destination URL",
+            1, 200);
+            
+        }
+    }
+    
+    
+    // Empty Constructor Section
+    
+    public Old_Subscriber_Organization() {
+        initialize_Field_Description_List();
+        this.subscriber_Organization_Id = "";
+        this.name = "";
+        this.description = "";
+        this.database_Server_URL = "";
+        this.database_Name = "";
+        this.database_Access_Login_Name = "";
+        this.database_Access_Login_Password = "";
+        this.destination_URL = "";
+    }
+    
+    
+    // All Fields Constructor Section
+    
+    public Old_Subscriber_Organization(String subscriber_Organization_Id, String name, String description, String database_Server_URL, String database_Name, String database_Access_Login_Name, String database_Access_Login_Password, String destination_URL) {
+		this.subscriber_Organization_Id = subscriber_Organization_Id;
+		this.name = name;
+		this.description = description;
+		this.database_Server_URL = database_Server_URL;
+		this.database_Name = database_Name;
+		this.database_Access_Login_Name = database_Access_Login_Name;
+		this.database_Access_Login_Password = database_Access_Login_Password;
+		this.destination_URL = destination_URL;
+	    }
+    
+
+    // Key Fields Constructor Section 
+
+    public Old_Subscriber_Organization(String subscriber_Organization_Id) {
+		this();
+		this.subscriber_Organization_Id = subscriber_Organization_Id;
+	}
+    
+    
+    // Getter and Setter Section
+    
+    
+    public void setSubscriber_Organization_Id(String subscriber_Organization_Id){
+        this.subscriber_Organization_Id = subscriber_Organization_Id;
+    }
+    
+    public String getSubscriber_Organization_Id(){ return subscriber_Organization_Id; }
+    
+    
+    public void setName(String name){
+        this.name = name;
+    }
+    
+    public String getName(){ return name; }
+    
+    
+    public void setDescription(String description){
+        this.description = description;
+    }
+    
+    public String getDescription(){ return description; }
+    
+    
+    public void setDatabase_Server_URL(String database_Server_URL){
+        this.database_Server_URL = database_Server_URL;
+    }
+    
+    public String getDatabase_Server_URL(){ return database_Server_URL; }
+    
+    
+    public void setDatabase_Name(String database_Name){
+        this.database_Name = database_Name;
+    }
+    
+    public String getDatabase_Name(){ return database_Name; }
+    
+    
+    public void setDatabase_Access_Login_Name(String database_Access_Login_Name){
+        this.database_Access_Login_Name = database_Access_Login_Name;
+    }
+    
+    public String getDatabase_Access_Login_Name(){ return database_Access_Login_Name; }
+    
+    
+    public void setDatabase_Access_Login_Password(String database_Access_Login_Password){
+        this.database_Access_Login_Password = database_Access_Login_Password;
+    }
+    
+    public String getDatabase_Access_Login_Password(){ return database_Access_Login_Password; }
+    
+    
+    public void setDestination_URL(String destination_URL){
+        this.destination_URL = destination_URL;
+    }
+    
+    public String getDestination_URL(){ return destination_URL; }
+    
+    
+    
+    
+    // Process Key Fields Section
+    
+    public static synchronized Subscriber_Organization process_Key_Fields_Request(HttpServletRequest request, Database_Front database_Front)
+    throws Field_Validation_Exception, Parameter_Validation_Exception {
+        HttpSession session = request.getSession();
+        String message = "";
+        
+        Subscriber_Organization subscriber_Organization_Keys = new Subscriber_Organization(null);
+        
+        try {
+            subscriber_Organization_Keys.validate_Key_Fields_Of_Request(request, database_Front, User.get_Logged_In_TimeZone_Name(session));
+        }
+        catch(Field_Validation_Exception fve){
+            throw fve;
+        }
+        
+        
+        if(subscriber_Organization_Keys.getSubscriber_Organization_Id()==null || subscriber_Organization_Keys.getSubscriber_Organization_Id().trim().equals("") ) {
+            message = "process_Key_Fields_Request: No subscriber_Organization_Id passed to servlet.";
+            throw new Parameter_Validation_Exception(message);
+        }
+        
+        
+        return subscriber_Organization_Keys;
+    }
+    
+    
+    
+    // Key Fields Validation Section
+    
+    public synchronized void validate_Key_Fields_Of_Request(HttpServletRequest request, Database_Front database_Front, String passed_TimeZone_Name)
+    throws  Field_Validation_Exception {
+        String message = "";
+        try{
+            
+            setSubscriber_Organization_Id(Field_Validator.getFilled_String(request, "subscriber_Organization_Id", Subscriber_Organization.field_Description_List, getSubscriber_Organization_Id()));
+            
+            
+        }
+        catch (Field_Validation_Exception fve){
+            throw fve;
+        }
+    }
+    
+    
+    
+    
+    // Field Validation Section
+    
+    public synchronized void validate_Fields_Of_Request(HttpServletRequest request, Database_Front database_Front, String passed_TimeZone_Name)
+    throws  Field_Validation_Exception {
+        String message = "";
+        try{
+            
+            setName(Field_Validator.getString(request, "name", Subscriber_Organization.field_Description_List, getName()));
+            
+            setDescription(Field_Validator.getString(request, "description", Subscriber_Organization.field_Description_List, getDescription()));
+            
+            setDatabase_Server_URL(Field_Validator.getString(request, "database_Server_URL", Subscriber_Organization.field_Description_List, getDatabase_Server_URL()));
+            
+            setDatabase_Name(Field_Validator.getString(request, "database_Name", Subscriber_Organization.field_Description_List, getDatabase_Name()));
+            
+            setDatabase_Access_Login_Name(Field_Validator.getString(request, "database_Access_Login_Name", Subscriber_Organization.field_Description_List, getDatabase_Access_Login_Name()));
+            
+            setDatabase_Access_Login_Password(Field_Validator.getString(request, "database_Access_Login_Password", Subscriber_Organization.field_Description_List, getDatabase_Access_Login_Password()));
+            
+            setDestination_URL(Field_Validator.getString(request, "destination_URL", Subscriber_Organization.field_Description_List, getDestination_URL()));
+            
+            
+        }
+        catch (Field_Validation_Exception fve){
+            throw fve;
+        }
+    }
+    
+    
+    
+    
+    // Is Delete Allowed Section
+    
+    
+    public synchronized boolean is_Delete_Allowed(Database_Front database_Front, HttpSession session) {
+        String message = "";
+        
+        String where_Clause;
+        //subscriber_Organization_Id
+        //?
+        
+        return true;
+    }
+    
+    
+    // SQL Section 
+
+	public String get_Table_Name() {
+		return "subscriber_organization";
+	}
+
+    public String get_First_Field_Name() {
+        return "subscriber_Organization_Id";
+    }
+    
+    public String get_Into_Clause() {
+        return "( subscriber_Organization_Id, name, description, database_Server_URL, database_Name, database_Access_Login_Name, database_Access_Login_Password, destination_URL )";
+        
+    }
+    
+    public String get_Key_Where_Clause() {
+        return "subscriber_Organization_Id = ? ";
+        
+    }
+    
+    public String get_Set_Clause() {
+        return "name = ?, description = ?, database_Server_URL = ?, database_Name = ?, database_Access_Login_Name = ?, database_Access_Login_Password = ?, destination_URL = ?";
+        
+    }
+    
+    public String get_Values_Clause() {
+        return "( ?, ?, ?, ?, ?, ?, ?, ? )";
+    }
+
+
+	public synchronized java.sql.PreparedStatement preparedStatement_Encode(java.sql.PreparedStatement preparedStatement, int order) throws java.sql.SQLException {
+		int count=1;
+		for(int pass=1;pass<=2;pass++){
+			if((pass == 1 && order == ORDER_KEYS_FIRST) ||
+			(pass == 1 && order == ORDER_KEYS_ONLY) ||
+			(pass == 2 && order == ORDER_KEYS_LAST)
+			){
+				preparedStatement.setString(count++, this.subscriber_Organization_Id);
+			}
+			if((pass == 1 && order == ORDER_KEYS_FIRST) ||
+			(pass == 1 && order == ORDER_KEYS_LAST) ||
+			(pass == 1 && order == ORDER_KEYS_NEVER)
+			){
+				preparedStatement.setString(count++, this.name);
+				preparedStatement.setString(count++, this.description);
+				preparedStatement.setString(count++, this.database_Server_URL);
+				preparedStatement.setString(count++, this.database_Name);
+				preparedStatement.setString(count++, this.database_Access_Login_Name);
+				preparedStatement.setString(count++, this.database_Access_Login_Password);
+				preparedStatement.setString(count++, this.destination_URL);
+			}
+		}
+		return preparedStatement;
+	}
+
+
+
+	public synchronized Object resultSet_Row_Decode(java.sql.ResultSet resultSet) throws java.sql.SQLException {
+		Subscriber_Organization resulting_Subscriber_Organization;
+		resulting_Subscriber_Organization = new Subscriber_Organization();
+		resulting_Subscriber_Organization.subscriber_Organization_Id = resultSet.getString("subscriber_Organization_Id");
+		resulting_Subscriber_Organization.name = resultSet.getString("name");
+		resulting_Subscriber_Organization.description = resultSet.getString("description");
+		resulting_Subscriber_Organization.database_Server_URL = resultSet.getString("database_Server_URL");
+		resulting_Subscriber_Organization.database_Name = resultSet.getString("database_Name");
+		resulting_Subscriber_Organization.database_Access_Login_Name = resultSet.getString("database_Access_Login_Name");
+		resulting_Subscriber_Organization.database_Access_Login_Password = resultSet.getString("database_Access_Login_Password");
+		resulting_Subscriber_Organization.destination_URL = resultSet.getString("destination_URL");
+		return resulting_Subscriber_Organization;
+	}
+
+
+
+
+	public Object[] get_Array_of_Records(int array_Size) {
+		Subscriber_Organization[] subscriber_Organization_Records;
+		subscriber_Organization_Records = new Subscriber_Organization[array_Size];
+		return subscriber_Organization_Records;
+	}
+
+    
+    
+    
+
+    public static Subscriber_Organization get_Subscriber_Organization(String subscriber_Organization_Id)
+    throws Database_Front_Exception {
+        Subscriber_Organization subscriber_Organization=null;
+        Subscriber_Organization temp_Subscriber_Organization = new Subscriber_Organization();
+        boolean debug_Mode=true;
+        String message ="";
+        
+        Database_Front alt_Asp_Database_Front=null;
+        
+        Client_App_Constants alt_Asp_Client_App_Constants = new Client_App_Constants("jdbc:mysql://localhost/ALTASP", "ASP_admin", "master23er2indi");
+      
+        alt_Asp_Database_Front = new Database_Front(alt_Asp_Client_App_Constants);
+
+        try{
+            alt_Asp_Database_Front.open();
+        }
+        catch(Database_Front_Exception dbfe){
+            if(debug_Mode){
+                message = "Connection to ALTASP DataBase Failed. Database_Front_Exception :" + dbfe.getMessage();
+                throw new Database_Front_Exception(message);
+            }else{
+                throw dbfe;
+            }
+        }
+        
+        
+        temp_Subscriber_Organization.setSubscriber_Organization_Id(subscriber_Organization_Id);
+        try {
+            subscriber_Organization = (Subscriber_Organization) alt_Asp_Database_Front.getRecord(temp_Subscriber_Organization);
+        }
+        catch(Database_Front_Exception dbfe){
+            if(debug_Mode){
+                message = "Failed to find Subscriber_Organization in database. Database_Front_Exception :" + dbfe.getMessage();
+                throw new Database_Front_Exception(message);
+            }else{
+                throw dbfe;
+            }
+        }
+        
+        
+        
+        try{
+            alt_Asp_Database_Front.close();
+        }
+        catch(Database_Front_Exception dbfe){
+            if(debug_Mode){
+                message = "Close of Connection to ALTASP DataBase Failed. Database_Front_Exception :" + dbfe.getMessage();
+                throw new Database_Front_Exception(message);
+            }else{
+                throw dbfe;
+            }
+        }
+        
+        return subscriber_Organization;
+    }
+    
+    public Client_App_Constants get_Client_App_Constants_Constants(){
+        return new Client_App_Constants(
+        database_Server_URL + "/" + database_Name,
+        database_Access_Login_Name, database_Access_Login_Password);
+    }
+    
+    public String getNext_Sort_Clause(int which_Index) throws Database_Front_Exception {
+        switch(which_Index){
+            case PRIMARY_INDEX:
+                return "ORDER BY subscriber_Organization_Id ASC";
+            default:
+                throw new Database_Front_Exception(this.getClass().getName() + ".getNext_Sort_Clause(): unknown Index:"+which_Index);
+        }
+    }
+    
+    public String getNext_Where_Clause(int which_Index, int skip_Levels) throws Database_Front_Exception {
+        switch(which_Index){
+            case PRIMARY_INDEX:
+                switch(skip_Levels){
+                    case 0:
+                        return "WHERE subscriber_Organization_Id > '"+ SQLUtil.encode(this.subscriber_Organization_Id) + "'";
+                    default:
+                        return null;
+                }
+            default:
+                throw new Database_Front_Exception(this.getClass().getName() + ".getNext_Sort_Clause(): unknown Index:"+which_Index);
+        }
+    }
+    
+}

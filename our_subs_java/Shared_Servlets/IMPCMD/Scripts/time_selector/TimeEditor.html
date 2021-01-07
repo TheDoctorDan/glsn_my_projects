@@ -1,0 +1,435 @@
+<!--
+	HTML Time Editor
+
+	The opening window MUST contain a JS-Function 
+		setTime(text);
+	This Function will be called whenever the user presses the "OK" or
+	"Apply"-Button in the Time Editor Window.
+
+	Furthermore the opening window MAY contain a variable called
+	oldTime which must be set to the value of the old Time before
+	opening the Time Editor window.
+
+-->
+<html>
+<head>
+<title>Time</title>
+<script language="javascript">
+<!--
+// Old Time and Current Time
+	if (window.opener && window.opener.oldTime)
+		oldTime=window.opener.oldTime;
+	else
+		oldTime="12:00:00 AM";
+	curTime=oldTime;
+	setCurHMSMFromCurTime();
+
+
+// Functions
+
+	function setTimeFromValue(value) {
+		curTime=value;
+		setCurHMSMFromCurTime();
+	}
+
+
+
+	function setCurHMSMFromCurTime () {
+		curHour=curTime.substr(0,2);
+		curMinute=curTime.substr(3,2);
+		curSecond=curTime.substr(6,2);
+		curMeridian=curTime.substr(9,2);
+	}
+
+	function setCurTimeFromCurHMSM () {
+		curTime=curHour + ":" + curMinute + ":" + curSecond + " " + curMeridian;
+	}
+
+
+
+
+	function setCurHourFromValue(value) {
+		curHour=value;
+		update_doc();
+	}
+
+	function setCurMinuteFromValue(value) {
+		curMinute=value;
+		update_doc();
+	}
+
+	function setCurSecondFromValue(value) {
+		curSecond=value;
+		update_doc();
+	}
+
+	function setCurMeridianFromValue(value) {
+		curMeridian=value;
+		update_doc();
+	}
+
+
+
+	function setFromIn () {
+		curHour=document.getElementById("hour").value;
+		curMinute=document.getElementById("minute").value;
+		curSecond=document.getElementById("second").value;
+		curMeridian=document.getElementById("minute").value;
+		setCurTimeFromCurHMSM();
+	}
+
+	function setFromClock () {
+	        var dt_datetime = new Date();
+		var hour =dt_datetime.getHours();
+		if(hour>=12){
+			curMeridian="PM";
+			hour -= 12;
+		}else{
+			curMeridian="AM";
+		}
+		if(hour==0)
+			hour=12;
+		if(hour<10)
+			curHour="0" + hour;
+		else
+			curHour=hour;
+		if(dt_datetime.getMinutes() <10)
+			curMinute="0" + dt_datetime.getMinutes();
+		else
+			curMinute=dt_datetime.getMinutes();
+		if(dt_datetime.getSeconds() <10)
+			curSecond="0" + dt_datetime.getSeconds()
+		else
+			curSecond=dt_datetime.getSeconds()
+		update_doc();
+	}
+
+
+	function transferTime () {
+		setCurTimeFromCurHMSM();
+		if (window.opener){
+			window.opener.setTime(curTime);
+		}
+
+
+	}
+
+	function update_doc() {
+		document.getElementById("hour").value=curHour;
+		document.getElementById("minute").value=curMinute;
+		document.getElementById("second").value=curSecond;
+		document.getElementById("meridian").value=curMeridian;
+		setCurTimeFromCurHMSM();
+	}
+
+	function setPreTime () {
+		document.getElementById("hour").value=curHour;
+		document.getElementById("minute").value=curMinute;
+		document.getElementById("second").value=curSecond;
+		document.getElementById("meridian").value=curMeridian;
+	}
+
+
+
+// --> </script>
+<style type="text/css">
+td {font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 8pt}
+input {font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 8pt}
+</style>
+</head>
+<body bgcolor="White" onLoad="setTimeFromValue(curTime);setPreTime(); ">
+<form>
+
+<table border=0 cellspacing=2 cellpadding=0>
+<tbody bgcolor="#4682B4" >
+<tr>
+
+<td valign=top>
+
+   <table>
+   <tbody bgcolor="#4682B4" >
+   <tr>
+   	<td>
+
+	   <table cellspacing="1" border="1">
+	   <tbody bgcolor="white" >
+	   <tr>
+	   <td bgcolor="#87CEFA" colspan=3 align=center>Hour</td>
+	   </tr>
+	   <tr>
+	       <td align="right"> <a href="javascript:setCurHourFromValue('01')"><font color="black" face="tahoma, verdana" size="2">01</font></a> </td>
+	       <td align="right"> <a href="javascript:setCurHourFromValue('02')"><font color="black" face="tahoma, verdana" size="2">02</font></a> </td>
+	       <td align="right"> <a href="javascript:setCurHourFromValue('03')"><font color="black" face="tahoma, verdana" size="2">03</font></a> </td>
+	   </tr>
+	   <tr>
+	       <td align="right"> <a href="javascript:setCurHourFromValue('04')"><font color="black" face="tahoma, verdana" size="2">04</font></a> </td>
+	       <td align="right"> <a href="javascript:setCurHourFromValue('05')"><font color="black" face="tahoma, verdana" size="2">05</font></a> </td>
+	       <td align="right"> <a href="javascript:setCurHourFromValue('06')"><font color="black" face="tahoma, verdana" size="2">06</font></a> </td>
+	   </tr>
+	   <tr>
+	       <td align="right"> <a href="javascript:setCurHourFromValue('07')"><font color="black" face="tahoma, verdana" size="2">07</font></a> </td>
+	       <td align="right"> <a href="javascript:setCurHourFromValue('08')"><font color="black" face="tahoma, verdana" size="2">08</font></a> </td>
+	       <td align="right"> <a href="javascript:setCurHourFromValue('09')"><font color="black" face="tahoma, verdana" size="2">09</font></a> </td>
+	   </tr>
+	   <tr>
+	       <td align="right"> <a href="javascript:setCurHourFromValue('10')"><font color="black" face="tahoma, verdana" size="2">10</font></a> </td>
+	       <td align="right"> <a href="javascript:setCurHourFromValue('11')"><font color="black" face="tahoma, verdana" size="2">11</font></a> </td>
+	       <td align="right"> <a href="javascript:setCurHourFromValue('12')"><font color="black" face="tahoma, verdana" size="2">12</font></a> </td>
+	   </tr>
+	   </table>
+	</td>
+	</tr>
+	<tr>
+	<td>
+		<table cellspacing="1" border="1">
+		<tbody bgcolor="white" >
+		   <tr>
+		       <td bgcolor="#87CEFA" align=center colspan=2>Meridian</td>
+		   </tr>
+		   <tr>
+		       <td align="center"> <a href="javascript:setCurMeridianFromValue('AM')"><font color="black" face="tahoma, verdana" size="2">AM</font></a> </td>
+		       <td align="center"> <a href="javascript:setCurMeridianFromValue('PM')"><font color="black" face="tahoma, verdana" size="2">PM</font></a> </td>
+		   </tr>
+		</tbody>
+		</table>
+
+	</td>
+	</tr>
+
+    </tbody>
+    </table>
+
+</td>
+
+
+<td valign=top>
+   <table cellspacing="1" border="1">
+   <tbody bgcolor="white" >
+   <tr>
+   <td bgcolor="#87CEFA" colspan=10 align=center>Minute</td>
+   </tr>
+
+   <tr>
+       <td align="right"> <a href="javascript:setCurMinuteFromValue('00')"><font color="black" face="tahoma, verdana" size="2">00</font></a> </td>
+       <td align="right"> <a href="javascript:setCurMinuteFromValue('01')"><font color="black" face="tahoma, verdana" size="2">01</font></a> </td>
+       <td align="right"> <a href="javascript:setCurMinuteFromValue('02')"><font color="black" face="tahoma, verdana" size="2">02</font></a> </td>
+       <td align="right"> <a href="javascript:setCurMinuteFromValue('03')"><font color="black" face="tahoma, verdana" size="2">03</font></a> </td>
+       <td align="right"> <a href="javascript:setCurMinuteFromValue('04')"><font color="black" face="tahoma, verdana" size="2">04</font></a> </td>
+       <td align="right"> <a href="javascript:setCurMinuteFromValue('05')"><font color="black" face="tahoma, verdana" size="2">05</font></a> </td>
+       <td align="right"> <a href="javascript:setCurMinuteFromValue('06')"><font color="black" face="tahoma, verdana" size="2">06</font></a> </td>
+       <td align="right"> <a href="javascript:setCurMinuteFromValue('07')"><font color="black" face="tahoma, verdana" size="2">07</font></a> </td>
+       <td align="right"> <a href="javascript:setCurMinuteFromValue('08')"><font color="black" face="tahoma, verdana" size="2">08</font></a> </td>
+       <td align="right"> <a href="javascript:setCurMinuteFromValue('09')"><font color="black" face="tahoma, verdana" size="2">09</font></a> </td>
+   </tr>
+
+
+   <tr>
+       <td align="right"> <a href="javascript:setCurMinuteFromValue('10')"><font color="black" face="tahoma, verdana" size="2">10</font></a> </td>
+       <td align="right"> <a href="javascript:setCurMinuteFromValue('11')"><font color="black" face="tahoma, verdana" size="2">11</font></a> </td>
+       <td align="right"> <a href="javascript:setCurMinuteFromValue('12')"><font color="black" face="tahoma, verdana" size="2">12</font></a> </td>
+       <td align="right"> <a href="javascript:setCurMinuteFromValue('13')"><font color="black" face="tahoma, verdana" size="2">13</font></a> </td>
+       <td align="right"> <a href="javascript:setCurMinuteFromValue('14')"><font color="black" face="tahoma, verdana" size="2">14</font></a> </td>
+       <td align="right"> <a href="javascript:setCurMinuteFromValue('15')"><font color="black" face="tahoma, verdana" size="2">15</font></a> </td>
+       <td align="right"> <a href="javascript:setCurMinuteFromValue('16')"><font color="black" face="tahoma, verdana" size="2">16</font></a> </td>
+       <td align="right"> <a href="javascript:setCurMinuteFromValue('17')"><font color="black" face="tahoma, verdana" size="2">17</font></a> </td>
+       <td align="right"> <a href="javascript:setCurMinuteFromValue('18')"><font color="black" face="tahoma, verdana" size="2">18</font></a> </td>
+       <td align="right"> <a href="javascript:setCurMinuteFromValue('19')"><font color="black" face="tahoma, verdana" size="2">19</font></a> </td>
+   </tr>
+
+
+   <tr>
+       <td align="right"> <a href="javascript:setCurMinuteFromValue('20')"><font color="black" face="tahoma, verdana" size="2">20</font></a> </td>
+       <td align="right"> <a href="javascript:setCurMinuteFromValue('21')"><font color="black" face="tahoma, verdana" size="2">21</font></a> </td>
+       <td align="right"> <a href="javascript:setCurMinuteFromValue('22')"><font color="black" face="tahoma, verdana" size="2">22</font></a> </td>
+       <td align="right"> <a href="javascript:setCurMinuteFromValue('23')"><font color="black" face="tahoma, verdana" size="2">23</font></a> </td>
+       <td align="right"> <a href="javascript:setCurMinuteFromValue('24')"><font color="black" face="tahoma, verdana" size="2">24</font></a> </td>
+       <td align="right"> <a href="javascript:setCurMinuteFromValue('25')"><font color="black" face="tahoma, verdana" size="2">25</font></a> </td>
+       <td align="right"> <a href="javascript:setCurMinuteFromValue('26')"><font color="black" face="tahoma, verdana" size="2">26</font></a> </td>
+       <td align="right"> <a href="javascript:setCurMinuteFromValue('27')"><font color="black" face="tahoma, verdana" size="2">27</font></a> </td>
+       <td align="right"> <a href="javascript:setCurMinuteFromValue('28')"><font color="black" face="tahoma, verdana" size="2">28</font></a> </td>
+       <td align="right"> <a href="javascript:setCurMinuteFromValue('29')"><font color="black" face="tahoma, verdana" size="2">29</font></a> </td>
+   </tr>
+
+
+   <tr>
+       <td align="right"> <a href="javascript:setCurMinuteFromValue('30')"><font color="black" face="tahoma, verdana" size="2">30</font></a> </td>
+       <td align="right"> <a href="javascript:setCurMinuteFromValue('31')"><font color="black" face="tahoma, verdana" size="2">31</font></a> </td>
+       <td align="right"> <a href="javascript:setCurMinuteFromValue('32')"><font color="black" face="tahoma, verdana" size="2">32</font></a> </td>
+       <td align="right"> <a href="javascript:setCurMinuteFromValue('33')"><font color="black" face="tahoma, verdana" size="2">33</font></a> </td>
+       <td align="right"> <a href="javascript:setCurMinuteFromValue('34')"><font color="black" face="tahoma, verdana" size="2">34</font></a> </td>
+       <td align="right"> <a href="javascript:setCurMinuteFromValue('35')"><font color="black" face="tahoma, verdana" size="2">35</font></a> </td>
+       <td align="right"> <a href="javascript:setCurMinuteFromValue('36')"><font color="black" face="tahoma, verdana" size="2">36</font></a> </td>
+       <td align="right"> <a href="javascript:setCurMinuteFromValue('37')"><font color="black" face="tahoma, verdana" size="2">37</font></a> </td>
+       <td align="right"> <a href="javascript:setCurMinuteFromValue('38')"><font color="black" face="tahoma, verdana" size="2">38</font></a> </td>
+       <td align="right"> <a href="javascript:setCurMinuteFromValue('39')"><font color="black" face="tahoma, verdana" size="2">39</font></a> </td>
+   </tr>
+
+
+   <tr>
+       <td align="right"> <a href="javascript:setCurMinuteFromValue('40')"><font color="black" face="tahoma, verdana" size="2">40</font></a> </td>
+       <td align="right"> <a href="javascript:setCurMinuteFromValue('41')"><font color="black" face="tahoma, verdana" size="2">41</font></a> </td>
+       <td align="right"> <a href="javascript:setCurMinuteFromValue('42')"><font color="black" face="tahoma, verdana" size="2">42</font></a> </td>
+       <td align="right"> <a href="javascript:setCurMinuteFromValue('43')"><font color="black" face="tahoma, verdana" size="2">43</font></a> </td>
+       <td align="right"> <a href="javascript:setCurMinuteFromValue('44')"><font color="black" face="tahoma, verdana" size="2">44</font></a> </td>
+       <td align="right"> <a href="javascript:setCurMinuteFromValue('45')"><font color="black" face="tahoma, verdana" size="2">45</font></a> </td>
+       <td align="right"> <a href="javascript:setCurMinuteFromValue('46')"><font color="black" face="tahoma, verdana" size="2">46</font></a> </td>
+       <td align="right"> <a href="javascript:setCurMinuteFromValue('47')"><font color="black" face="tahoma, verdana" size="2">47</font></a> </td>
+       <td align="right"> <a href="javascript:setCurMinuteFromValue('48')"><font color="black" face="tahoma, verdana" size="2">48</font></a> </td>
+       <td align="right"> <a href="javascript:setCurMinuteFromValue('49')"><font color="black" face="tahoma, verdana" size="2">49</font></a> </td>
+   </tr>
+
+
+   <tr>
+       <td align="right"> <a href="javascript:setCurMinuteFromValue('50')"><font color="black" face="tahoma, verdana" size="2">50</font></a> </td>
+       <td align="right"> <a href="javascript:setCurMinuteFromValue('51')"><font color="black" face="tahoma, verdana" size="2">51</font></a> </td>
+       <td align="right"> <a href="javascript:setCurMinuteFromValue('52')"><font color="black" face="tahoma, verdana" size="2">52</font></a> </td>
+       <td align="right"> <a href="javascript:setCurMinuteFromValue('53')"><font color="black" face="tahoma, verdana" size="2">53</font></a> </td>
+       <td align="right"> <a href="javascript:setCurMinuteFromValue('54')"><font color="black" face="tahoma, verdana" size="2">54</font></a> </td>
+       <td align="right"> <a href="javascript:setCurMinuteFromValue('55')"><font color="black" face="tahoma, verdana" size="2">55</font></a> </td>
+       <td align="right"> <a href="javascript:setCurMinuteFromValue('56')"><font color="black" face="tahoma, verdana" size="2">56</font></a> </td>
+       <td align="right"> <a href="javascript:setCurMinuteFromValue('57')"><font color="black" face="tahoma, verdana" size="2">57</font></a> </td>
+       <td align="right"> <a href="javascript:setCurMinuteFromValue('58')"><font color="black" face="tahoma, verdana" size="2">58</font></a> </td>
+       <td align="right"> <a href="javascript:setCurMinuteFromValue('59')"><font color="black" face="tahoma, verdana" size="2">59</font></a> </td>
+   </tr>
+
+   </table>
+</td>
+
+
+
+
+<td valign=top>
+   <table cellspacing="1" border="1">
+   <tbody bgcolor="white" >
+   <tr>
+   <td bgcolor="#87CEFA" colspan=10 align=center>Second</td>
+   </tr>
+
+   <tr>
+       <td align="right"> <a href="javascript:setCurSecondFromValue('00')"><font color="black" face="tahoma, verdana" size="2">00</font></a> </td>
+       <td align="right"> <a href="javascript:setCurSecondFromValue('01')"><font color="black" face="tahoma, verdana" size="2">01</font></a> </td>
+       <td align="right"> <a href="javascript:setCurSecondFromValue('02')"><font color="black" face="tahoma, verdana" size="2">02</font></a> </td>
+       <td align="right"> <a href="javascript:setCurSecondFromValue('03')"><font color="black" face="tahoma, verdana" size="2">03</font></a> </td>
+       <td align="right"> <a href="javascript:setCurSecondFromValue('04')"><font color="black" face="tahoma, verdana" size="2">04</font></a> </td>
+       <td align="right"> <a href="javascript:setCurSecondFromValue('05')"><font color="black" face="tahoma, verdana" size="2">05</font></a> </td>
+       <td align="right"> <a href="javascript:setCurSecondFromValue('06')"><font color="black" face="tahoma, verdana" size="2">06</font></a> </td>
+       <td align="right"> <a href="javascript:setCurSecondFromValue('07')"><font color="black" face="tahoma, verdana" size="2">07</font></a> </td>
+       <td align="right"> <a href="javascript:setCurSecondFromValue('08')"><font color="black" face="tahoma, verdana" size="2">08</font></a> </td>
+       <td align="right"> <a href="javascript:setCurSecondFromValue('09')"><font color="black" face="tahoma, verdana" size="2">09</font></a> </td>
+   </tr>
+
+
+   <tr>
+       <td align="right"> <a href="javascript:setCurSecondFromValue('10')"><font color="black" face="tahoma, verdana" size="2">10</font></a> </td>
+       <td align="right"> <a href="javascript:setCurSecondFromValue('11')"><font color="black" face="tahoma, verdana" size="2">11</font></a> </td>
+       <td align="right"> <a href="javascript:setCurSecondFromValue('12')"><font color="black" face="tahoma, verdana" size="2">12</font></a> </td>
+       <td align="right"> <a href="javascript:setCurSecondFromValue('13')"><font color="black" face="tahoma, verdana" size="2">13</font></a> </td>
+       <td align="right"> <a href="javascript:setCurSecondFromValue('14')"><font color="black" face="tahoma, verdana" size="2">14</font></a> </td>
+       <td align="right"> <a href="javascript:setCurSecondFromValue('15')"><font color="black" face="tahoma, verdana" size="2">15</font></a> </td>
+       <td align="right"> <a href="javascript:setCurSecondFromValue('16')"><font color="black" face="tahoma, verdana" size="2">16</font></a> </td>
+       <td align="right"> <a href="javascript:setCurSecondFromValue('17')"><font color="black" face="tahoma, verdana" size="2">17</font></a> </td>
+       <td align="right"> <a href="javascript:setCurSecondFromValue('18')"><font color="black" face="tahoma, verdana" size="2">18</font></a> </td>
+       <td align="right"> <a href="javascript:setCurSecondFromValue('19')"><font color="black" face="tahoma, verdana" size="2">19</font></a> </td>
+   </tr>
+
+
+   <tr>
+       <td align="right"> <a href="javascript:setCurSecondFromValue('20')"><font color="black" face="tahoma, verdana" size="2">20</font></a> </td>
+       <td align="right"> <a href="javascript:setCurSecondFromValue('21')"><font color="black" face="tahoma, verdana" size="2">21</font></a> </td>
+       <td align="right"> <a href="javascript:setCurSecondFromValue('22')"><font color="black" face="tahoma, verdana" size="2">22</font></a> </td>
+       <td align="right"> <a href="javascript:setCurSecondFromValue('23')"><font color="black" face="tahoma, verdana" size="2">23</font></a> </td>
+       <td align="right"> <a href="javascript:setCurSecondFromValue('24')"><font color="black" face="tahoma, verdana" size="2">24</font></a> </td>
+       <td align="right"> <a href="javascript:setCurSecondFromValue('25')"><font color="black" face="tahoma, verdana" size="2">25</font></a> </td>
+       <td align="right"> <a href="javascript:setCurSecondFromValue('26')"><font color="black" face="tahoma, verdana" size="2">26</font></a> </td>
+       <td align="right"> <a href="javascript:setCurSecondFromValue('27')"><font color="black" face="tahoma, verdana" size="2">27</font></a> </td>
+       <td align="right"> <a href="javascript:setCurSecondFromValue('28')"><font color="black" face="tahoma, verdana" size="2">28</font></a> </td>
+       <td align="right"> <a href="javascript:setCurSecondFromValue('29')"><font color="black" face="tahoma, verdana" size="2">29</font></a> </td>
+   </tr>
+
+
+   <tr>
+       <td align="right"> <a href="javascript:setCurSecondFromValue('30')"><font color="black" face="tahoma, verdana" size="2">30</font></a> </td>
+       <td align="right"> <a href="javascript:setCurSecondFromValue('31')"><font color="black" face="tahoma, verdana" size="2">31</font></a> </td>
+       <td align="right"> <a href="javascript:setCurSecondFromValue('32')"><font color="black" face="tahoma, verdana" size="2">32</font></a> </td>
+       <td align="right"> <a href="javascript:setCurSecondFromValue('33')"><font color="black" face="tahoma, verdana" size="2">33</font></a> </td>
+       <td align="right"> <a href="javascript:setCurSecondFromValue('34')"><font color="black" face="tahoma, verdana" size="2">34</font></a> </td>
+       <td align="right"> <a href="javascript:setCurSecondFromValue('35')"><font color="black" face="tahoma, verdana" size="2">35</font></a> </td>
+       <td align="right"> <a href="javascript:setCurSecondFromValue('36')"><font color="black" face="tahoma, verdana" size="2">36</font></a> </td>
+       <td align="right"> <a href="javascript:setCurSecondFromValue('37')"><font color="black" face="tahoma, verdana" size="2">37</font></a> </td>
+       <td align="right"> <a href="javascript:setCurSecondFromValue('38')"><font color="black" face="tahoma, verdana" size="2">38</font></a> </td>
+       <td align="right"> <a href="javascript:setCurSecondFromValue('39')"><font color="black" face="tahoma, verdana" size="2">39</font></a> </td>
+   </tr>
+
+
+   <tr>
+       <td align="right"> <a href="javascript:setCurSecondFromValue('40')"><font color="black" face="tahoma, verdana" size="2">40</font></a> </td>
+       <td align="right"> <a href="javascript:setCurSecondFromValue('41')"><font color="black" face="tahoma, verdana" size="2">41</font></a> </td>
+       <td align="right"> <a href="javascript:setCurSecondFromValue('42')"><font color="black" face="tahoma, verdana" size="2">42</font></a> </td>
+       <td align="right"> <a href="javascript:setCurSecondFromValue('43')"><font color="black" face="tahoma, verdana" size="2">43</font></a> </td>
+       <td align="right"> <a href="javascript:setCurSecondFromValue('44')"><font color="black" face="tahoma, verdana" size="2">44</font></a> </td>
+       <td align="right"> <a href="javascript:setCurSecondFromValue('45')"><font color="black" face="tahoma, verdana" size="2">45</font></a> </td>
+       <td align="right"> <a href="javascript:setCurSecondFromValue('46')"><font color="black" face="tahoma, verdana" size="2">46</font></a> </td>
+       <td align="right"> <a href="javascript:setCurSecondFromValue('47')"><font color="black" face="tahoma, verdana" size="2">47</font></a> </td>
+       <td align="right"> <a href="javascript:setCurSecondFromValue('48')"><font color="black" face="tahoma, verdana" size="2">48</font></a> </td>
+       <td align="right"> <a href="javascript:setCurSecondFromValue('49')"><font color="black" face="tahoma, verdana" size="2">49</font></a> </td>
+   </tr>
+
+
+   <tr>
+       <td align="right"> <a href="javascript:setCurSecondFromValue('50')"><font color="black" face="tahoma, verdana" size="2">50</font></a> </td>
+       <td align="right"> <a href="javascript:setCurSecondFromValue('51')"><font color="black" face="tahoma, verdana" size="2">51</font></a> </td>
+       <td align="right"> <a href="javascript:setCurSecondFromValue('52')"><font color="black" face="tahoma, verdana" size="2">52</font></a> </td>
+       <td align="right"> <a href="javascript:setCurSecondFromValue('53')"><font color="black" face="tahoma, verdana" size="2">53</font></a> </td>
+       <td align="right"> <a href="javascript:setCurSecondFromValue('54')"><font color="black" face="tahoma, verdana" size="2">54</font></a> </td>
+       <td align="right"> <a href="javascript:setCurSecondFromValue('55')"><font color="black" face="tahoma, verdana" size="2">55</font></a> </td>
+       <td align="right"> <a href="javascript:setCurSecondFromValue('56')"><font color="black" face="tahoma, verdana" size="2">56</font></a> </td>
+       <td align="right"> <a href="javascript:setCurSecondFromValue('57')"><font color="black" face="tahoma, verdana" size="2">57</font></a> </td>
+       <td align="right"> <a href="javascript:setCurSecondFromValue('58')"><font color="black" face="tahoma, verdana" size="2">58</font></a> </td>
+       <td align="right"> <a href="javascript:setCurSecondFromValue('59')"><font color="black" face="tahoma, verdana" size="2">59</font></a> </td>
+   </tr>
+
+   </table>
+</td>
+
+
+
+</tr>
+</tbody>
+</table>
+
+
+<table border=0 cellpadding=0 cellspacing=2 >
+<tbody>
+<tr>
+	<td width=40>
+	&nbsp;
+	</td>
+	<td valign=top align=right>
+		Time :<input id="hour" type="text" size=2 maxlength=2 value="12" onChange="setFromIn()">
+	</td>
+	<td>
+		: <input id="minute" type="text" size=2 maxlength=2 value="00" onChange="setFromIn()">
+	</td>
+	<td>
+		: <input id="second" type="text" size=2 maxlength=2 value="00" onChange="setFromIn()">
+	</td>
+	<td>
+		<input id="meridian" type="text" size=2 maxlength=2 value="AM" onChange="setFromIn()">
+	</td>
+	<td>
+	&nbsp;
+	</td>
+
+	<td colspan=5 align=center valign=bottom>
+	<input type="button" value="&nbsp;&nbsp;&nbsp;OK&nbsp;&nbsp;&nbsp;" onClick="transferTime();window.close()">
+	<input type="button" value="Cancel" onClick="window.close()">
+	<input type="button" value="&nbsp;&nbsp;Now&nbsp;&nbsp;" onClick="setFromClock()">
+	</td>
+</tr>
+</tbody>
+</table>
+
+</form>
+</body>
+</html>
+

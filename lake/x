@@ -1,0 +1,18 @@
+awk '
+BEGIN{
+	FS="	"
+}
+{
+	if($18 >=100){
+		print $1
+		print $3
+		printf "%s, %s %s-%s\n",$4,$5,$6,$7
+		printf "phone:1-(%s)-%s-%s\n",$12,$13,$14
+		printf "Primary exec:%s  Title:%s  gender:%s\n",$25,$26,$27
+		printf "second  exec:%s  Title:%s  gender:%s\n",$28,$29,$30
+		printf "number employees:%s\n",$18
+		printf "computer brand:%-20.20s  model:%-20.20s   lang:%-20.20s\n",$9,$10,$11
+		printf "\n"
+	}
+}
+' $*

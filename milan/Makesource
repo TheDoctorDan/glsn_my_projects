@@ -1,0 +1,4 @@
+tar cvf /dev/fd0 MakeATT MakeBSD MakeDG MakeHPnew MakeHPold MakeInt5.3\
+ MakeInt5.4 MakeRS6k MakeSCO MakeSEQ MakeSGILP MakeSVR4 Makefile README.NOW \
+dp.h errors.c errors.h errors.init fpfilter.c fpstatus.c make_bin options.c \
+printer.c release.shar std.h system.c test.c udp.h udpstat.c

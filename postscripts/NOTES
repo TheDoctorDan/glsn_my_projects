@@ -1,0 +1,6 @@
+/*provided by mainline */
+/* num = number of copies */
+post.h:extern int	copypage(int num);
+
+/* provided by mainline */
+postinit.c:extern void flushpage(int y1, int y2);

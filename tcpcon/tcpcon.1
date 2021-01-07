@@ -1,0 +1,191 @@
+.TH TCPCON 1 "April 1989"
+.SH NAME
+tcpcon, udpcon, tcpserv, udpserv \- Connect/Serve to a TCP/UDP socket
+.SH SYNOPSIS
+.RB [ tcpcon
+.RB | udpcon
+.RB | tcpserv
+.RB | udpserv ]
+[
+.B \-l
+pty
+] 
+[
+.B \-k
+tty
+] 
+[
+.B \-t
+mintime
+] 
+[
+.B \-r
+minreads
+] 
+[
+.B \-a
+linger
+] 
+[
+.B \-u
+update
+] 
+[
+.B \-s
+statfile
+] 
+[
+.B \-b
+bufsize
+] 
+[
+.I host
+]
+.I port
+.SH DESCRIPTION
+.BR Tcpcon ( Udpcon )
+sets up a
+.BR TCP ( UDP )
+connection to
+.I host
+on port number
+.IR port .
+.BR Tcpserv ( Udpserv )
+accepts
+.BR TCP ( UDP )
+connection requests
+on port number
+.IR port .
+After the connection is established
+standard input and out put is redirected
+onto the socket.
+In the case of the tcpcon and udpcon no data
+is sent down the connection until
+either
+.I minreads
+have been received
+or
+.I mintime
+has expired.
+This is because many terminal servers
+accept connections to send information
+such as
+.B "Host Busy"
+and then close the connection.
+Data sent down these transient connections
+would be lost.
+.PP
+It is is usually used with
+.BR nd (1)
+to attach a
+.B TCP
+connection to a device.
+.SH OPTIONS
+.TP 1i
+.BI \-l " pty"
+Attach the TCP connection
+to
+.I pty
+rather than standard input and output.
+Only open
+.I pty
+after
+.I mintime
+or
+.I minreads
+has occurred.
+This will ensure that the slave will
+block until a reliable
+connection is created.
+.TP 1i
+.BI \-k " tty"
+Open
+.I tty
+after setting up the TCP connection
+so that the connection will be kept
+open when other processes close the
+.IR tty .
+If
+this option is specified
+.I tty
+should be the slave partner to
+the device specified in the
+.B -l
+option.
+.TP 1i
+.BI \-t " mintime"
+Set the minimum time 
+a connection must be up before
+sending characters down the connection to
+.I mintime
+seconds.
+.TP 1i
+.BI \-r " minreads"
+Set the minimum number of reads received 
+before
+sending characters down the connection to
+.I mintime
+seconds.
+.TP 1i
+.BI \-s " statfile"
+Collect statistics in the file
+.IR statfile .
+.TP 1i
+.BI \-u " update"
+Update
+.I statfile
+every
+.I update
+seconds, default is every 30 seconds
+.TP 1i
+.BI \-b " bufize"
+Set the size of read and writes to
+.IR bufsize .
+It also sets the
+.B SO_RCVBUF
+and 
+.B SO_SNDBUF
+socket options to
+.IR bufsize .
+The default size is 256 bytes.
+.TP 1i
+.BI \-a " linger"
+Wait for
+.I linger
+seconds after the socket close to get data
+to the connected socket.
+.SH EXAMPLES
+.IP
+.B
+tcpcon -l /dev/ptyqe localhost smtp
+.LP
+connect to the
+.B smtp
+server on the local machine
+and attach this connection to
+.IR /dev/ttyqe .
+.IP
+.B
+kill `cat /etc/tcpcon.d/ptyqe`
+.LP
+will drop the connection established in
+the previous example.
+.IP
+.B
+tcpserv smtp
+.LP
+accepts connections to the
+.B smtp
+port on the local machine.
+.SH "SEE ALSO"
+.BR nd (1),
+.BR setsockopt (2),
+.SH FILES
+.PD 0
+.TP 2i
+/etc/hosts
+List of hosts
+.TP 2i
+/etc/services
+List of ports and services
+.PD

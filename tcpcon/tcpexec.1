@@ -1,0 +1,106 @@
+.TH TCPCON 1 "April 1989"
+.SH NAME
+tcpexec, udpexec \- Connect/Serve to a TCP/UDP socket with a process
+.SH SYNOPSIS
+.RB [ tcpexec
+.RB | udpexec ]
+[
+.B \-r
+] 
+[
+.B \-a
+linger
+] 
+[
+.B \-s
+] 
+[
+.B \-b
+bufsize
+] 
+[
+.I host
+]
+.I port
+.I command
+.SH DESCRIPTION
+.BR Tcpexec ( Udpexec )
+sets up a
+.BR TCP ( UDP )
+connection to
+.I host
+on port number
+.IR port .
+After the connection is established
+.I command
+is executed in this manner:-
+.IP
+.BI "sh \-c '" "command" "'"
+.LP
+Where the environment variable
+.B REMFD
+has been set to
+the file descriptor associated with the socket.
+.SH OPTIONS
+.TP 1i
+.BI \-r
+Retries to connect the socket if connect fails.
+.TP 1i
+.BI \-s
+Act as a server and accept connections
+rather than connect.
+.TP 1i
+.BI \-b " bufize"
+Set the size of read and writes to
+.IR bufsize .
+It also sets the
+.B SO_RCVBUF
+and 
+.B SO_SNDBUF
+socket options to
+.IR bufsize .
+The default size is 256 bytes.
+.TP 1i
+.BI \-a " linger"
+Wait for
+.I linger
+seconds after the socket close to get data
+to the connected socket.
+.SH EXAMPLES
+.IP
+.B
+tcpexec ncd ttylink cat file
+.LP
+connect to the
+.I ttylink
+port on machine
+.I ncd
+and then transmit
+.I file
+down the socket.
+If
+.I ncd
+was an NCD X Terminal this example
+would send
+.I file
+out the serial port of the NCD.
+.IP
+.B
+tcpexec localhost smtp 'cat <&$REMFD & cat >&$REMFD; kill $!'
+.LP
+will create a bi-directional connection with the
+.I smtp
+handler on your machine.
+.SH "SEE ALSO"
+.BR nd (1),
+.BR setsockopt (2),
+.BR tcpcon (1),
+.SH FILES
+.PD 0
+.TP 2i
+/etc/hosts
+List of hosts
+.TP 2i
+/etc/services
+List of ports and services
+.PD

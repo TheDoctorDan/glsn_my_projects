@@ -1,0 +1,33 @@
+#
+# Copyright Milan Technology Inc., 1991, 1992
+#
+
+# @(#)MakeHPold 2.0 8/18/92
+
+# Makes binaries for HP/UX machines
+
+#If you wish to use prototyping (e.g. for gcc) define the flag -DANSI
+
+CC=cc 
+
+#CFLAGS= -g -DLP -DSYSTEMV -DHPOLD
+CFLAGS= -g -DSYSTEMV  -DLP -DHPOLD
+LIBS = -lBSD
+
+FILTEROBJECTS= fpfilter.o printer.o errors.o options.o system.o udpstat.o
+
+PROGS= fpfilter fpstatus
+
+SRCFILES= dp.h errors.c errors.h fpfilter.c fpstatus.c options.c printer.c std.h system.c udp.h udpstat.c Makefile errors.init
+
+.KEEP_STATE:
+all: errors.h $(PROGS)
+
+fpfilter:	$(FILTEROBJECTS) errors.h 
+	$(CC) $(CFLAGS) -o fpfilter $(FILTEROBJECTS) $(LIBS)
+
+fpstatus: fpstatus.o udpstat.o udp.h dp.h
+	$(CC) $(CFLAGS) -o fpstatus fpstatus.o udpstat.o $(LIBS)
+
+clean:
+	rm -f *.o $(PROGS)

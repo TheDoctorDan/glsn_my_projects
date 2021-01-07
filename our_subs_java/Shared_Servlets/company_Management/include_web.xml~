@@ -1,0 +1,22 @@
+
+  <servlet>
+    <servlet-name>Company_Management_Subsystem_Servlet</servlet-name>
+    <servlet-class>company_Management.Company_Management_Subsystem_Servlet</servlet-class>
+  </servlet>
+  <servlet>
+    <display-name>Servlet company_Management.Cmp100</display-name>
+    <servlet-name>Cmp100</servlet-name>
+    <servlet-class>company_Management.Cmp100</servlet-class>
+  </servlet>
+
+
+  <servlet-mapping>
+    <servlet-name>Cmp100</servlet-name>
+    <url-pattern>/Cmp100</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>Company_Management_Subsystem_Servlet</servlet-name>
+    <url-pattern>/Company_Management_Subsystem_Servlet</url-pattern>
+  </servlet-mapping>
+  

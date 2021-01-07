@@ -1,0 +1,6 @@
+rpm -Uhv $@
+err=$?
+if [ $err -eq 0 ]
+then
+	mv $@ ../DONE
+fi

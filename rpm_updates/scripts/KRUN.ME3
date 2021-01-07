@@ -1,0 +1,210 @@
+# KRUN.ME3
+#
+KRUN_ME3_mk_boot_floppy()
+{
+
+	cd /boot
+
+	if [ -f /etc/lilo.conf ]
+	then
+		echo "LILO.CONF:"
+		grep default /etc/lilo.conf
+		echo
+		grep image /etc/lilo.conf
+		echo
+		echo
+	elif [ -f /boot/grub/grub.conf ]
+	then
+		echo "GRUB.CONF:"
+		grep title /boot/grub/grub.conf
+		echo
+		grep kernel /boot/grub/grub.conf
+		echo
+		grep initrd /boot/grub/grub.conf
+		echo
+		echo
+	else
+		echo "Neither lilo no grub"
+		exit 1
+	fi
+
+	echo "CURRENT VERSIONS:"
+	ls -l vmlinuz-*
+	ls vmlinuz-*
+	echo
+
+	for i in vmlinuz-*
+	do
+		current_version_num=`echo $i |sed 's/vmlinuz-//'`
+		bool "Do You Wish to make a boot floopy for version $current_version_num? "
+		if [ $? -eq 0 ]
+		then
+			# yes
+
+			echo "put in floppy for $current_version_num "
+			echo "hit enter"
+			read x
+			bool "Do You Wish to Format the floppy first? "
+			if [ $? -eq 0 ]
+			then
+				# yes
+				fdformat /dev/fd0H1440
+				if [ $? -ne 0 ]
+				then
+					echo "fdformat FAILED"
+					return 1
+				else
+					echo "floppy formated"
+				fi
+			fi
+			/sbin/mkbootdisk --device /dev/fd0  $current_version_num
+			if [ $? -ne 0 ]
+			then
+				echo "mkbootdisk FAILED"
+				return 1
+			else
+				echo "boot floppy made"
+			fi
+			sync
+			echo "hit enter"
+			read x
+		fi
+	done
+	return 0
+}
+
+
+PATH="$PATH:/usr/gleeson/src/rpm_updates/scripts"
+export PATH
+
+clear
+
+
+HD_BASE_DIR="/var/tmp/rpm_updates/RedHat_Kernels"
+export HD_BASE_DIR
+
+HD_DONE_DIR=$HD_BASE_DIR"/DONE"
+export HD_DONE_DIR
+
+HD_NOT_INSTALLED_DIR="$HD_BASE_DIR/NOT_INSTALLED"
+export HD_NOT_INSTALLED_DIR
+
+HD_RPMS_DIR="$HD_BASE_DIR/RPMS"
+export HD_RPMS_DIR
+
+
+PACKAGE_NAMES="$HD_BASE_DIR/PACKAGE_NAMES"
+export PACKAGE_NAMES
+
+VERSION_NAMES="$HD_BASE_DIR/VERSION_NAMES"
+export VERSION_NAMES
+
+INSTALLED_VERSION_NAMES="$HD_BASE_DIR/INSTALLED_VERSION_NAMES"
+export INSTALLED_VERSION_NAMES
+
+VERSION_NUMS="$HD_BASE_DIR/VERSION_NUMS"
+export VERSION_NUMS
+
+UPGRADEABLE_PACKAGE_NAMES="$HD_BASE_DIR/UPGRADEABLE_PACKAGE_NAMES"
+export UPGRADEABLE_PACKAGE_NAMES
+
+OLD_VMLINUZ_LIST="$HD_BASE_DIR/OLD_VMLINUZ_LIST"
+export OLD_VMLINUZ_LIST
+
+cd $HD_RPMS_DIR
+
+
+rpm -qa |grep kernel >$INSTALLED_VERSION_NAMES
+>$UPGRADEABLE_PACKAGE_NAMES
+>$VERSION_NUMS
+
+for pkg in `cat $PACKAGE_NAMES`
+do
+	grep ${pkg}-[0-9] $INSTALLED_VERSION_NAMES >/dev/null
+	if [ $? -ne 0 ]
+	then
+#		Package not installed
+		echo "$pkg Not Installed"
+		nv=`ls ${pkg}-[0-9]*`
+		bool "move $nv to NOT_INSTALLED directory ? "
+		if [ $? -eq 0 ]
+		then
+			mv $nv $HD_NOT_INSTALLED_DIR/
+			if [ "$?" -ne 0 ]
+			then
+				echo "mv failed"
+				exit 1
+			fi
+		fi
+	else
+#		Package installed
+		echo "$pkg Installed"
+		echo $pkg >>$UPGRADEABLE_PACKAGE_NAMES
+		for nv in `ls ${pkg}-[0-9]*`
+		do
+			version_num=`echo $nv |sed 's/'${pkg}-'//' |sed 's/.i[0-9]86.rpm$//'`
+			if [ -f /boot/vmlinuz-$version_num ]
+			then
+				echo "Version $version_num is already in /boot/vmlinuz-$version_num"
+				bool "move $nv to DONE directory ? "
+				if [ $? -eq 0 ]
+				then
+					mv $nv $HD_DONE_DIR/
+					if [ "$?" -ne 0 ]
+					then
+						echo "mv failed"
+						exit 1
+					fi
+				else
+					echo $version_num >>$VERSION_NUMS
+				fi
+			else
+				echo $version_num >>$VERSION_NUMS
+			fi
+		done
+	fi
+done
+
+sort -u -o $UPGRADEABLE_PACKAGE_NAMES $UPGRADEABLE_PACKAGE_NAMES
+sort -u -o $VERSION_NUMS $VERSION_NUMS
+
+echo
+echo "Upgradeable package names:"
+cat $UPGRADEABLE_PACKAGE_NAMES
+echo
+echo "Versions:"
+cat $VERSION_NUMS
+echo
+
+cd /boot
+ls vmlinuz-* >$OLD_VMLINUZ_LIST
+cd $HD_RPMS_DIR
+
+
+if [ `wc -l < $VERSION_NUMS` -ne 0 ]
+then
+
+	bool "Do You Wish to Install one of these versions? "
+	if [ $? -eq 0 ]
+	then
+		# yes
+		KRUN_ME3_mk_boot_floppy
+		if [ $? -ne 0 ]
+		then
+			echo "KRUN_ME3_mk_boot_floppy FAILED" 
+			exit 1
+		fi
+		echo "REBOOT to test these boot floppies"
+		echo "hit enter"
+		read x
+	else
+		echo "NO INSTALLATION"
+		echo "hit enter"
+		read x
+	fi
+else
+	echo "NOTHING TO INSTALL"
+	echo "hit enter"
+	read x
+fi
+

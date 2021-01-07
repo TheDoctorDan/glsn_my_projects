@@ -1,0 +1,105 @@
+%!PS-Adobe-2.0
+%%Title:simple line printer emulator
+/buff 5000 string def
+/leftmargin 0 def
+/topmargin 0 def
+/bottom 0 def
+/top 792 topmargin sub def
+/ptsize 10 def
+/lead 10 def % line spacing
+/EOLchar (\n) def % line feed
+/TABchar (\011) def % tab
+/F { findfont exch scalefont setfont } bind def
+
+
+/TabRoutine { %def
+	currentpoint pop cvi (\040) stringwidth pop cvi idiv 8 mod
+	dup 0 eq {
+		(\040\040\040\040\040\040\040\040) show
+	}{
+		dup 1 eq {
+			(\040\040\040\040\040\040\040) show
+		}{
+			dup 2 eq {
+				(\040\040\040\040\040\040) show
+			}{
+				dup 3 eq {
+					(\040\040\040\040\040) show
+				}{
+					dup 4 eq {
+						(\040\040\040\040) show
+					}{
+						dup 5 eq {
+							(\040\040\040) show
+						}{
+							dup 6 eq {
+								(\040\040) show
+							}{
+								dup 7 eq {
+									(\040) show
+								}{
+									exch show
+								}ifelse
+							}ifelse
+						}ifelse
+					}ifelse
+				}ifelse
+			}ifelse
+		}ifelse
+	}ifelse
+	pop
+} bind def
+
+/CheckTAB{ 
+	{% loop
+		TABchar
+		search { %ifelse  search for TABchar
+			exch pop
+			show TabRoutine
+		}{ %else
+			show exit
+		} ifelse
+	}loop
+} bind def
+
+/newline { %def
+	currentpoint exch pop lead sub % advance to next line
+	dup bottom lt { %if  next line lt bottom
+		showpage  %print page
+		pop top   %change next line to top
+	} if
+	leftmargin exch moveto  % move to left margin, next line
+} bind def
+
+/CheckEOL{
+	{ % loop
+		EOLchar
+		search { %ifelse   search for EOLchar
+			exch pop
+			CheckTAB
+			newline
+		}{ %else
+			CheckTAB
+			exit
+		} ifelse
+	} loop
+} bind def
+
+/emulate { %def
+	{ % loop
+		currentfile buff readstring exch
+		CheckEOL
+		not { %if readstring found EOF
+			exit
+		} if
+	}loop
+	showpage
+	leftmargin top moveto
+} bind def
+%% EndProlog
+%% BeginSetup
+ptsize /Courier F
+
+leftmargin top moveto
+%% EndSetup
+emulate

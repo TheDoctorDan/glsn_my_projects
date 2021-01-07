@@ -1,0 +1,32 @@
+<HTML>
+<HEAD><TITLE>Television/Movie Survey</TITLE></HEAD>
+<BODY>
+<H1>Televison Survey</H1>
+<HR>
+Welcome! We are glad that you have decided to fill out our
+television survey. Please read all questions carefully. When you are finished,
+press the Submit button for Part 2 of the survey.
+<P>
+The current time is: <!--#insert var="DATE_TIME"--><BR>
+<HR>
+<FORM ACTION="/cgi-bin/survey.pl?cgi_cookie=<!--#insert var="COOKIE"-->&cgi_survey=<!--#insert var="SURVEY"-->&cgi_form_num=<!--#insert var="NUMBER"-->" METHOD="POST">
+What is your favorite comedy show?
+<BR>
+<INPUT TYPE="radio" NAME="03 Comedy Show" VALUE="Single Web Dude">Single Web Dude<BR>
+<INPUT TYPE="radio" NAME="03 Comedy Show" VALUE="Gateway Friends">Gateway Friends<BR>
+<INPUT TYPE="radio" NAME="03 Comedy Show" VALUE="Mad About CGI" CHECKED>Mad About CGI<BR>
+<INPUT TYPE="radio" NAME="03 Comedy Show" VALUE="Web Time">Web Time<BR>
+<P>
+Who is your favorite actor in a comedy show?
+<BR>
+<INPUT TYPE="radio" NAME="04 TV Comedian" VALUE="John Riser" CHECKED>John Riser<BR>
+<INPUT TYPE="radio" NAME="04 TV Comedian" VALUE="Jake LeBlanc">Jake LeBlanc<BR>
+<INPUT TYPE="radio" NAME="04 TV Comedian" VALUE="Mike Cosby">Mike Cosby<BR>
+<INPUT TYPE="radio" NAME="04 TV Comedian" VALUE="Marc Allen">Marc Allen<BR>
+<P>
+<INPUT TYPE="submit" VALUE="Submit the survey">
+<INPUT TYPE="reset"  VALUE="Clear all fields">
+</FORM>
+<HR>
+</BODY>
+</HTML>

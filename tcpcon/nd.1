@@ -1,0 +1,252 @@
+.TH ND 1 "April 1989"
+.SH NAME
+nd \- connect a process to a pty
+.SH SYNOPSIS
+.B nd
+[
+.B \-r
+]
+[
+.B \-&
+]
+[
+.B \-l
+pty
+] 
+[
+.B \-f
+failtime
+] 
+[
+.B \-c
+cleartime
+] 
+[
+.B \-d
+piddir
+] 
+[
+.B \-t
+pidtag
+] 
+.I command
+.SH DESCRIPTION
+.B Nd
+runs the process specified in
+.I command
+with standard input, output, error
+and controlling terminal assigned
+to the device specified by the
+.IR pty
+specified in the 
+.B \-l
+option.
+If no
+.B \-l
+option is supplied then
+.I command
+must
+open the appropriate pty.
+The command is passed to a forked
+.I sh
+as
+.BI "sh \-c 'exec " "command" "'" "'"
+so any legal
+.I sh
+syntax can appear in the
+.I command
+field.
+.PP
+Unless
+.B \-r
+is specified,
+.B nd
+dies
+.I cleartime
+seconds after the successful completion of
+.IR command ,
+allowing the other side of the connection to clear
+the connection. By default
+.I cleartime
+is set to 2 seconds.
+In the event of
+.I command
+exiting with a non-zero exit status
+.B nd
+will sleep for
+.I failtime
+before exiting.
+The
+.I failtime
+is to stop
+.B nd
+from exec-ing
+the command too often.
+By default
+.I failtime
+is set to 15 seconds,
+preventing
+.B nd
+from respawning more than 10 times
+in 2 minutes and being disabled by
+.BR init (1M),
+if it is being spawned from an entry in
+.B inittab (4)
+.PP
+.BR Init (1M)
+will respawn
+.B nd
+automatically
+if a line similar to:-
+.IP
+.BI p1:234:respawn: " nd command"
+.LP
+is added to
+.B /etc/inittab.
+.PP
+If you don't wish to run it from inittab or don't have inittab,
+.B nd
+should be started with the
+.B \-r
+option  if you wish the connection to be permanent.
+.SH OPTIONS
+.TP 1i
+.B \-&
+.B nd
+will run in the background with no controlling tty.
+.TP 1i
+.B \-l
+.B nd
+will re-exec
+.I command
+after waiting for
+.I cleartime
+or
+.I failtime
+as appropriate.
+.TP 1i
+.BI \-l " pty"
+Attach
+.I command
+to
+.IR pty .
+.TP 1i
+.BI \-d " piddir"
+Log the
+.B pid
+of
+.I command
+in
+.IR piddir/tag .
+Where
+.I tag
+is the tag specified by
+.BR \-t
+or if not specified
+the basename of 
+.I dev
+or if no
+.B \-l
+specified then
+tag defaults to
+.IR pid. "<pid of command>."
+Therefore if you wish to drop the connection,
+then kill the process with the
+.B pid
+stored in this file.
+.TP 1i
+.BI \-t " tag"
+set the name of the file which stores the
+pid of command to
+.IR tag .
+.I failtime
+seconds.
+.TP 1i
+.BI \-f " failtime"
+set the fail sleep time to
+.I failtime
+seconds.
+.TP 1i
+.BI \-c " cleartime"
+set the clear sleep time to
+.I cleartime
+seconds.
+.SH EXAMPLES
+.IP
+.B
+nd -r /dev/ptyqf telnet nos
+.LP
+will make the device
+.I /dev/ttyqf
+a direct connection
+to the
+.B telnet
+session to the host
+.IR nos .
+The connection will be respawned
+everytime the
+.I telnet
+dies.
+.IP
+.B
+kill `cat /etc/tcpcon.d/ptyqf`
+.LP
+will drop the connection established in
+the previous example.
+.IP
+.B
+nd tcpcon \-l /dev/ptyqe terminal_server 2000
+.LP
+will make the device
+.I /dev/ttyqe
+a direct connection
+to the
+the
+.B TCP
+port
+2000
+on the host
+.IR terminal_server .
+.IP
+.B
+nd \-l /dev/ptyqd tcpserv 2000
+.LP
+will make the device
+.I /dev/ttyqd
+a direct connection
+to any client which connects to
+.B TCP
+port
+2000.
+.SH SIGNALS
+.TP 1i
+SIGHUP
+Sends a SIGTERM at the process group associated
+with
+.IR command
+and restarts
+.IR command .
+.TP 1i
+SIGTERM
+Sends a SIGTERM at the process group associated
+with
+.I command
+and exits.
+.SH "SEE ALSO"
+.BR tcpserv (1),
+.BR tcpcon (1),
+.BR telnet (1),
+.BR pty (7),
+.BR inittab (4).
+.SH FILES
+.PD 0
+.TP 2i
+/etc/services
+List of ports and services
+.TP 2i
+/etc/hosts
+List of hosts
+.TP 2i
+/etc/inittab
+Script for init processes
+.PD

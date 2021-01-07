@@ -1,0 +1,154 @@
+SOFTWARE LICENSE AGREEMENT
+
+This document states the terms and conditions upon which DIGI International
+	("DIGI") offers to license ("License") the enclosed software ("Software").
+	By breaking the seal on this envelope containing the Software, you are
+	agreeing to become bound by the terms of this agreement. If you do not
+	agree with the terms of this agreement,	do not break the seal on this
+	envelope; promptly return the package to the place where you obtained
+	it for a full refund.
+
+The enclosed computer program as supplied by DIGI is licensed, not sold, to you
+	to use under the terms of this License and DIGI reserves all rights not
+	expressly  granted to you. You own the disk or other media on which the
+	software is originally or subsequently recorded or fixed but DIGI
+	retains ownership of all copies of the Software itself.
+
+1. License: This License allows you to:
+	(a) Use the Software for internal purposes on one local area network
+	    exclusively for use in interfacing to a DIGI FastPort(s).
+	(b) Make one copy of the Software in machine readable form solely
+	    for backup purposes (you must reproduce on any copy all copyright
+	    notices and any other confidential or proprietary legends that
+	    are on the original copy of the Software);  
+	(c) Transfer the Software and rights under this License to another
+	    party together with a copy of this Agreement provided that the
+	    other party reads and agrees to accept the terms and conditions
+	    of this Agreement and provided further that you do not retain
+	    any copy of the Software.
+
+2. Restrictions:
+	(a) You may not market, distribute or transfer (other than in
+	    accordance with section 1 (c) above) copies of the Software to
+	    others or electronically transfer the Software over a network.
+	    The Software contains trade secrets, and in order to protect
+	    them you may not decompile, reverse engineer or otherwise reduce
+	    the Software to a form allowing others to modify the source or
+	    object code or disclose them to any third party. YOU MAY NOT
+	    MODIFY, TRANSLATE, RENT, LEASE OR LOAN THE SOFTWARE OR CREATE
+	    DERIVATIVE WORKS BASED ON THE SOFTWARE OR THE ACCOMPANYING
+	    WRITTEN MATERIALS.
+	(b) The Software and the accompanying written materials are
+	    copyrighted. Unauthorized copying of the Software is expressly
+	    forbidden.
+	(c) You understand that DIGI may update or revise or develop new
+	    versions of the Software (herein "improvements") and in so doing
+	    incurs no obligations to furnish you such improvements.
+
+3. Termination: This License is effective until terminated. Except for
+	Sections 6, 7, 8, this License shall terminate automatically upon
+	your breach of your obligations under this License. Upon termination,
+	you agree that you will destroy the Software and all copies. This
+	remedy shall be in addition to any other remedies available to DIGI.
+
+4. Export Control: You assure DIGI that you will not export or reexport
+	(as defined in Section 379.1, (b)-(c) of the Export Administration
+	Regulations- "Regulations" and any amendment thereto: (a) the
+	Software or (b) the immediate product (including processes and
+	services) produced directly by use of the Software, to any group Q,
+	S, W, Y, or Z country specified in Supplement No. 1 to section 370
+	of the regulations as amended from time to time, without prior
+	authorization ( if required ) of the Office of Export Licensing,
+	U.S. Department of Commerce. 
+
+5. Government End Users: If this Software is acquired by or on behalf of a
+	unit or agency of the United States Government this provision applies.
+	This Software:
+	(a) Was developed at private expense, is existing computer software,
+	    and no part of it was developed with government funds;
+	(b) Is a trade secret of DIGI for all purposes of the Freedom of
+	    Information Act;
+	(c) Is "restricted computer software" submitted with restricted
+	    rights in accordance with subparagraphs (c) through (d) of the
+	    Commercial Computer Software-Restricted Rights clause at
+	    52.227-19 and its successors;
+	(d) In all respects is proprietary data belonging solely to DIGI;
+	(e) Is unpublished and all rights are reserved under the copyright
+	    laws of the United States. For units of the Department of
+	    Defense (DOD) this Software is licensed only with "Restricted
+	    Rights" as the term is defined in the DOD Supplement to the
+	    Federal Acquisition Regulation 52.227-7013 (c)(i)(ii) and use,
+	    duplication or disclosure is subject to restrictions as set
+	    forth in subdivision (c)(i)(ii) of the Rights in Technical Data
+	    and Computer Software clause at 52.227-7013. (f) Contractor/
+	    manufacturer is DIGI International, 1299 Orleans Drive,
+	    Sunnyvale, CA 94089. If this Software was acquired under a GSA
+	    Schedule, the Government has agreed to refrain from changing or
+	    removing any insignia or lettering from the Software or the
+	    documentation that is provided or from producing copies of
+	    manuals or media ( except for backup purposes and in accordance
+	    with the terms of this Agreement).
+
+6. Limited Warranty:
+	(a) DIGI warrants that the Software and accompanying media will
+	    perform substantially in accordance with the specifications
+	    set forth in the accompanying documentation for a period of (1)
+	    one year after your payment of the license fee, when properly
+	    installed on a computer for which the Software is licensed
+            hereunder. DIGI does not warrant that the operation of the
+	    Software will meet your requirements or operate free from error.
+  	    DIGI DISCLAIMS ALL OTHER WARRANTIES, EITHER EXPRESS OR IMPLIED,
+	    INCLUDING THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+	    PARTICULAR PURPOSE AND NON-INFRINGEMENT OF THIRD PARTY RIGHTS;
+	(b) NO ORAL OR WRITTEN INFORMATION OR ADVICE GIVEN BY DIGI, ITS
+	    DEALERS, DISTRIBUTORS, OEM'S, AGENTS OR EMPLOYEES SHALL CREATE
+	    A WARRANTY OR IN ANY WAY INCREASE THE SCOPE OF THIS WARRANTY AND
+	    YOU MAY NOT RELY ON ANY SUCH INFORMATION OR ADVICE:
+	(c) SOME STATES DO NOT ALLOW THE EXCLUSION OF IMPLIED WARRANTIES.
+	    SO THE ABOVE EXCLUSION MAY NOT APPLY TO YOU. THIS WARRANTY GIVES
+	    YOU SPECIFIC LEGAL RIGHTS AND YOU MAY ALSO HAVE OTHER LEGAL
+	    RIGHTS WHICH VARY FROM STATE TO STATE.
+
+7. Limited Remedies:
+	(a) If the Software or media fails to perform as warranted, your sole
+	    an exclusive remedy shall be to return the media to DIGI, postage
+	    prepaid with a copy of the receipt. DIGI shall, at its option,
+	    (i) issue a replacement with Software or media which conforms to
+	        the warranty, or
+	    (ii) correct the error, or
+	    (iii) refund the License fee;
+	(b) DIGI SHALL NOT BE LIABLE FOR ANY INCIDENTAL OR CONSEQUENTIAL
+	    DAMAGES ( INCLUDING DAMAGES FOR LOSS OF BUSINESS, PROFITS OR THE
+	    LIKE ) ARISING OUT OF THE INABILITY TO USE THE SOFTWARE EVEN IF
+	    DIGI OR ITS REPRESENTATIVES HAVE BEEN ADVISED OF THE POSSIBILITY
+	    OF SUCH DAMAGES;
+	(c) SOME STATES DO NOT ALLOW THE LIMITATION OR EXCLUSION OF LIABILITY
+	    FOR INCIDENTAL OR CONSEQUENTIAL DAMAGES SO THE ABOVE LIMITATION
+	    OR EXCLUSION MAY NOT APPLY TO YOU;
+	(d) THE LIMITED WARRANTY, LIMITED REMEDIES AND LIMITED LIABILITY ARE
+	    FUNDAMENTAL REQUIREMENTS OF THE BASIS OF THE BARGAIN BETWEEN DIGI
+	    AND YOU. DIGI WOULD NOT BE ABLE TO PROVIDE THE SOFTWARE WITHOUT
+	    SUCH PROVISIONS.
+
+8. Limited Liability: The liability of DIGI for any claims arising out of the
+	License based upon the Software, regardless of the form of action,
+	shall not exceed the greater of the Software License fee or $50.00.
+
+9. DIGI International is a corporation with its principal office at:
+	11001 Bren Road East, Minnetonka, MN 55343.
+
+10. General: This License shall be governed and interpreted in accordance
+	with the laws of, and exclusively enforced in the State of California
+	for contracts entered into and to be performed entirely in California.
+	This License shall be construed as to make each provision enforceable
+	to the maximum extent possible under governing law. This License
+	contains the entire agreement between the parties with respect to the
+	subject matter hereof, and supersedes all prior agreements or
+	understandings (oral or written). Failure or delay in enforcing any
+	right or provision of this agreement shall not be deemed a waiver of
+	such provision or right with respect to any subsequent breach or a
+	continuance of any existing breach after demand for strict
+	performance. If any provision of this License shall be held by a
+	California court to be contrary to law, that provision will be
+	enforced to the maximum extent permissible, and the remaining
+	provision of this License will remain in full force and effect.

@@ -1,0 +1,22 @@
+** Copyright Milan Technology 1991 and 1992 ** 
+
+tcpcon allows a Unix host to maintain a connection to either of
+the fastport ports, serial or parallel, through pseudo-ttys.  After
+executing a command like:
+
+nd -r -d /etc/tcpcon.d -t ptypf /usr/local/tcpcon -l /dev/ptypf fastport 2000
+
+(2000 is the port address for the parallel printer, 2001 is for serial)
+you can cat files directly to the fastport, e.g.:
+
+	cat file.PS > /dev/ttypf
+
+or 
+	lpr -Plp1 file.ps 
+
+where the 'lp' entry for lp1 in  /etc/printcap looks like 
+
+	lp=/dev/lp1
+
+and lp1 is a symbollic link to /dev/ttypf.  This software is freeware
+and comes with no guarantee of support or reliabilty.  

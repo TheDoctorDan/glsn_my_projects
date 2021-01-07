@@ -1,0 +1,12 @@
+awk '
+BEGIN{
+	FS="	";
+	i=300;
+}
+{
+	if($53 != "")
+	printf("%s\t%5d\t%5d\n", $0,i++,i++)
+	else
+	printf("%s\t%5d\t\n", $0,i++)
+}
+' $*

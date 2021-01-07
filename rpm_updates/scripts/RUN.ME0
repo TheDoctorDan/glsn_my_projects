@@ -1,0 +1,145 @@
+#RUN.ME0
+#
+#find redhat release directory in /mnt/cdrom
+#
+if [ -f /etc/redhat-release ]
+then
+	read RE H L R X BUILD </etc/redhat-release
+	RELEASE=`echo $X | sed 's/\.//'`
+	RELEASE=$X
+	if [ $RELEASE == "ES" ]
+	then
+		read RE H L R X CON V BUILD </etc/redhat-release
+		RELEASE=$X$V
+	fi
+else
+	echo "No file :/etc/redhat-release"
+	exit 1
+fi
+
+echo "RED HAT RELEASE " $RELEASE
+
+ls /mnt/cdrom |grep Redhat
+if [ $? -ne 0 ]
+then
+
+mount |grep '/mnt/cdrom' >/dev/null
+if [ $? -ne 0 ]
+then
+	echo "Mounting CD-ROM"
+	mount /mnt/cdrom
+	if [ $? -ne 0 ]
+	then
+		echo "Can't Mount CD-ROM"
+		exit 1
+	fi
+else
+	echo "CD-ROM already Mounted"
+fi
+
+fi
+
+CD_BASE_DIR="/mnt/cdrom/Redhat"$RELEASE
+if [ -d $CD_BASE_DIR ]
+then
+	echo "Found Directory $CD_BASE_DIR"
+else
+	echo "Can Not Find Directory $CD_BASE_DIR"
+	exit 1
+fi
+
+
+
+
+HD_BASE1_DIR="/var/tmp/rpm_updates"
+if [ ! -d "$HD_BASE1_DIR" ]
+then
+	echo "make directory :$HD_BASE1_DIR"
+	mkdir $HD_BASE1_DIR
+	if [ $? -ne 0 ]
+	then
+		echo "failed to mkdir $HD_BASE1_DIR"
+		exit 1
+	fi
+else
+	echo "Found directory : $HD_BASE1_DIR"
+fi
+
+
+
+HD_BASE_DIR="/var/tmp/rpm_updates/RedHat_Updates"
+if [ ! -d "$HD_BASE_DIR" ]
+then
+	echo "make directory :$HD_BASE_DIR"
+	mkdir $HD_BASE_DIR
+	if [ $? -ne 0 ]
+	then
+		echo "failed to mkdir $HD_BASE_DIR"
+		exit 1
+	fi
+else
+	echo "Found directory : $HD_BASE_DIR"
+fi
+
+HD_DONE_DIR=$HD_BASE_DIR"/DONE"
+if [ ! -d $HD_DONE_DIR ]
+then
+	echo "make directory :$HD_DONE_DIR"
+	mkdir $HD_DONE_DIR
+	if [ $? -ne 0 ]
+	then
+		echo "failed to mkdir $HD_DONE_DIR"
+		exit 1
+	fi
+else
+	echo "Found directory :$HD_DONE_DIR"
+fi
+
+
+HD_NOT_INSTALLED_DIR="$HD_BASE_DIR/NOT_INSTALLED"
+if [ ! -d $HD_NOT_INSTALLED_DIR ]
+then
+	echo "make directory :$HD_NOT_INSTALLED_DIR"
+	mkdir $HD_NOT_INSTALLED_DIR
+	if [ $? -ne 0 ]
+	then
+		echo "failed to mkdir $HD_NOT_INSTALLED_DIR"
+		exit 1
+	fi
+else
+	echo "Found directory :$HD_NOT_INSTALLED_DIR"
+fi
+
+
+HD_RPMS_DIR="$HD_BASE_DIR/RPMS"
+if [ ! -d $HD_RPMS_DIR ]
+then
+	echo "make directory :$HD_RPMS_DIR"
+	mkdir $HD_RPMS_DIR
+	if [ $? -ne 0 ]
+	then
+		echo "failed to mkdir $HD_RPMS_DIR"
+		exit 1
+	fi
+else
+	echo "Found directory :$HD_RPMS_DIR"
+fi
+
+
+mv $HD_NOT_INSTALLED_DIR/* $HD_RPMS_DIR
+
+
+for FULL_NAME in `find $CD_BASE_DIR -follow -type f -print | \
+grep -v kernel | \
+grep -v '\/SRPMS\/' | \
+grep -v '\/alpha\/' | \
+grep -v '\/sparc\/' | \
+grep '\.rpm$'`
+do
+	FILENAME=`basename $FULL_NAME`
+	if [ ! -f $HD_RPMS_DIR/$FILENAME -a ! -f $HD_DONE_DIR/$FILENAME ]
+	then
+		ln -s $FULL_NAME $HD_RPMS_DIR/$FILENAME 
+	fi
+done
+

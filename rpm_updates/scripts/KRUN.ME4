@@ -1,0 +1,116 @@
+#KRUN.ME4
+#
+# INSTALL_KERNEL
+#
+#find redhat release directory in /mnt/cdrom
+#
+if [ -f /etc/redhat-release ]
+then
+	read RE H L R X BUILD </etc/redhat-release
+	RELEASE=`echo $X | sed 's/\.//'`
+	RELEASE=$X
+	if [ $RELEASE == "ES" ]
+	then
+		read RE H L R X CON V BUILD </etc/redhat-release
+		RELEASE=$X$V
+	fi
+else
+	echo "No file :/etc/redhat-release"
+	exit 1
+fi
+
+echo "RED HAT RELEASE " $RELEASE
+
+ls /mnt/cdrom |grep Redhat
+if [ $? -ne 0 ]
+then
+
+mount |grep '/mnt/cdrom' >/dev/null
+if [ $? -ne 0 ]
+then
+	echo "Mounting CD-ROM"
+	mount /mnt/cdrom
+	if [ $? -ne 0 ]
+	then
+		echo "Can't Mount CD-ROM"
+		exit 1
+	fi
+else
+	echo "CD-ROM already Mounted"
+fi
+
+fi
+
+CD_BASE_DIR="/mnt/cdrom/Redhat"$RELEASE
+if [ -d $CD_BASE_DIR ]
+then
+	echo "Found Directory $CD_BASE_DIR"
+else
+	echo "Can Not Find Directory $CD_BASE_DIR"
+	exit 1
+fi
+
+PATH="$PATH:/usr/gleeson/src/rpm_updates/scripts"
+export PATH
+
+clear
+
+
+HD_BASE_DIR="/var/tmp/rpm_updates/RedHat_Kernels"
+export HD_BASE_DIR
+
+HD_DONE_DIR=$HD_BASE_DIR"/DONE"
+export HD_DONE_DIR
+
+HD_NOT_INSTALLED_DIR="$HD_BASE_DIR/NOT_INSTALLED"
+export HD_NOT_INSTALLED_DIR
+
+HD_RPMS_DIR="$HD_BASE_DIR/RPMS"
+export HD_RPMS_DIR
+
+
+PACKAGE_NAMES="$HD_BASE_DIR/PACKAGE_NAMES"
+export PACKAGE_NAMES
+
+VERSION_NAMES="$HD_BASE_DIR/VERSION_NAMES"
+export VERSION_NAMES
+
+INSTALLED_VERSION_NAMES="$HD_BASE_DIR/INSTALLED_VERSION_NAMES"
+export INSTALLED_VERSION_NAMES
+
+VERSION_NUMS="$HD_BASE_DIR/VERSION_NUMS"
+export VERSION_NUMS
+
+UPGRADEABLE_PACKAGE_NAMES="$HD_BASE_DIR/UPGRADEABLE_PACKAGE_NAMES"
+export UPGRADEABLE_PACKAGE_NAMES
+
+OLD_VMLINUZ_LIST="$HD_BASE_DIR/OLD_VMLINUZ_LIST"
+export OLD_VMLINUZ_LIST
+
+cd $HD_RPMS_DIR
+
+for version_num in `cat $VERSION_NUMS`
+do
+	bool "Do You Wish to Install version $version_num ? "
+	if [ $? -eq 0 ]
+	then
+		# yes
+		files=`ls kernel*${version_num}*`
+		echo "Files to install:"
+		echo $files
+		echo
+		bool "Continue?"
+		if [ $? -eq 0 ]
+		then
+			# yes
+			rpm --force -ivh $files
+			if [ $? -ne 0 ]
+			then
+				echo "rpm install FAILED"
+				exit 1
+			fi
+			mv $files $HD_DONE_DIR
+		fi
+		exit 0
+	fi
+done

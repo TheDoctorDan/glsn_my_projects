@@ -1,0 +1,367 @@
+# INSTALL_RPMS
+#
+
+
+eliminate_wrong_cpu_version()
+{
+	VERSION_NAME=$1
+	CPU_CODE=$2
+	for cpu in i386 i486 i586 i686
+	do
+		if [ "$CPU_CODE" != "$cpu" ]
+		then
+			if [ -f $HD_RPMS_DIR/${VERSION_NAME}."$cpu".rpm ]
+			then
+				if [ -f $HD_RPMS_DIR/${VERSION_NAME}."$CPU_CODE".rpm \
+				-o -f $HD_DONE_DIR/${VERSION_NAME}."$CPU_CODE".rpm \
+				-o -f $HD_NOT_INSTALLED_DIR/${VERSION_NAME}."$CPU_CODE".rpm ]
+				then
+					echo "have "$CPU_CODE" version remove $HD_RPMS_DIR/${VERSION_NAME}."$cpu".rpm"
+					rm $HD_RPMS_DIR/${VERSION_NAME}."$cpu".rpm
+				fi
+			fi
+		fi
+	done
+}
+
+
+#for VERSION_NAME in `cat $VERSION_NAMES`
+#do
+# 	if [ -f $HD_RPMS_DIR/${VERSION_NAME}.i386.rpm ]
+#	then
+#		if [ -f $HD_RPMS_DIR/${VERSION_NAME}.i686.rpm -o -f $HD_DONE_DIR/${VERSION_NAME}.i686.rpm -o -f $HD_NOT_INSTALLED_DIR/${VERSION_NAME}.i686.rpm ]
+#		then
+#			echo "remove $HD_RPMS_DIR/${VERSION_NAME}.i386.rpm"
+#			rm $HD_RPMS_DIR/${VERSION_NAME}.i386.rpm
+#		fi
+#	fi
+#
+#done
+
+
+
+install_rpms_1()
+{
+	nv=$@
+	extra=""
+	end=0
+	while [ "$end" -eq 0 ]
+	do
+
+		bool "install_rpms_1 : Install $nv $extra ?"
+		if [ $? -eq 0 ]
+		then
+			echo "ready"
+			rpm -Uvh $nv $extra
+			if [ $? -eq 0 ]
+			then
+				echo "rpm succeded"
+				echo "moving $nv $extra to DONE directory"
+				mv $nv $extra $HD_DONE_DIR/
+				if [ "$?" -ne 0 ]
+				then
+					echo "mv failed"
+					exit 1
+				fi
+				end=1
+			else
+				echo "rpm failed"
+				bool "do you want to add another pkg ?"
+				if [ "$?" -eq 0 ]
+				then
+					echo "add pkg name:"
+					read x
+					extra="$extra $x"
+				else
+					echo "skipping pkg $nv"
+					end=1
+				fi
+			fi
+
+		else
+			bool "move $nv to NOT_INSTALLED directory ? "
+			if [ $? -eq 0 ]
+			then
+				mv $nv $HD_NOT_INSTALLED_DIR/
+				if [ "$?" -ne 0 ]
+				then
+					echo "mv failed"
+					exit 1
+				fi
+			fi
+			end=1
+		fi
+	done
+	return 0
+}
+
+install_rpms_2()
+{
+	nv=$1
+	p=$2
+	NUM_PKG=`echo $nv |awk ' { print NF } '`
+	if [ "$NUM_PKG" -eq 1 ]
+	then
+		install_rpms_1 $nv
+	elif [ "$NUM_PKG" -gt 1 ]
+	then
+		bool "Install selective ?"
+		if [ "$?" -eq 0 ]
+		then
+			for j in $nv
+			do
+				install_rpms_1 $j
+			done
+		else
+			install_rpms_1 $nv
+		fi
+	else
+		echo "no pkg $p found"
+	fi
+}
+
+PATH="$PATH:/usr/gleeson/src/rpm_updates/scripts"
+export PATH
+
+clear
+
+
+HD_BASE_DIR="/var/tmp/rpm_updates/RedHat_Updates"
+export HD_BASE_DIR
+
+HD_DONE_DIR=$HD_BASE_DIR"/DONE"
+export HD_DONE_DIR
+
+HD_NOT_INSTALLED_DIR="$HD_BASE_DIR/NOT_INSTALLED"
+export HD_NOT_INSTALLED_DIR
+
+HD_RPMS_DIR="$HD_BASE_DIR/RPMS"
+export HD_RPMS_DIR
+
+
+#Generate PACKAGE_NAMES and VERSION_NAMES
+PACKAGE_NAMES="$HD_BASE_DIR/PACKAGE_NAMES"
+>$PACKAGE_NAMES
+
+VERSION_NAMES="$HD_BASE_DIR/VERSION_NAMES"
+>$VERSION_NAMES
+
+cd $HD_RPMS_DIR
+
+get_package_name()
+{
+	nv=$1
+	echo $nv |grep 'XFree86' >/dev/null
+	if [ $? -ne 0 ]
+	then
+		pkg=`echo $nv | sed 's/\-[0-9].*$//g'`
+	else
+		echo $nv |grep 'XFree86.*fonts' >/dev/null
+		if [ $? -eq 0 ]
+		then
+			pkg=`echo $nv | sed 's/\(XFree86.*fonts\)\-[0-9].*$/\1/g'`
+		else
+			echo $nv |grep 'XFree86-[0-9]\.' >/dev/null
+			if [ $? -eq 0 ]
+			then
+				pkg=`echo $nv | sed 's/\(XFree86\)\-[0-9].*$/\1/g'`
+			else
+				pkg=`echo $nv | sed 's/\(XFree86-[^-][^-]*\)\-[0-9].*$/\1/g'`
+			fi
+		fi
+	fi
+	echo $pkg
+}
+
+
+for FILENAME in `ls`
+do
+	case $FILENAME in
+
+	*.i386.rpm)
+		nv=`echo $FILENAME | sed 's/\.i386\.rpm$//' `
+		echo $nv >>$VERSION_NAMES
+		#pkg=`echo $nv | sed 's/\-[0-9].*$//g'`
+		pkg=`get_package_name $nv`
+		echo $pkg >>$PACKAGE_NAMES
+
+		;;
+
+	*.i486.rpm)
+		nv=`echo $FILENAME | sed 's/\.i486\.rpm$//' `
+		echo $nv >>$VERSION_NAMES
+		#pkg=`echo $nv | sed 's/\-[0-9].*$//g'`
+		pkg=`get_package_name $nv`
+		echo $pkg >>$PACKAGE_NAMES
+		;;
+
+	*.i586.rpm)
+		nv=`echo $FILENAME | sed 's/\.i586\.rpm$//' `
+		echo $nv >>$VERSION_NAMES
+		#pkg=`echo $nv | sed 's/\-[0-9].*$//g'`
+		pkg=`get_package_name $nv`
+		echo $pkg >>$PACKAGE_NAMES
+		;;
+
+	*.i686.rpm)
+		nv=`echo $FILENAME | sed 's/\.i686\.rpm$//' `
+		echo $nv >>$VERSION_NAMES
+		#pkg=`echo $nv | sed 's/\-[0-9].*$//g'`
+		pkg=`get_package_name $nv`
+		echo $pkg >>$PACKAGE_NAMES
+		;;
+	*.noarch.rpm)
+		nv=`echo $FILENAME | sed 's/\.noarch\.rpm$//' `
+		echo $nv >>$VERSION_NAMES
+		#pkg=`echo $nv | sed 's/\-[0-9].*$//g'`
+		pkg=`get_package_name $nv`
+		echo $pkg >>$PACKAGE_NAMES
+		;;
+	*)
+		echo "Don't know what to do with $FULL_NAME"
+		;;
+	esac
+done
+sort -u -o $VERSION_NAMES $VERSION_NAMES
+sort -u -o $PACKAGE_NAMES $PACKAGE_NAMES
+
+CPU_CODE=`get_cpu_code`
+
+for VERSION_NAME in `cat $VERSION_NAMES`
+do
+	eliminate_wrong_cpu_version $VERSION_NAME  $CPU_CODE
+done
+
+
+
+#for VERSION_NAME in `cat $VERSION_NAMES`
+#do
+# 	if [ -f $HD_RPMS_DIR/${VERSION_NAME}.i386.rpm ]
+#	then
+#		if [ -f $HD_RPMS_DIR/${VERSION_NAME}.i686.rpm -o -f $HD_DONE_DIR/${VERSION_NAME}.i686.rpm -o -f $HD_NOT_INSTALLED_DIR/${VERSION_NAME}.i686.rpm ]
+#		then
+#			echo "remove $HD_RPMS_DIR/${VERSION_NAME}.i386.rpm"
+#			rm $HD_RPMS_DIR/${VERSION_NAME}.i386.rpm
+#		fi
+#	fi
+#
+#done
+
+
+
+
+
+cd $HD_RPMS_DIR
+
+remaining_pkg=""
+
+for p in `cat $PACKAGE_NAMES`
+do
+	nv=`ls ${p}-[0-9]*`
+	if [ "$nv" != "" ]
+	then
+		cv=`rpm -q $p`
+		if [ $? -ne 0 ]
+		then
+			echo "$p is not installed"
+			echo "new version(s) :"
+			echo $nv
+			rpm -q -i -p $nv |more
+			bool "move $nv to NOT_INSTALLED directory ? "
+			if [ $? -eq 0 ]
+			then
+				mv $nv $HD_NOT_INSTALLED_DIR/
+				if [ "$?" -ne 0 ]
+				then
+					echo "mv failed"
+					exit 1
+				fi
+			else
+				remaining_pkg="$remaining_pkg $p"
+			fi
+		else
+			remaining_pkg="$remaining_pkg $p"
+		fi
+	fi
+done
+
+clear
+
+for p in $remaining_pkg
+do
+	echo
+	echo
+	echo "Package :$p"
+	for nv in `ls ${p}*`
+	do
+		if [ -f "$nv" ]
+		then
+			echo "ls $p"
+			ls ${p}*
+			echo "new version(s) :"
+			echo $nv
+#			new_p=`echo $nv |sed 's/\.i[3456]86\.rpm$//' |sed 's/\.noarch\.rpm$//' | sed 's/\-[0-9].*$//g'`
+			temp_p=`echo $nv |sed 's/\.i[3456]86\.rpm$//' |sed 's/\.noarch\.rpm$//'`
+			new_p=`get_package_name $temp_p`
+
+			cv=`rpm -q $new_p`
+			if [ $? -eq 0 ]
+			then
+				echo "$new_p is installed"
+				echo "current version is $cv"
+				installed=1
+			else
+				echo "$new_p is not installed"
+				installed=0
+			fi
+
+			nv_less_cpu=`echo $nv |sed 's/\.i[3456]86\.rpm$//' |sed 's/\.noarch\.rpm$//'`
+			if [ $installed -eq 1 ]
+			then
+				cv_nv_compare=`/usr/gleeson/bin/release_comparison $cv $nv_less_cpu`
+echo $cv_nv_compare
+				if [ "$cv_nv_compare" = "more"  -o "$cv_nv_compare" = "equal" ]
+				then
+					echo "current version is more than or equal to new version"
+				else
+					echo "current version less than new version"
+				fi
+			else
+				cv_nv_compare="NA"
+			fi
+
+
+			if [ $installed -eq 1 -a \( "$cv_nv_compare" = "more" -o "$cv_nv_compare" = "equal" \) ]
+			then
+
+				echo "moving $nv to DONE directory."
+				mv $nv $HD_DONE_DIR/
+				if [ "$?" -ne 0 ]
+				then
+					echo "mv failed"
+					exit 1
+				fi
+
+#				bool "move $nv to DONE directory ? "
+#				if [ $? -eq 0 ]
+#				then
+#					mv $nv $HD_DONE_DIR/
+#					if [ "$?" -ne 0 ]
+#					then
+#						echo "mv failed"
+#						exit 1
+#					fi
+#				fi
+
+			else
+				rpm -q -i -p $nv
+				install_rpms_2 $nv $new_p
+			fi
+		fi
+	done
+
+
+	echo "hit enter for next pkg"
+	read x
+done
+

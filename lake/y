@@ -1,0 +1,8 @@
+awk '
+BEGIN{
+	FS="	"
+}
+{
+		printf "computer brand:%-20.20s  model:%-20.20s   lang:%-20.20s  comp:%s\n",$9,$10,$11,$1
+}
+' $*

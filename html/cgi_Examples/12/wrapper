@@ -1,0 +1,143 @@
+#!/usr/local/bin/perl
+
+##++
+##  Wrapper v1.0
+##  November 25, 1995
+##
+##  Shishir Gundavaram
+##
+##  Usage: wrapper -f /some/dir/filename [ -u user [-g group] ]
+##
+##  This code is based on suidscript, which appears in Programming
+##  Perl (you know who wrote it, right?)
+##--
+
+require "pwd.pl";
+require "getopts.pl";
+
+$cc = "/bin/cc";
+
+&Getopts ("f:u:g:");
+($file, $uid, $gid) = ($opt_f, $opt_u, $opt_g);
+
+
+if ($file =~ m|^/|) {
+	if (-e $file) {		
+		&initpwd ();
+		$original_dir = $ENV{'PWD'};
+		($directory, $just_file) = $file =~ m|(.*)/(.*)|;
+		&chdir ($directory);
+
+		&check_file_header ($just_file);
+		($mode, $uid, $gid) = &get_attributes ($just_file, $uid, $gid);
+		$executable_file = &create_wrapper ($file);
+
+		$status = chown $uid, $gid, $executable_file;
+
+		if ($status) {
+			chmod $mode & 01777, $file;
+			chmod $mode, $executable_file;
+		} else {
+			unlink ($executable_file);
+			&die ("Sorry, chown could not set specified UID/GID.");
+		}
+
+		&chdir ($original_dir);
+	} else {
+		&die ("The specified file does not exist.");
+	}
+} else {
+	&die ("Usage: $0 -f /some/dir/filename [ -u user [-g group] ]");
+}
+	
+exit (0);
+
+sub die
+{	
+	local ($message) = @_;
+
+	&chdir ($original_dir) if (defined ($original_dir));
+
+	die $message, "\n";
+}
+
+sub check_file_header
+{
+	local ($script) = @_;
+	local ($first);
+
+	open (SCRIPT, "<" . $script) || &die ("Could not open script.");
+
+	$first = <SCRIPT>;
+
+	if ($first !~ /^#!(\S+)$/) {
+		&die ("The first line of the script doesn't start with #!");
+	} 
+
+	close (SCRIPT);
+}	
+
+sub get_attributes
+{
+	local ($file, $user, $group) = @_;
+	local (@stats, $mode);
+
+	@stats = stat ($file);
+	$mode = $stats[2];
+
+	if ($user) {
+		if ($user =~ /^\d+$/) {
+			&die ("The specified UID doesn't exist.") 
+				unless (getpwuid ($user));
+		} else {
+			&die ("The specified username doesn't exist.") 
+				unless (getpwnam ($user));
+		}
+
+		if ($group) {
+			if ($group =~ /^\d+$/) {
+			       &die ("The specified GID name doesn't exist.")
+					unless (getgrgid ($group));
+			} else {
+			       &die ("The specified group name doesn't exist.")
+					unless (getgrnam ($group));
+			}
+		} else {
+			$group = -1;
+		}			
+	} else {
+		($user, $group) = @stats[4, 5];
+	}
+
+	return ($mode, $user, $group);
+}
+
+sub create_wrapper
+{
+	local ($path_to_script) = @_;
+	local ($tmp_file, $executable);
+
+	$tmp_file = join ("", "tmp", $$, ".c");
+	$executable = join ("", $path_to_script, ".out");
+
+	open (C_SOURCE, ">" . $tmp_file) || &die ("Cannot create C program.");
+	print C_SOURCE <<End_of_Wrapper;
+
+main (argc, argv)
+int argc;
+char **argv;
+{
+	execv ("$path_to_script", argv);
+}
+
+End_of_Wrapper
+
+	close (C_SOURCE);
+
+	system ($cc, $tmp_file, "-o", $executable);
+	&die ("Can't compile C program.") if ($?);
+
+	unlink $tmp_file;
+
+	return ($executable);
+}

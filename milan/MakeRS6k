@@ -1,0 +1,47 @@
+.SUFFIXES: .c .o
+#
+# Copyright Milan Technology Inc., 1991, 1992
+#
+
+.c.o:
+	$(CC) -c $< $(CFLAGS)
+
+# @(#)MakeRS6k 2.0 8/18/92
+
+# Makes binaries for IBM RS-6000 machines
+
+HOME=/usr/gleeson
+BIN=$(HOME)/bin
+
+#If you wish to use prototyping (e.g. for gcc) define the flag -DANSI
+
+CC=cc 
+
+#CFLAGS= -g -DLP -DSYSTEMV -DAIX
+CFLAGS= -g -DSYSTEMV  -DLP -DAIX -Daix -I$O -L$(GOL) -I$(GOI)
+LD_FLAGS=  -lisam -lmisam -lwin -lgtc -lm
+
+FILTEROBJECTS= fpfilter.o printer.o errors.o options.o system.o udpstat.o \
+	$O/systim.o $O/atxy.o $O/initdb.o $O/dopen.o $O/dll.o $O/tty_set.o \
+	$O/bitops.o $O/cladate_rec.o $O/ritfil.o
+
+PROGS= fpfilter fpstatus
+
+SRCFILES= dp.h errors.c errors.h fpfilter.c fpstatus.c options.c printer.c std.h system.c udp.h udpstat.c Makefile errors.init
+
+#.KEEP_STATE:
+all: errors.h $(PROGS)
+
+fpfilter: $(BIN)/fpfilter
+
+$(BIN)/fpfilter:	$(FILTEROBJECTS) errors.h $O/lpdev.h $O/lpspool.h $O/lpkeys.h $(GOI)/win.h $O/systim.h
+	$(CC) $(CFLAGS) -o $@ $(FILTEROBJECTS) $(LD_FLAGS)
+
+
+fpstatus: $(BIN)/fpstatus
+
+$(BIN)/fpstatus: fpstatus.o udpstat.o udp.h dp.h
+	$(CC) $(CFLAGS) -o $@ fpstatus.o udpstat.o
+
+clean:
+	rm -f *.o $(PROGS)

@@ -1,0 +1,65 @@
+	max
+field#	length	contents
+1	40	company name
+2	40	parent company
+3	32	street address
+4	30	city
+5	2	state
+6	5	5-digit zip code
+7	4	4-digit zip+4
+8	20	county
+9	20	computer brand
+10	20	computer model
+11	20	computer language
+12	3	local phone area code
+13	3	local phone prefix
+14	4	local phone extension
+15	4	year established
+16	1	area of distribution
+17	1	ownership type
+18	5	# employees at location
+19	5	# employees in plant
+20	5	# employees in office
+21	4	first SIC code
+22	4	second SIC code
+23	4	third SIC code
+24	4	fourth SIC code
+25	30	first executive's name
+26	30	first executive's title
+27	1	first executive's gender
+28	30	second executive's name
+29	30	second executive's title
+30	1	second executive's gender
+31	30	third executive's name
+32	30	third executive's title
+33	1	third executive's gender
+34	30	fourth executive's name
+35	30	fourth executive's title
+36	1	fourth executive's gender
+37	30	fifth executive's name
+38	30	fifth executive's title
+39	1	fifth executive's gender
+40	15	annual sales volume
+41	9	square footage of plant
+42	3	local 800 phone area code
+43	3	local 800 phone prefix
+44	4	local 800 phone extension
+45	3	national 800 phone area code
+46	3	national 800 phone prefix
+47	4	national 800 phone extension
+48	3	fax phone area code
+49	3	fax phone prefix
+50	4	fax phone extension
+51	80	product description
+52	80	brand names
+53	40	Parent company name
+54	36	Parent street address
+55	20	Parent city
+56	2	Parent state
+57	5	Parent 5-digit zip code
+58	4	Parent 4-digit zip+4
+59	3	parent phone area code
+60	3	parent phone prefix
+61	4	parent phone extension
+62	5	mail # to use for company
+63	5	mail # to use for parent company

@@ -1,0 +1,36 @@
+#
+# Copyright Milan Technology Inc., 1991, 1992
+#
+
+# @(#)MakefileSolaris	1.1 11/1/94::
+
+#If you wish to use prototyping (e.g. for gcc) define the flag -DANSI
+
+CC=/opt/cygnus-sol2-1.1/bin/gcc 
+
+#CFLAGS= -g -DBSD -DSUN 
+CFLAGS= -g -DLP -DSOLARIS -DSYSTEMV 
+
+FILTEROBJECTS= fpfilter.o printer.o errors.o options.o system.o udpstat.o
+
+PROGS= fpfilter  fpfilter.resolver fpstatus fpstatus.resolver
+
+SRCFILES= dp.h errors.c errors.h fpfilter.c fpstatus.c options.c printer.c std.h system.c udp.h udpstat.c Makefile
+
+.KEEP_STATE:
+all: errors.h $(PROGS)
+
+fpfilter:	$(FILTEROBJECTS) errors.h 
+	$(CC) $(CFLAGS) -o fpfilter $(FILTEROBJECTS) -lsocket -lnsl 
+
+fpfilter.resolver: $(FILTEROBJECTS) errors.h
+	$(CC) $(CFLAGS) -o fpfilter.resolver $(FILTEROBJECTS)  -lnsl -lsocket -lresolv
+
+fpstatus: fpstatus.o udpstat.o udp.h dp.h
+	$(CC) $(CFLAGS) -o fpstatus fpstatus.o udpstat.o -lnsl -lsocket 
+
+fpstatus.resolver : fpstatus.o udpstat.o udp.h dp.h
+	$(CC) $(CFLAGS) -o fpstatus.resolver fpstatus.o udpstat.o -lnsl -lsocket -lresolv
+
+clean:
+	rm -f *.o $(PROGS)

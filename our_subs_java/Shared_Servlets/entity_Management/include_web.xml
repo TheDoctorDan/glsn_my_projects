@@ -1,0 +1,230 @@
+
+  <servlet>
+    <servlet-name>Entity_Management_Subsystem_Servlet</servlet-name>
+    <servlet-class>entity_Management.Entity_Management_Subsystem_Servlet</servlet-class>
+  </servlet>
+  
+
+  <servlet>
+    <servlet-name>Enty100</servlet-name>
+    <servlet-class>entity_Management.Enty100</servlet-class>
+  </servlet>
+  
+
+  <servlet>
+    <servlet-name>Enty001</servlet-name>
+    <servlet-class>entity_Management.Enty001</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>Enty002</servlet-name>
+    <servlet-class>entity_Management.Enty002</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>Enty010</servlet-name>
+    <servlet-class>entity_Management.Enty010</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>Enty011</servlet-name>
+    <servlet-class>entity_Management.Enty011</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>Get_Organization_Type</servlet-name>
+    <servlet-class>entity_Management.Get_Organization_Type</servlet-class>
+  </servlet>
+
+
+  <servlet>
+    <servlet-name>Get_Person</servlet-name>
+    <servlet-class>entity_Management.Get_Person</servlet-class>
+  </servlet>
+ 
+
+  <servlet>
+    <servlet-name>Family_AutoCompletion</servlet-name>
+    <servlet-class>entity_Management.Family_AutoCompletion</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>Enty200</servlet-name>
+    <servlet-class>entity_Management.Enty200</servlet-class>
+  </servlet>
+
+
+  <servlet>
+    <servlet-name>Get_Family</servlet-name>
+    <servlet-class>entity_Management.Get_Family</servlet-class>
+  </servlet>
+  
+
+  <servlet>
+    <servlet-name>Enty101</servlet-name>
+    <servlet-class>entity_Management.Enty101</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>Enty102</servlet-name>
+    <servlet-class>entity_Management.Enty102</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>Enty103</servlet-name>
+    <servlet-class>entity_Management.Enty103</servlet-class>
+  </servlet>
+  
+
+  <servlet>
+    <servlet-name>Person_AutoCompletion</servlet-name>
+    <servlet-class>entity_Management.Person_AutoCompletion</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>Outside_User_LoginServlet</servlet-name>
+    <servlet-class>entity_Management.Outside_User_LoginServlet</servlet-class>
+  </servlet>
+  
+
+  <servlet>
+    <servlet-name>Enty300</servlet-name>
+    <servlet-class>entity_Management.Enty300</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>Organization_Type_AutoCompletion</servlet-name>
+    <servlet-class>entity_Management.Organization_Type_AutoCompletion</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>Organization_Contact_Type_AutoCompletion</servlet-name>
+    <servlet-class>entity_Management.Organization_Contact_Type_AutoCompletion</servlet-class>
+  </servlet>
+  
+
+  <servlet>
+    <servlet-name>Organization_AutoCompletion</servlet-name>
+    <servlet-class>entity_Management.Organization_AutoCompletion</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>Organization_School_AutoCompletion</servlet-name>
+    <servlet-class>entity_Management.Organization_School_AutoCompletion</servlet-class>
+  </servlet>
+
+
+  <servlet>
+    <servlet-name>Enty400</servlet-name>
+    <servlet-class>entity_Management.Enty400</servlet-class>
+  </servlet>
+  
+
+  <servlet>
+    <servlet-name>Enty407</servlet-name>
+    <servlet-class>entity_Management.Enty407</servlet-class>
+  </servlet>
+  
+
+
+
+
+
+  <servlet-mapping>
+    <servlet-name>Entity_Management_Subsystem_Servlet</servlet-name>
+    <url-pattern>/Entity_Management_Subsystem_Servlet</url-pattern>
+  </servlet-mapping>
+  
+
+  <servlet-mapping>
+    <servlet-name>Enty100</servlet-name>
+    <url-pattern>/Enty100</url-pattern>
+  </servlet-mapping>
+
+
+  <servlet-mapping>
+    <servlet-name>Enty001</servlet-name>
+    <url-pattern>/Enty001</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>Enty002</servlet-name>
+    <url-pattern>/Enty002</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>Enty010</servlet-name>
+    <url-pattern>/Enty010</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>Enty011</servlet-name>
+    <url-pattern>/Enty011</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>Get_Organization_Type</servlet-name>
+    <url-pattern>/Get_Organization_Type</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>Organization_AutoCompletion</servlet-name>
+    <url-pattern>/Organization_AutoCompletion</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>Organization_School_AutoCompletion</servlet-name>
+    <url-pattern>/Organization_School_AutoCompletion</url-pattern>
+  </servlet-mapping>
+
+
+  <servlet-mapping>
+    <servlet-name>Get_Person</servlet-name>
+    <url-pattern>/Get_Person</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>Family_AutoCompletion</servlet-name>
+    <url-pattern>/Family_AutoCompletion</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>Enty200</servlet-name>
+    <url-pattern>/Enty200</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>Get_Family</servlet-name>
+    <url-pattern>/Get_Family</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>Person_AutoCompletion</servlet-name>
+    <url-pattern>/Person_AutoCompletion</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>Outside_User_LoginServlet</servlet-name>
+    <url-pattern>/Outside_User_LoginServlet</url-pattern>
+  </servlet-mapping>
+
+
+  <servlet-mapping>
+    <servlet-name>Enty101</servlet-name>
+    <url-pattern>/Enty101</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>Enty102</servlet-name>
+    <url-pattern>/Enty102</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>Enty103</servlet-name>
+    <url-pattern>/Enty103</url-pattern>
+  </servlet-mapping>
+
+
+  <servlet-mapping>
+    <servlet-name>Enty300</servlet-name>
+    <url-pattern>/Enty300</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>Organization_Type_AutoCompletion</servlet-name>
+    <url-pattern>/Organization_Type_AutoCompletion</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>Organization_Contact_Type_AutoCompletion</servlet-name>
+    <url-pattern>/Organization_Contact_Type_AutoCompletion</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>Enty400</servlet-name>
+    <url-pattern>/Enty400</url-pattern>
+  </servlet-mapping>
+
+
+  <servlet-mapping>
+    <servlet-name>Enty407</servlet-name>
+    <url-pattern>/Enty407</url-pattern>
+  </servlet-mapping>
+

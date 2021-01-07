@@ -1,0 +1,118 @@
+#KRUN.ME7
+#
+# adjust grub.conf
+#
+
+
+PATH="$PATH:/usr/gleeson/src/rpm_updates/scripts"
+export PATH
+
+clear
+
+if [ -f /boot/grub/grub.conf ]
+then
+
+
+HD_BASE_DIR="/var/tmp/rpm_updates/RedHat_Kernels"
+export HD_BASE_DIR
+
+HD_DONE_DIR=$HD_BASE_DIR"/DONE"
+export HD_DONE_DIR
+
+HD_NOT_INSTALLED_DIR="$HD_BASE_DIR/NOT_INSTALLED"
+export HD_NOT_INSTALLED_DIR
+
+HD_RPMS_DIR="$HD_BASE_DIR/RPMS"
+export HD_RPMS_DIR
+
+
+PACKAGE_NAMES="$HD_BASE_DIR/PACKAGE_NAMES"
+export PACKAGE_NAMES
+
+VERSION_NAMES="$HD_BASE_DIR/VERSION_NAMES"
+export VERSION_NAMES
+
+INSTALLED_VERSION_NAMES="$HD_BASE_DIR/INSTALLED_VERSION_NAMES"
+export INSTALLED_VERSION_NAMES
+
+VERSION_NUMS="$HD_BASE_DIR/VERSION_NUMS"
+export VERSION_NUMS
+
+UPGRADEABLE_PACKAGE_NAMES="$HD_BASE_DIR/UPGRADEABLE_PACKAGE_NAMES"
+export UPGRADEABLE_PACKAGE_NAMES
+
+OLD_VMLINUZ_LIST="$HD_BASE_DIR/OLD_VMLINUZ_LIST"
+export OLD_VMLINUZ_LIST
+
+NEW_VMLINUZ_LIST="$HD_BASE_DIR/NEW_VMLINUZ_LIST"
+export NEW_VMLINUZ_LIST
+
+INSTALLING_VERSIONS="$HD_BASE_DIR/INSTALLING_VERSIONS"
+export INSTALLING_VERSIONS
+
+
+
+LOCAL_GRUB_CONF="$HD_BASE_DIR/LOCAL_GRUB_CONF"
+export LOCAL_GRUB_CONF
+
+cd /boot
+ls vmlinuz-* >$NEW_VMLINUZ_LIST
+cd $HD_RPMS_DIR
+
+comm -23 $NEW_VMLINUZ_LIST $OLD_VMLINUZ_LIST |sed 's/vmlinuz-//' >$INSTALLING_VERSIONS
+
+echo "New Vesrions:"
+cat $INSTALLING_VERSIONS
+echo
+
+for version_num in `cat $INSTALLING_VERSIONS`
+do
+	echo "running mkinitrd for $version_num "
+	mkinitrd /boot/initrd-${version_num}.img $version_num
+done
+
+echo
+echo
+bool "copy /boot/grub/grub.conf to /boot/grub/grub.conf.bak ?"
+if [ $? -eq 0 ]
+then
+	# yes
+	cp /boot/grub/grub.conf /boot/grub/grub.conf.bak
+	if [ $? -ne 0 ]
+	then
+		echo "Copy FAILED"
+		exit 1
+	fi
+fi
+rm $LOCAL_GRUB_CONF
+
+echo
+echo
+echo "changing grub.conf"
+
+for version_num in `cat $INSTALLING_VERSIONS`
+do
+	adjust_grub_conf $version_num
+done
+
+less $LOCAL_GRUB_CONF
+
+bool "copy $LOCAL_GRUB_CONF to  /boot/grub/grub.conf  ?"
+if [ $? -eq 0 ]
+then
+	# yes
+	cp $LOCAL_GRUB_CONF /boot/grub/grub.conf
+	if [ $? -ne 0 ]
+	then
+		echo "Copy FAILED"
+		exit 1
+	fi
+fi
+
+vi /boot/grub/grub.conf
+
+else
+	echo "No Grub.conf"
+	echo "hit enter"
+	read x
+fi

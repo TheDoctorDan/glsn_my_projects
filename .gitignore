@@ -1,0 +1,17 @@
+
+#nohup
+nohup.*
+
+last.make*
+
+core
+
+*.[awo]
+
+Keylist.h
+
+*.ln
+*.lcd
+*.class
+
+

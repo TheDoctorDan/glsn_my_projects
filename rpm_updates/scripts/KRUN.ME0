@@ -1,0 +1,20 @@
+# KRUN.ME0
+# kernel_query
+FILE=/tmp/KRUN.ME0_$$
+echo "  On This Machine we have:"
+>$FILE
+
+rpm -q kernel kernel-headers kernel-ibcs kernel-pcmcia-cs kernel-source >>$FILE
+
+rpm -q  kernel-doc kernel-smp kernel-utils >>$FILE
+
+rpm -q  mkinitrd SysVinit initscripts >>$FILE
+
+rpm -qa |grep kernel >>$FILE
+
+sort -u $FILE |less
+
+rm $FILE
+
+exit 0
+

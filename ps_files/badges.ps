@@ -1,0 +1,1191 @@
+%!PS-Adobe-2.0
+%%Creator: Professional Page V2.1  (C) Copyright 1991, Gold Disk Inc.
+%%Title: Badges.pp
+%%CreationDate: 21/05/1992   11:23:55
+%%Pages: (atend)
+
+%%DocumentFonts: 
+%%+ Helvetica-Bold
+
+%%EndComments
+save
+100 dict begin
+
+%=================================================================%
+% Professional Page PostScript Prologue file: V2.1, Aug 08, 1991 %
+%=================================================================%
+
+/uniqueid 0 def
+/amigavec [
+8#055 /hyphen
+8#230 /dotlessi
+8#231 /grave
+8#232 /acute
+8#233 /circumflex
+8#234 /tilde
+8#235 /dieresis
+8#236 /ring
+8#237 /cedilla
+8#240 /space
+8#241 /exclamdown
+8#242 /cent
+8#243 /sterling
+8#244 /currency
+8#245 /yen
+8#246 /bar
+8#247 /section
+8#250 /dieresis
+8#251 /copyright
+8#252 /ordfeminine
+8#253 /guillemotleft
+8#254 /logicalnot
+8#255 /.notdef
+8#256 /registered
+8#257 /macron
+8#260 /ring
+8#261 /.notdef
+8#262 /.notdef
+8#263 /dagger
+8#264 /.notdef
+8#265 /.notdef
+8#266 /paragraph
+8#267 /bullet
+8#270 /quotesinglbase
+8#271 /.notdef
+8#272 /ordmasculine
+8#273 /guillemotright
+8#274 /.notdef
+8#275 /.notdef
+8#276 /.notdef
+8#277 /questiondown
+8#300 /Agrave
+8#301 /Aacute
+8#302 /Acircumflex
+8#303 /Atilde
+8#304 /Adieresis
+8#305 /Aring
+8#306 /AE
+8#307 /Ccedilla
+8#310 /Egrave
+8#311 /Eacute
+8#312 /Ecircumflex
+8#313 /Edieresis
+8#314 /Igrave
+8#315 /Iacute
+8#316 /Icircumflex
+8#317 /Idieresis
+8#320 /.notdef
+8#321 /Ntilde
+8#322 /Ograve
+8#323 /Oacute
+8#324 /Ocircumflex
+8#325 /Otilde
+8#326 /Odieresis
+8#327 /.notdef
+8#330 /Oslash
+8#331 /Ugrave
+8#332 /Uacute
+8#333 /Ucircumflex
+8#334 /Udieresis
+8#335 /.notdef
+8#336 /.notdef
+8#337 /germandbls
+8#340 /agrave
+8#341 /aacute
+8#342 /acircumflex
+8#343 /atilde
+8#344 /adieresis
+8#345 /aring
+8#346 /ae
+8#347 /ccedilla
+8#350 /egrave
+8#351 /eacute
+8#352 /ecircumflex
+8#353 /edieresis
+8#354 /igrave
+8#355 /iacute
+8#356 /icircumflex
+8#357 /idieresis
+8#360 /.notdef
+8#361 /ntilde
+8#362 /ograve
+8#363 /oacute
+8#364 /ocircumflex
+8#365 /otilde
+8#366 /odieresis
+8#367 /.notdef
+8#370 /oslash
+8#371 /ugrave
+8#372 /uacute
+8#373 /ucircumflex
+8#374 /udieresis
+8#375 /.notdef
+8#376 /.notdef
+8#377 /ydieresis
+] def
+
+/bdef {bind def} bind def
+/ldef {load def} bdef
+/n /newpath ldef
+/m2 /moveto ldef
+/l2 /lineto ldef
+/rm /rmoveto ldef
+/rl /rlineto ldef
+/gs /gsave ldef
+/gr /grestore ldef
+/g /setgray ldef
+/s /stroke ldef
+
+/mvx {
+   currentpoint exch pop m2
+} bdef
+/mvy {
+   currentpoint pop exch m2
+} bdef
+/ln { % x y ln matrix
+   matrix currentmatrix 3 1 roll translate 0 0 m2
+}bdef
+/ln2 {
+   setmatrix
+} bdef
+/wrd { % x (s) wrd -
+   show mvx
+} bdef
+
+/concatprocs {
+   3 dict begin
+   /proc2 exch cvlit def
+   /proc1 exch cvlit def
+   /newproc proc1 length proc2 length add array def
+   newproc 0 proc1 putinterval
+   newproc proc1 length proc2 putinterval
+   newproc cvx
+   end
+} bdef
+
+/dontCopyID false def
+/copyfont {
+   { exch dup /FID ne
+      {
+	 dup /UniqueID eq dontCopyID and
+	 {pop pop}
+	 {
+	    dup /Encoding eq
+	    { exch dup length array copy outfontdict 3 1 roll put}
+	    { exch outfontdict 3 1 roll put}
+	    ifelse
+	 }
+	 ifelse
+      }
+      { pop pop}
+      ifelse
+   } forall
+} bdef
+
+/recode {
+   copyfont dup dup
+   outfontdict /FontName 3 -1 roll put
+   amigavec aload pop
+   amigavec length 2 idiv
+   {outfontdict /Encoding get 3 1 roll put} repeat
+} bdef
+
+/defamigafont {
+   /fntsclmtx [0 0 0 0 0 0] def
+   exch
+   dup fntsclmtx exch 0 exch put
+   neg fntsclmtx exch 3 exch put
+   findfont fntsclmtx makefont setfont
+} bdef
+
+/deffont  {
+   3 -1 roll
+   {
+      dup dup length dup 5 add string /newnamestr exch def
+      exch newnamestr copy pop newnamestr exch (Amiga) putinterval
+      newnamestr cvn dup FontDirectory exch known
+      {exch pop}
+      {
+	 exch cvn findfont
+	 dup maxlength 2 add dict /outfontdict exch def
+	 /dontCopyID false def recode
+	 outfontdict definefont pop
+      }
+      ifelse
+   }
+   { cvn }
+   ifelse
+   defamigafont
+} bdef
+
+/MakeOutline {
+   3 -1 roll
+   {/xtra 8 def /suffix (OutAmiga) def}
+   {/xtra 3 def /suffix (Out) def}
+   ifelse
+   dup dup length dup xtra add string /newnamestr exch def
+   exch newnamestr copy pop newnamestr exch suffix putinterval
+   newnamestr cvn dup FontDirectory exch known
+   {exch pop}
+   {
+      exch cvn findfont
+      dup dup maxlength
+      exch /UniqueID known not {1 add} if
+      dict /outfontdict exch def
+      /dontCopyID true def
+      xtra 8 eq {recode}{copyfont dup} ifelse
+%      outfontdict /UniqueID uniqueid put
+%      /uniqueid uniqueid 1 add def
+      outfontdict /PaintType 2 put
+      outfontdict /StrokeWidth 1000 36 div put
+      outfontdict definefont pop
+   } ifelse
+   defamigafont
+} bdef
+
+/rect 4 array def  % used in dobox
+/dorect {
+   n
+   rect aload pop 4 copy m2 3 1 roll exch l2
+   4 2	roll l2 l2
+   closepath
+} bdef
+
+/dobox {	      %clip trnsp x1 y1 x2 y2 dobox
+   rect astore pop
+   {} {dorect 1 setgray fill} ifelse
+   {dorect clip} if
+} bdef
+
+/dogreyimage {	 % width height xscl yscl x0 y0 dogreyimage
+   5 index 1 add 2 idiv string
+   /picstr exch def
+   translate scale
+   4 [1 0 0 1 0 0]
+   {currentfile  picstr readhexstring pop }
+   image
+} bdef
+
+/do8greyimage {   % width height xscl yscl x0 y0 do8greyimage
+		  % same as above, but 8 bits per sample
+   5 index string
+   /picstr exch def
+   translate scale
+   8 [1 0 0 1 0 0]
+   {currentfile  picstr readhexstring pop }
+   image
+} bdef
+
+/do8bingreyimage {   % width height xscl yscl x0 y0 do8greyimage
+		     % same as above, but 8 bits per sample
+   5 index string
+   /picstr exch def
+   translate scale
+   8 [1 0 0 1 0 0]
+   {currentfile  picstr readstring pop }
+   image
+} bdef
+
+
+/docolorimage { % width height xscl yscl x0 y0 docolorimage
+   4 dict begin
+     5 index 1 add 2 idiv
+     dup /cstr exch string def
+     dup /ystr exch string def
+     dup /mstr exch string def
+     /kstr exch string def
+     translate scale
+     4 [1 0 0 1 0 0]
+     { currentfile cstr readhexstring pop }
+     { currentfile mstr readhexstring pop }
+     { currentfile ystr readhexstring pop }
+     { currentfile kstr readhexstring pop }
+     true 4 colorimage
+   end
+} bdef
+
+/do8colorimage { % width height xscl yscl x0 y0 docolorimage
+   4 dict begin
+     5 index
+     dup /cstr exch string def
+     dup /ystr exch string def
+     dup /mstr exch string def
+     /kstr exch string def
+     translate scale
+     8 [1 0 0 1 0 0]
+     { currentfile cstr readhexstring pop }
+     { currentfile mstr readhexstring pop }
+     { currentfile ystr readhexstring pop }
+     { currentfile kstr readhexstring pop }
+     true 4 colorimage
+   end
+} bdef
+
+/bwline {  % linewidth linejoin linecap grey dash 0 bwline
+   setdash setgray setlinecap setlinejoin setlinewidth
+} bdef
+
+/colorline {  %linewidth linejoin linecap c m y k dash 0 colorline
+   setdash setcmykcolor setlinecap setlinejoin setlinewidth
+} bdef
+
+/ellipsedict 2 dict def
+ellipsedict /mtrx matrix put
+
+/ellipse {		% xr yr angle cx cy  ellipse
+   ellipsedict begin
+      /savematrix mtrx currentmatrix def
+      translate
+      rotate
+      scale
+      0 0 1 0 360 arc
+      savematrix setmatrix
+   end
+} bdef
+
+%
+% patterned fill....
+%
+/setuserscreendict 22 dict def
+setuserscreendict begin
+   /tempctm matrix def
+   /temprot matrix def
+   /tempscale matrix def
+   /resmatrix matrix def
+   /findresolution {
+      72 0 resmatrix defaultmatrix dtransform
+      /yres exch def /xres exch def
+      xres dup mul yres dup mul add sqrt
+   } bdef
+end
+
+/setuserscreen {
+   setuserscreendict begin
+      /spotfunction exch def
+      /screenangle exch def
+      /cellsize exch def
+      /mm tempctm currentmatrix def
+      /rmm screenangle temprot rotate def
+      /sm cellsize dup tempscale scale def
+      sm rmm mm mm concatmatrix mm concatmatrix pop
+      1 0 mm dtransform /y1 exch def /x1 exch def
+      /veclength x1 dup mul y1 dup mul add sqrt def
+      /frequency findresolution veclength div def
+      /newscreenangle y1 x1 atan def
+      mm 2 get mm 1 get mul mm 0 get mm 3 get mul sub 0 gt
+	 { {neg} /spotfunction load concatprocs /spotfunction exch def
+	 } if
+      frequency newscreenangle /spotfunction load setscreen
+   end
+} bdef
+
+/setpatterndict  18 dict def
+setpatterndict begin
+   /bitison {
+      /ybit exch def /xbit exch def
+      /bytevalue bstring ybit bwidth mul xbit 8 idiv add get def
+      /mask 1 7 xbit 8 mod sub bitshift def
+      bytevalue mask and 0 ne
+   } bdef
+end
+
+/bitpatternspotfunction {
+   setpatterndict begin
+      /y exch def /x exch def
+      /xindex x .999999 add 2 div bpside mul cvi def
+      /yindex y .999999 add 2 div bpside mul cvi def
+      xindex yindex bitison
+      { /onbits onbits 1 add def 1}
+      { /offbits offbits 1 add def 0}
+      ifelse
+   end
+} bdef
+
+/setpattern {
+   setpatterndict begin
+      /cellsz exch def
+      /angle exch def
+      /bwidth exch def
+      /bpside exch def
+      /bstring exch def
+      /onbits 0 def /offbits 0 def
+      cellsz angle /bitpatternspotfunction load setuserscreen
+      {} settransfer
+      offbits offbits onbits add div setgray
+   end
+} bdef
+
+%
+
+/initpage {
+   gs
+   0 pageysize translate
+   0.96 -0.96 scale
+} bdef
+
+/endpage {
+   grestore
+} bdef
+
+/getpagetype { % width ht orient getpagetype width ht orient pagetype
+   dup 0 eq {0}
+   {
+      3 copy pop
+      2 copy 709 le exch 499 le and
+      {pop pop 4} {
+	 2 copy 842 le exch 596 le and
+	 {pop pop 3} {
+	    2 copy 792 le exch 612 le and
+	    {pop pop 1} {
+	       1008 le exch 612 le and
+	       {2} {0} ifelse
+	    } ifelse
+	 } ifelse
+      } ifelse
+   } ifelse
+} bdef
+
+/initcolorpage { % pitch1 angle1 ... pitch4 angle4 ysize width ht orient neg mirror manual #copies epsf----
+   commoninit
+   12 dict begin
+      /ka exch def /kf exch def
+      /ba exch def /bf exch def
+      /ga exch def /gf exch def
+      /ra exch def /rf exch def
+      currentcolorscreen
+      /kp exch def pop pop
+      /bp exch def pop pop
+      /gp exch def pop pop
+      /rp exch def pop pop
+      rf ra /rp load gf ga /gp load bf ba /bp load kf ka /kp load setcolorscreen
+   end
+} bdef
+
+/initbwpage { % pitch angle ysize width ht orient neg mirror manual #copies epsf ----
+   commoninit
+   currentscreen 3 1 roll pop pop setscreen
+} bdef
+
+/commoninit { % ysize width ht orient neg mirror manual #copies epsf ----
+   {pop pop pop pop pop pop pop}
+   {
+      /#copies exch def
+      statusdict begin
+	 statusdict /manualfeed known
+	 {/manualfeed exch def} {pop} ifelse
+	 statusdict /mirrorprint known
+	 {/mirrorprint exch def} {pop} ifelse
+	 statusdict /negativeprint known
+	 {/negativeprint exch def} {pop} ifelse
+	 getpagetype
+	 dup 0 ne {
+	    dup 1 eq {
+	       userdict /letter known
+	       {letter} {pop 0} ifelse
+	    } if
+	    dup 2 eq {
+	       userdict /legal known
+	       {legal}	{pop 0} ifelse
+	    } if
+	    dup 3 eq {
+	       userdict /a4 known
+	       {a4} {pop 0} ifelse
+	    } if
+	    dup 4 eq {
+	       userdict /b5 known
+	       {b5} {pop 0} ifelse
+	    } if
+	 } if
+	 0 eq statusdict /setpage known and
+	 {setpage} {pop pop pop} ifelse
+      end
+   }
+   ifelse
+   /pageysize exch def
+} bdef
+
+/crop { 		% x0 y0 x1 y1 l s crop
+    2 dict begin
+       /spc exch def /len exch def
+       n
+       0.25 setlinewidth 0 setgray
+       2 copy m2 0 spc rm 0 len rl 2 copy m2 spc 0 rm len 0 rl
+       4 2 roll 2 copy m2 0 spc neg rm 0 len neg rl 2 copy m2 spc neg 0 rm len neg 0 rl
+       4 1 roll exch
+       2 copy m2 0 spc rm 0 len rl m2 spc neg 0 rm len neg 0 rl
+       exch 2 copy m2 spc 0 rm len 0 rl m2 0 spc neg rm 0 len neg rl
+       stroke
+    end
+} bdef
+
+/cross {   % xc yc len cross
+   1 dict begin
+      /len exch def
+      m2 0 len -2 div rm 0 len rl
+      len -2 div dup rm len 0 rl
+      stroke
+   end
+} bdef
+
+/oneregister {	 % xc yc len oneregister
+   0 setgray 0.25 setlinewidth
+   3 copy 3 copy 3 copy cross 2.5 div 0 360 arc stroke 4 div 0 360 arc fill
+   1 setgray 2 div cross
+} bdef
+
+/drwcalibbar {	 % x0 y0 wid len drwcalibbar
+   fourcol not component 1 eq or {
+      5 dict begin
+	 n
+	 /len exch def /width exch def /y0 exch def /x0 exch def
+	 /increment width 10 div def
+	 increment len gt {
+	    /increment len def
+	 } if
+	 x0 y0 m2
+	 0.0 0.1 1.0 {
+	    setgray
+	    len neg 0 rl 0 increment rl len 0 rl currentpoint fill m2
+	 } for
+      end
+   }
+   {
+      pop pop pop pop
+   } ifelse
+} bdef
+
+/drwpatch {		 % k y m c len incr drwpatch
+   3 dict begin
+      /incr exch def /len exch def
+      component 1 eq {pop pop pop /grayval exch def}{
+	 component 2 eq {pop pop /grayval exch def pop}{
+	    component 3 eq {pop /grayval exch def pop pop}{
+	       component 4 eq {/grayval exch def pop pop pop}{
+		  /grayval -1 def pop pop pop pop
+	       }ifelse
+	    }ifelse
+	 }ifelse
+      } ifelse
+      grayval -1 ne {
+	 grayval setgray
+	 len neg 0 rl 0 incr neg rl len 0 rl currentpoint fill m2
+      } if
+   end
+} bdef
+
+/drwcolcalib {	 % gr1 gr2 x0 y0 wid len drwcolcalib
+   7 dict begin
+      n
+      /len exch def /width exch def /y0 exch def /x0 exch def
+      /gr2 exch def /gr1 exch def
+      /increment width 10 div def
+      increment len gt {
+	 /increment len def
+      } if
+      x0 y0 m2
+      gr1 1.0 1.0 1.0 len increment drwpatch   % K
+      1.0 gr1 gr1 gr1 len increment drwpatch   % CMY
+      1.0 gr2 1.0 gr2 len increment drwpatch   % CY
+      1.0 1.0 1.0 gr2 len increment drwpatch   % C
+      1.0 1.0 gr2 gr2 len increment drwpatch   % CM
+      1.0 1.0 gr2 1.0 len increment drwpatch   % M
+      1.0 gr2 gr2 1.0 len increment drwpatch   % MY
+      1.0 gr2 1.0 1.0 len increment drwpatch   % Y
+   end
+} bdef
+
+/register {		% x0 y0 x1 y1 l s register
+    6 dict begin
+       n
+       /spc exch def /len exch def
+       /y1 exch def /x1 exch def /y0 exch def /x0 exch def
+       x1 x0 add 2 div y0 spc sub len 2 div sub len oneregister
+       x1 x0 add 2 div y1 spc len 2 div add add len oneregister
+       x0 spc sub len 2 div sub y1 y0 add 2 div len oneregister
+       x1 spc len 2 div add add y1 y0 add 2 div len oneregister
+       x0 spc sub
+       len 2 div y0 add
+       y1 y0 sub 2 div len sub len 2 div sub
+       len drwcalibbar
+       0.5 0.2 x0 spc sub
+       y1 len 2 div sub
+       y1 y0 sub 2 div len sub len 2 div sub
+       len drwcolcalib
+       0.0 0.0 x1 spc add len add
+       y1 len 2 div sub
+       y1 y0 sub 2 div len sub len 2 div sub
+       len drwcolcalib
+    end
+} bdef
+
+/findid {
+   /uniqueid 0 def
+   FontDirectory
+   {
+      exch pop
+      dup /UniqueID known
+      {
+	 /UniqueID get dup uniqueid gt
+	 {/uniqueid exch def}
+	 {pop}
+	 ifelse
+      }
+      {pop}
+      ifelse
+   }
+   forall
+   /uniqueid uniqueid 1 add def
+} bdef
+
+/MakeNarrow {	 % basename newname MakeNarrow
+   findid
+   /newname exch def
+   /basename exch def
+   /basefontdict basename findfont def
+   /newfont basefontdict maxlength dict def
+   basefontdict
+   {exch dup /FID ne
+      {exch newfont 3 1 roll put}
+      {pop pop}
+      ifelse
+   }
+   forall
+   newfont /FontName newname put
+   newfont /FontMatrix basefontdict
+   /FontMatrix get [0.82 0 0 1 0 0 ]
+      [0 0 0 0 0 0] concatmatrix put
+   newfont /UniqueID known
+   { newfont /UniqueID uniqueid put}
+   if
+   newname newfont definefont pop
+} def
+
+%/Helvetica /Helvetica-Narrow MakeNarrow
+/Helvetica-Bold /Helvetica-Narrow-Bold MakeNarrow
+%/Helvetica-Oblique /Helvetica-Narrow-Oblique MakeNarrow
+%/Helvetica-BoldOblique /Helvetica-Narrow-BoldOblique MakeNarrow
+
+%====================%
+
+
+%%EndProlog
+
+%%BeginProcessColor: Black
+
+/fourcol true def /component 0 def
+60.00000 45.00000 792 612 792 1 false false false 1 false initbwpage
+
+%%Page: 1 1
+
+initpage
+gs
+187.500 328.125 translate 0.000 rotate 1.000 1.000 scale
+0.00 0.00 262.50 168.75 37.50 18.75 crop
+n 0 0 m2 262.499 0 l2 262.499 168.749 l2 0 168.749 l2 clip
+gsave 7.375 7.375 translate 
+gsave true true -4.000 -4.000 251.750 158.000 dobox
+
+gs 
+n 2.000 2.000 m2 
+2.000 152.000 l2 
+245.750 152.000 l2 
+245.750 2.000 l2 
+2.000 2.000 l2  closepath
+4.17 0 0 0.67 [] 0 bwline stroke
+grestore
+grestore
+grestore
+gsave 41.761 32.386 translate 
+gsave true true -4.261 -4.261 183.239 42.614 dobox
+0.42042 0.42042 scale 
+n
+163.95 0.00 m2
+117.25 91.22 l2 
+205.66 56.76 l2 
+163.95 0.00 l2 
+closepath
+gs 0.801 setgray eofill gr
+n
+20.51 32.86 m2
+19.00 32.88 l2 
+19.00 32.88 19.00 34.10 17.84 34.10 curveto 
+16.68 34.10 2.59 34.10 2.59 34.10 curveto 
+2.59 34.10 1.19 34.24 1.07 35.01 curveto 
+0.86 36.33 0.03 40.17 0.03 40.17 curveto 
+1.53 40.17 l2 
+1.53 40.17 1.76 39.01 2.53 39.02 curveto 
+3.57 39.04 5.72 39.02 5.72 39.02 curveto 
+1.65 58.22 l2 
+1.65 58.22 1.32 59.06 2.59 59.06 curveto 
+3.85 59.06 11.09 59.06 11.09 59.06 curveto 
+11.09 57.79 l2 
+11.09 57.79 9.51 58.09 9.83 56.67 curveto 
+10.14 55.26 13.28 39.08 13.28 39.08 curveto 
+18.28 39.08 l2 
+18.28 39.08 19.20 39.16 19.42 38.15 curveto 
+19.69 36.96 20.51 32.86 20.51 32.86 curveto 
+closepath
+gs 0.000 setgray eofill gr
+n
+192.15 40.36 m2
+192.15 41.17 l2 
+192.11 41.17 193.21 41.17 193.09 41.91 curveto 
+192.96 42.64 189.81 56.77 189.81 56.77 curveto 
+189.81 56.77 189.64 57.42 190.41 57.42 curveto 
+191.17 57.42 196.53 57.42 196.53 57.42 curveto 
+196.53 56.77 l2 
+196.53 56.77 195.81 56.77 195.85 56.24 curveto 
+195.89 55.71 198.91 41.13 198.91 41.13 curveto 
+198.91 41.13 199.00 40.36 198.27 40.36 curveto 
+197.55 40.36 192.15 40.36 192.15 40.36 curveto 
+closepath
+gs 0.000 setgray eofill gr
+n
+63.30 33.79 m2
+63.30 34.98 l2 
+63.30 34.98 64.68 34.86 64.36 35.77 curveto 
+64.05 36.66 56.24 57.96 56.24 57.96 curveto 
+56.24 57.96 56.12 59.04 57.30 59.04 curveto 
+58.49 59.04 64.30 59.04 64.30 59.04 curveto 
+64.30 57.96 l2 
+64.30 57.96 63.05 57.96 63.37 56.94 curveto 
+63.68 55.92 66.87 45.60 66.87 45.60 curveto 
+66.87 45.60 67.68 44.04 67.80 45.60 curveto 
+67.93 47.16 68.18 58.98 68.18 58.98 curveto 
+74.80 58.98 l2 
+79.87 46.20 l2 
+79.87 46.20 80.68 44.28 80.80 46.20 curveto 
+80.93 48.13 81.11 58.98 81.11 58.98 curveto 
+89.99 58.98 l2 
+89.99 57.90 l2 
+89.99 57.90 88.43 57.72 88.37 56.46 curveto 
+88.30 55.21 87.93 34.98 87.93 34.98 curveto 
+87.93 34.98 87.80 33.79 86.87 33.79 curveto 
+85.93 33.79 77.30 33.79 77.30 33.79 curveto 
+77.30 35.04 l2 
+77.30 35.04 78.68 34.98 78.36 36.06 curveto 
+78.05 37.14 75.24 43.98 75.24 43.98 curveto 
+75.24 43.98 74.05 46.75 73.87 44.04 curveto 
+73.68 41.34 73.05 35.04 73.05 35.04 curveto 
+73.05 35.04 72.99 33.79 71.87 33.79 curveto 
+70.74 33.79 63.30 33.79 63.30 33.79 curveto 
+closepath
+gs 0.000 setgray eofill gr
+n
+249.03 43.26 m2
+245.48 43.26 240.04 42.86 238.38 49.97 curveto 
+236.83 56.63 240.32 57.40 245.48 57.43 curveto 
+252.30 57.46 254.29 57.59 255.74 50.22 curveto 
+257.00 43.67 255.13 43.26 249.03 43.26 curveto 
+ closepath 
+249.65 50.67 m2
+248.59 54.60 247.33 54.73 245.92 54.73 curveto 
+244.10 54.73 243.26 54.44 244.64 49.94 curveto 
+245.64 46.66 246.85 46.09 248.25 46.09 curveto 
+250.02 46.09 250.69 46.74 249.65 50.67 curveto 
+ closepath 
+gs 0.000 setgray eofill gr
+n
+305.88 43.26 m2
+302.33 43.26 296.88 42.86 295.23 49.97 curveto 
+293.67 56.63 297.17 57.40 302.33 57.43 curveto 
+309.15 57.46 311.15 57.59 312.59 50.22 curveto 
+313.84 43.67 311.98 43.26 305.88 43.26 curveto 
+ closepath 
+306.38 50.67 m2
+305.33 54.60 304.07 54.73 302.66 54.73 curveto 
+300.83 54.73 300.00 54.44 301.38 49.94 curveto 
+302.37 46.66 303.58 46.09 304.99 46.09 curveto 
+306.76 46.09 307.42 46.74 306.38 50.67 curveto 
+ closepath 
+gs 0.000 setgray eofill gr
+n
+236.74 43.74 m2
+228.09 43.74 l2 
+228.09 43.74 223.03 43.78 221.49 49.22 curveto 
+219.92 54.67 218.78 57.46 226.15 57.46 curveto 
+233.58 57.46 233.64 56.92 233.86 56.43 curveto 
+234.08 55.94 235.08 52.66 235.08 52.66 curveto 
+234.19 52.66 l2 
+234.19 52.66 233.91 53.32 233.25 53.32 curveto 
+232.59 53.32 229.03 53.32 229.03 53.32 curveto 
+229.03 53.32 227.26 53.20 227.53 52.25 curveto 
+227.74 51.53 228.81 47.83 228.81 47.83 curveto 
+228.81 47.83 229.31 47.05 230.70 47.05 curveto 
+232.08 47.05 234.80 47.05 234.80 47.05 curveto 
+234.80 47.05 235.74 47.01 235.96 46.31 curveto 
+236.18 45.63 236.74 43.74 236.74 43.74 curveto 
+closepath
+gs 0.000 setgray eofill gr
+n
+359.10 41.20 m2
+356.33 41.20 l2 
+356.33 41.20 354.99 44.27 352.44 44.27 curveto 
+349.89 44.27 350.22 44.31 350.22 44.31 curveto 
+349.56 47.01 l2 
+351.00 47.01 l2 
+348.29 56.39 l2 
+348.29 56.39 348.34 57.46 349.56 57.46 curveto 
+350.77 57.46 358.77 57.46 358.77 57.46 curveto 
+358.77 57.46 359.82 57.46 360.04 56.88 curveto 
+360.26 56.31 361.21 53.32 361.21 53.32 curveto 
+359.87 53.32 l2 
+359.87 53.32 359.76 54.02 358.99 54.02 curveto 
+358.21 54.02 356.82 54.02 356.82 54.02 curveto 
+356.82 54.02 355.72 53.97 355.88 53.36 curveto 
+356.04 52.75 357.21 48.16 357.21 48.16 curveto 
+357.21 48.16 357.44 47.42 358.38 47.42 curveto 
+359.32 47.42 361.43 47.42 361.43 47.42 curveto 
+361.43 47.42 362.21 47.42 362.43 46.64 curveto 
+362.64 45.87 362.98 43.90 362.98 43.90 curveto 
+358.32 43.90 l2 
+359.10 41.20 l2 
+closepath
+gs 0.000 setgray eofill gr
+n
+201.17 43.70 m2
+201.17 44.51 l2 
+201.17 44.51 202.71 44.51 202.50 45.25 curveto 
+202.28 45.99 199.34 56.68 199.34 56.68 curveto 
+199.34 56.68 199.23 57.46 200.45 57.46 curveto 
+201.66 57.46 207.04 57.46 207.04 57.46 curveto 
+207.04 56.72 l2 
+207.04 56.72 205.77 56.72 205.94 56.11 curveto 
+206.10 55.49 207.92 49.31 208.32 47.79 curveto 
+208.65 46.52 211.70 46.40 211.37 47.79 curveto 
+210.89 49.79 209.15 56.76 209.15 56.76 curveto 
+209.15 56.76 209.10 57.46 210.38 57.46 curveto 
+211.65 57.46 216.81 57.46 216.81 57.46 curveto 
+216.81 56.68 l2 
+216.81 56.68 215.59 56.60 215.75 56.06 curveto 
+215.92 55.53 218.97 44.96 218.97 44.96 curveto 
+218.97 44.96 218.86 43.70 217.03 43.70 curveto 
+216.39 43.70 215.29 43.70 212.70 43.70 curveto 
+209.54 43.70 209.55 45.37 208.88 45.37 curveto 
+208.57 45.37 209.82 43.70 207.99 43.70 curveto 
+203.95 43.70 201.17 43.70 201.17 43.70 curveto 
+closepath
+gs 0.000 setgray eofill gr
+n
+193.67 62.00 m2
+404.34 62.07 l2 
+gs 0.801 setgray eofill gr
+0.52 0 0 0.00 [] 0 bwline 
+n
+193.67 62.00 m2 193.67 62.00 404.34 62.07 404.34 62.07 curveto stroke
+n
+190.79 35.74 m2
+405.02 35.66 l2 
+gs 0.801 setgray eofill gr
+0.52 0 0 0.00 [] 0 bwline 
+n
+190.79 35.74 m2 190.79 35.74 405.02 35.66 405.02 35.66 curveto stroke
+n
+259.66 43.40 m2
+259.66 44.17 l2 
+259.66 44.17 260.75 44.17 260.59 44.87 curveto 
+260.43 45.56 257.47 56.72 257.47 56.72 curveto 
+257.47 56.72 257.43 57.42 258.57 57.42 curveto 
+259.72 57.42 265.90 57.42 265.90 57.42 curveto 
+265.90 56.60 l2 
+265.90 56.60 264.21 56.56 264.31 55.83 curveto 
+264.42 55.09 266.07 48.59 266.07 48.59 curveto 
+266.07 48.59 266.23 47.12 267.65 47.12 curveto 
+269.07 47.12 271.48 47.12 271.48 47.12 curveto 
+271.48 47.12 272.36 47.12 272.58 46.30 curveto 
+272.79 45.48 273.67 43.40 273.67 43.40 curveto 
+270.01 43.40 l2 
+270.01 43.40 268.80 43.40 268.42 43.88 curveto 
+267.97 44.19 267.38 45.24 267.10 45.24 curveto 
+266.50 45.24 267.16 44.21 267.21 43.80 curveto 
+267.21 43.80 266.99 43.40 266.12 43.40 curveto 
+265.25 43.40 259.66 43.40 259.66 43.40 curveto 
+closepath
+gs 0.000 setgray eofill gr
+n
+395.13 50.85 m2
+394.08 54.78 393.45 54.91 391.41 54.91 curveto 
+389.58 54.91 388.75 54.62 390.13 50.13 curveto 
+391.12 46.86 392.33 46.29 393.73 46.29 curveto 
+394.98 46.32 396.28 46.29 396.28 46.29 curveto 
+396.28 46.29 395.70 48.68 395.13 50.85 curveto 
+ closepath 
+396.50 40.36 m2
+396.50 41.13 l2 
+396.50 41.13 397.66 41.17 397.44 41.74 curveto 
+397.23 42.31 396.89 43.79 396.89 43.79 curveto 
+396.89 43.79 392.79 43.78 392.02 43.79 curveto 
+389.47 43.82 386.19 43.88 384.10 49.59 curveto 
+381.99 55.32 383.99 57.40 387.59 57.40 curveto 
+391.18 57.40 391.85 57.36 392.46 56.79 curveto 
+392.70 56.56 392.96 56.10 393.34 56.13 curveto 
+393.78 56.18 393.34 56.47 393.29 56.79 curveto 
+393.18 57.56 394.29 57.44 394.29 57.44 curveto 
+401.04 57.44 l2 
+401.04 56.71 l2 
+401.04 56.71 399.94 56.71 400.05 56.09 curveto 
+400.15 55.48 404.03 41.21 404.03 41.21 curveto 
+404.03 41.21 403.86 40.36 402.76 40.36 curveto 
+401.66 40.36 396.50 40.36 396.50 40.36 curveto 
+ closepath 
+gs 0.000 setgray eofill gr
+n
+316.23 43.40 m2
+316.23 44.17 l2 
+316.23 44.17 317.33 44.17 317.17 44.87 curveto 
+317.00 45.56 314.04 56.72 314.04 56.72 curveto 
+314.04 56.72 314.00 57.42 315.14 57.42 curveto 
+316.29 57.42 322.47 57.42 322.47 57.42 curveto 
+322.47 56.60 l2 
+322.47 56.60 320.78 56.56 320.89 55.83 curveto 
+320.99 55.09 322.64 48.59 322.64 48.59 curveto 
+322.64 48.59 322.80 47.12 324.22 47.12 curveto 
+325.64 47.12 328.05 47.12 328.05 47.12 curveto 
+328.05 47.12 328.93 47.12 329.15 46.30 curveto 
+329.36 45.48 330.24 43.40 330.24 43.40 curveto 
+326.58 43.40 l2 
+326.58 43.40 325.37 43.40 324.99 43.88 curveto 
+324.54 44.19 323.95 45.24 323.67 45.24 curveto 
+323.07 45.24 323.73 44.21 323.79 43.80 curveto 
+323.79 43.80 323.56 43.40 322.69 43.40 curveto 
+321.82 43.40 316.23 43.40 316.23 43.40 curveto 
+closepath
+gs 0.000 setgray eofill gr
+n
+23.56 38.58 m2
+23.56 39.66 l2 
+23.56 39.66 24.47 39.61 24.37 40.34 curveto 
+24.27 41.08 20.70 58.33 20.70 58.33 curveto 
+20.70 58.33 20.55 59.01 21.36 59.01 curveto 
+22.18 59.01 28.81 59.01 28.81 59.01 curveto 
+28.87 58.28 l2 
+28.87 58.28 27.44 58.33 27.59 57.15 curveto 
+27.74 55.98 28.87 50.54 28.87 50.54 curveto 
+28.87 50.54 29.28 49.51 29.68 50.54 curveto 
+30.09 51.57 32.44 58.43 32.44 58.43 curveto 
+32.44 58.43 32.73 59.04 33.39 59.04 curveto 
+34.05 59.04 38.06 59.01 38.06 59.01 curveto 
+38.06 59.01 38.53 59.00 38.67 58.28 curveto 
+38.81 57.54 39.43 54.60 39.43 54.60 curveto 
+38.11 54.60 l2 
+38.11 54.60 37.65 54.60 37.44 53.92 curveto 
+37.24 53.23 36.22 49.80 36.22 49.80 curveto 
+36.22 49.80 38.98 50.63 40.50 44.51 curveto 
+42.04 38.39 37.90 38.58 37.90 38.58 curveto 
+23.56 38.58 l2 
+ closepath 
+30.29 42.74 m2
+29.63 46.22 l2 
+33.05 46.22 l2 
+33.05 46.22 33.92 46.27 34.43 44.45 curveto 
+34.94 42.65 33.66 42.74 33.66 42.74 curveto 
+30.29 42.74 l2 
+ closepath 
+gs 0.000 setgray eofill gr
+n
+46.22 38.57 m2
+46.22 39.55 l2 
+46.17 39.55 47.49 39.55 47.34 40.43 curveto 
+47.19 41.31 43.41 58.27 43.41 58.27 curveto 
+43.41 58.27 43.21 59.06 44.13 59.06 curveto 
+45.04 59.06 51.48 59.06 51.48 59.06 curveto 
+51.48 58.27 l2 
+51.48 58.27 50.61 58.27 50.66 57.63 curveto 
+50.71 57.00 54.34 39.50 54.34 39.50 curveto 
+54.34 39.50 54.44 38.57 53.57 38.57 curveto 
+52.70 38.57 46.22 38.57 46.22 38.57 curveto 
+closepath
+gs 0.000 setgray eofill gr
+n
+97.03 38.46 m2
+97.03 39.44 l2 
+97.03 39.44 97.90 39.44 97.80 40.27 curveto 
+97.70 41.10 93.97 58.16 93.97 58.16 curveto 
+93.97 58.16 93.92 59.04 94.84 59.04 curveto 
+95.76 59.04 108.06 59.04 108.06 59.04 curveto 
+108.06 59.04 108.78 58.99 108.88 58.21 curveto 
+108.98 57.42 109.75 53.40 109.75 53.40 curveto 
+108.78 53.40 l2 
+108.78 53.40 108.42 54.68 107.55 54.68 curveto 
+106.68 54.68 101.42 54.68 101.42 54.68 curveto 
+102.34 50.37 l2 
+107.76 50.37 l2 
+107.76 50.37 108.62 50.36 108.78 49.48 curveto 
+108.93 48.60 109.80 45.91 109.80 45.91 curveto 
+103.21 45.91 l2 
+103.93 42.72 l2 
+109.85 42.72 l2 
+109.85 42.72 110.77 42.72 110.87 41.99 curveto 
+110.97 41.25 111.89 38.46 111.89 38.46 curveto 
+97.03 38.46 l2 
+closepath
+gs 0.000 setgray eofill gr
+n
+116.38 38.46 m2
+116.38 39.44 l2 
+116.38 39.44 117.40 39.44 117.25 40.32 curveto 
+117.10 41.20 113.01 58.41 113.01 58.41 curveto 
+113.01 58.41 112.92 59.04 113.88 59.04 curveto 
+114.85 59.04 127.26 59.04 127.26 59.04 curveto 
+127.26 59.04 131.28 59.82 133.08 48.75 curveto 
+133.70 44.87 135.32 38.46 130.47 38.46 curveto 
+116.38 38.46 l2 
+ closepath 
+123.33 43.17 m2
+120.62 54.49 l2 
+123.63 54.44 l2 
+123.63 54.44 124.81 54.14 125.22 52.72 curveto 
+125.62 51.30 127.00 44.54 127.00 44.54 curveto 
+127.00 44.54 127.26 43.12 126.03 43.12 curveto 
+124.81 43.12 123.33 43.17 123.33 43.17 curveto 
+ closepath 
+gs 0.000 setgray eofill gr
+n
+138.12 38.48 m2
+138.12 39.45 l2 
+138.12 39.45 139.24 39.45 139.09 40.28 curveto 
+138.94 41.12 135.21 58.22 135.21 58.22 curveto 
+135.21 58.22 135.16 59.06 135.98 59.06 curveto 
+136.79 59.06 143.12 59.06 143.12 59.06 curveto 
+143.12 58.17 l2 
+143.12 58.17 142.00 58.17 142.21 57.24 curveto 
+142.41 56.31 145.88 39.60 145.88 39.60 curveto 
+145.88 39.60 146.19 38.48 145.12 38.48 curveto 
+144.05 38.48 138.12 38.48 138.12 38.48 curveto 
+closepath
+gs 0.000 setgray eofill gr
+n
+154.61 38.57 m2
+154.61 39.60 l2 
+154.61 39.60 155.99 39.60 155.58 40.48 curveto 
+155.18 41.36 146.44 58.22 146.44 58.22 curveto 
+146.44 58.22 146.35 58.96 147.26 58.96 curveto 
+148.18 58.96 153.44 58.96 153.44 58.96 curveto 
+153.44 58.12 l2 
+153.44 58.12 152.26 58.17 152.57 57.44 curveto 
+152.88 56.71 153.79 54.50 153.79 54.50 curveto 
+159.06 54.50 l2 
+159.16 58.32 l2 
+159.16 58.32 159.16 59.06 159.82 59.06 curveto 
+160.48 59.06 166.87 59.06 166.87 59.06 curveto 
+166.87 58.17 l2 
+166.87 58.17 165.74 58.12 165.64 57.29 curveto 
+165.54 56.46 164.41 39.70 164.41 39.70 curveto 
+164.41 39.70 164.36 38.57 163.39 38.57 curveto 
+162.43 38.57 154.61 38.57 154.61 38.57 curveto 
+ closepath 
+155.43 50.82 m2
+158.95 50.82 l2 
+158.70 45.43 l2 
+158.70 45.43 158.69 42.55 157.58 45.43 curveto 
+156.45 48.32 155.43 50.82 155.43 50.82 curveto 
+ closepath 
+gs 0.000 setgray eofill gr
+n
+333.28 43.77 m2
+333.28 43.77 340.54 43.77 343.32 43.77 curveto 
+346.63 43.77 346.81 45.66 346.81 45.66 curveto 
+346.81 45.66 344.30 55.59 344.17 56.08 curveto 
+344.04 56.58 345.24 56.75 345.24 56.75 curveto 
+345.24 57.45 l2 
+345.24 57.45 339.28 57.45 338.34 57.45 curveto 
+337.40 57.45 337.49 56.88 337.49 56.88 curveto 
+337.85 55.48 l2 
+337.85 55.48 337.49 55.72 336.68 56.65 curveto 
+335.87 57.58 335.20 57.45 334.80 57.45 curveto 
+333.64 57.44 334.17 57.45 331.35 57.45 curveto 
+328.53 57.45 328.13 55.15 328.57 53.39 curveto 
+329.03 51.63 330.46 48.51 333.82 48.51 curveto 
+337.18 48.51 338.03 48.51 338.79 48.51 curveto 
+339.55 48.51 339.69 48.12 339.69 48.12 curveto 
+339.69 48.12 339.73 47.95 339.91 47.48 curveto 
+340.09 47.02 339.28 47.09 339.28 47.09 curveto 
+339.28 47.09 334.85 47.09 333.64 47.09 curveto 
+332.43 47.09 332.79 45.66 332.79 45.66 curveto 
+333.28 43.77 l2 
+ closepath 
+339.27 50.90 m2
+338.44 53.91 l2 
+338.44 53.91 336.98 53.91 336.11 53.91 curveto 
+335.24 53.91 335.16 53.08 335.40 52.43 curveto 
+335.65 51.79 336.40 50.90 336.90 50.90 curveto 
+337.40 50.90 339.27 50.90 339.27 50.90 curveto 
+ closepath 
+gs 0.000 setgray eofill gr
+n
+375.34 43.70 m2
+380.55 43.70 382.09 44.62 381.81 46.83 curveto 
+381.51 49.05 381.66 50.91 379.01 50.91 curveto 
+376.36 50.91 371.24 50.91 371.24 50.91 curveto 
+371.24 50.91 370.97 51.78 370.86 52.63 curveto 
+370.72 53.74 372.52 53.98 372.52 53.98 curveto 
+372.52 53.98 375.03 53.98 376.76 53.98 curveto 
+378.50 53.98 379.78 52.45 379.78 52.45 curveto 
+379.78 52.45 379.38 54.39 379.01 55.77 curveto 
+378.52 57.56 375.91 57.43 375.91 57.43 curveto 
+375.91 57.43 373.88 57.43 369.10 57.43 curveto 
+363.84 57.43 363.16 55.20 364.54 50.20 curveto 
+365.86 45.19 367.58 43.70 375.34 43.70 curveto 
+ closepath 
+371.73 48.80 m2
+371.73 48.80 371.77 48.48 372.06 47.55 curveto 
+372.35 46.62 373.46 46.55 374.23 46.55 curveto 
+375.00 46.55 375.84 46.62 375.68 47.62 curveto 
+375.66 47.76 375.59 48.79 375.59 48.79 curveto 
+371.73 48.80 l2 
+ closepath 
+gs 0.000 setgray eofill gr
+n
+276.27 43.38 m2
+276.27 43.38 281.64 43.38 282.86 43.38 curveto 
+284.07 43.38 284.07 44.47 284.07 44.47 curveto 
+283.81 45.29 l2 
+283.81 45.29 283.88 45.22 284.53 44.40 curveto 
+285.23 43.50 286.07 43.40 289.25 43.37 curveto 
+293.11 43.32 293.35 44.37 293.30 46.71 curveto 
+293.25 49.06 292.55 57.02 286.84 57.02 curveto 
+281.13 57.02 280.66 57.02 280.66 57.02 curveto 
+280.66 57.02 280.05 58.93 279.95 59.36 curveto 
+279.84 59.80 280.90 59.86 280.90 59.86 curveto 
+280.90 60.58 l2 
+280.90 60.58 276.78 60.58 274.88 60.58 curveto 
+272.98 60.58 273.30 59.49 273.30 59.49 curveto 
+273.30 59.49 277.07 45.35 277.22 44.84 curveto 
+277.38 44.32 276.27 44.28 276.27 44.28 curveto 
+276.27 43.38 l2 
+ closepath 
+285.48 46.71 m2
+287.01 46.71 287.54 47.15 286.59 50.05 curveto 
+285.64 52.95 286.01 53.59 284.42 53.59 curveto 
+283.16 53.59 281.43 53.59 281.43 53.59 curveto 
+281.43 53.59 282.81 49.06 283.10 47.94 curveto 
+283.47 46.51 285.48 46.71 285.48 46.71 curveto 
+ closepath 
+gs 0.000 setgray eofill gr
+grestore
+grestore
+gsave gsave true true 18.750 112.500 243.750 140.625 dobox
+grestore
+18.750 131.213 ln
+0.000 g
+%copypage
+%true 25.000 (Helvetica-Bold) deffont
+%copypage
+/Helvetica-Bold findfont 25 scalefont setfont
+38.232 mvx 121.509 (Chuck) 1 -1 scale wrd
+(Swan) show 
+%copypage
+ln2
+grestore
+grestore
+endpage
+showpage
+
+
+%%EndProcessColor
+
+end
+restore
+
+%%Pages: 2
+

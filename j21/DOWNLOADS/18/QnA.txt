@@ -1,0 +1,10 @@
+What caused the craters on the moon?
+meteorites
+How far away is the moon (in miles)?
+239000
+How far away is the sun (in millions of miles)?
+93
+Is the Earth a perfect sphere?
+no
+What is the internal temperature of the Earth (in degrees F)?
+9000

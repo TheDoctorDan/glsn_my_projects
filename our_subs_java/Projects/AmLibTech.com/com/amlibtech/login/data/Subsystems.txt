@@ -1,0 +1,61 @@
+/*
+ * Subsystems.java
+ *
+ * Created on June 28, 2006, 12:56 PM
+ */
+
+package com.amlibtech.login.data;
+
+import com.amlibtech.data_fields.*;
+import com.amlibtech.database.*;
+import java.util.*;
+
+/**
+ *
+ * @author  dgleeson
+ */
+public class Subsystems {
+    private LinkedList list;
+    
+    public final static int ASP_MANAGEMENT_INDEX =0;
+    public final static int SITE_MANAGEMENT_INDEX =1;
+    public final static int SECURITY_MANAGEMENT_INDEX =2;
+    public final static int COMPANY_MANAGEMENT_INDEX =3;
+    
+    /** Creates a new instance of Subsystem_List */
+    public Subsystems()
+    throws Database_Record_Exception {
+        list = new LinkedList();
+        add_Node(ASP_MANAGEMENT_INDEX, "ASP_Management","ASP Management", "asp_Management", "Asp_Management_Subsystem_Servlet");
+        add_Node(SITE_MANAGEMENT_INDEX, "Site_Management","Site Management", "site_Management", "Site_Management_Subsystem_Servlet");
+        add_Node(SECURITY_MANAGEMENT_INDEX, "Security_Management","Security Management", "security_Management", "Security_Management_Subsystem_Servlet");
+        add_Node(COMPANY_MANAGEMENT_INDEX, "Company_Management","Company Management", "company_Management", "Company_Management_Subsystem_Servlet");
+        
+    }
+    
+    private void add_Node(int index, String subsystem_Id, String description, String package_Name, String servlet_Name)
+    throws Database_Record_Exception {
+        Subsystem_Node subsystem_Node = new Subsystem_Node(subsystem_Id, description, package_Name, servlet_Name);
+        this.list.add(index, subsystem_Node);
+    }
+    
+    public Subsystem_Node getSubsystem_Node(String subsystem_Id)
+    throws Database_Record_Exception {
+        Subsystem_Node subsystem_Node;
+        for(int i=0;i<this.list.size();i++){
+            subsystem_Node = (Subsystem_Node)list.get(i);
+            if(subsystem_Node.getSubsystem_Id().toString().equals(subsystem_Id))
+                return subsystem_Node;
+        }
+        throw new Database_Record_Exception("No such subsystem Id:" + subsystem_Id);
+    }
+    
+    public Subsystem_Node[] getSubsystem_Nodes() {
+        Subsystem_Node[] subsystem_Nodes = new Subsystem_Node[list.size()];
+        for(int i=0;i<this.list.size();i++){
+            subsystem_Nodes[i] = (Subsystem_Node)list.get(i);
+        }
+        return subsystem_Nodes;
+    }
+    
+}

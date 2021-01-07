@@ -1,0 +1,43 @@
+*************************************************************************
+Release note for host software version 3.21      7/24/95
+*************************************************************************
+
+This is release 3.21 of Digi's host software for the FastPort series
+of network print servers. Two important fixes were made since 3.2 that
+affect the 3200 series of FastPorts.  
+
+NOTE: 	Revision 3.0(3.1) is the earliest release which supports the
+		3200 series.
+	Run ./fpfilter -V to get the version.
+
+In this distribution, fpfilter 3.21 is compiled on the following systems:
+	(other systems will be compiled later)
+        - SunOS 4.x (sun4)
+        - Sun Solaris (sparc_solaris)
+        - HP (hp.risc)
+        - System 5 Release 4 - AT&T/NCR (SVR4) 
+
+All other systems have fpfilter version 3.2 or older, and you may
+	experience problems with parallel port 2 on a 3200.
+
+************************
+FIXES:
+************************
+Fixes in 3.2.1 over 3.2:
+	- (3200 series models) fixes a problem with parallel2 going to 
+	  parallel 1 instead 
+
+Fixes in 3.2 over 3.1
+	- (3200 series models) fixes a problem with closewait 
+	  option on parallel2 and serial2 
+	- fixes a problem with banners when using a .fpconfig file
+
+
+*************************************************************************
+If you have problems on any other system, contact technical Support at:
+
+PHONE: (408) 744-2751
+FAX:   (408) 744-2771
+       (408) 744-2790
+email support@dgii.com
+*************************************************************************

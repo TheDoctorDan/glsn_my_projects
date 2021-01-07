@@ -1,0 +1,46 @@
+# mk_boot_floppy
+#
+
+PATH="$PATH:/usr/gleeson/src/rpm_updates/scripts"
+export PATH
+
+clear
+
+cd /boot
+echo "LILO.CONF:"
+grep default /etc/lilo.conf
+echo
+grep image /etc/lilo.conf
+echo
+echo
+
+echo "CURRENT VERSIONS:"
+ls -l vmlinuz
+ls vmlinuz-*
+echo
+
+for i in vmlinuz-*
+do
+	current_version_num=`echo $i |sed 's/vmlinuz-//'`
+	bool "Do You Wish to make a boot floopy for version $current_version_num? "
+	if [ $? -eq 0 ]
+	then
+		# yes
+
+		echo "put in floppy for $current_version_num "
+		echo "hit enter"
+		read x
+		bool "Do You Wish to Format the floppy first? "
+		if [ $? -eq 0 ]
+		then
+			# yes
+			fdformat /dev/fd0H1440
+		fi
+		/sbin/mkbootdisk --device /dev/fd0  $current_version_num
+		sync
+		echo "hit enter"
+		read x
+	fi
+done
+exit 0
+

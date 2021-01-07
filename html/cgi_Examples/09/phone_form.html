@@ -1,0 +1,22 @@
+<HTML>
+<HEAD><TITLE>CGI Corporation</TITLE></HEAD>
+<BODY>
+<H1>Employee Database</H1>
+Welcome to the CGI Corporations's Employee Search Form. You can use
+this to find information about one of our employee. 
+Enter as much information as possible to narrow down the search. 
+<HR>
+<FORM ACTION="/cgi-bin/db_phone.pl" METHOD="POST">
+<PRE>
+Last Name:      <INPUT TYPE="text" NAME="Last" SIZE=40>
+First Name:     <INPUT TYPE="text" NAME="First" SIZE=40>
+Job Title:      <INPUT TYPE="text" NAME="Job_Title" SIZE=40>
+Department:     <INPUT TYPE="text" NAME="Department" SIZE=40>
+EMail Address:  <INPUT TYPE="text" NAME="EMail" SIZE=40>
+Phone Number:   <INPUT TYPE="text" NAME="Phone" SIZE=40>
+</PRE>
+<INPUT TYPE="submit" VALUE="Submit the search">
+<INPUT TYPE="reset"  VALUE="Clear all fields">
+</FORM>
+<HR>
+</BODY></HTML>

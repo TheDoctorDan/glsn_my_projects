@@ -1,0 +1,39 @@
+Thu Nov 15 10:16:30 EST 1990
+	Added tcpcon.mips.c
+	Fixed malloc.h include problem
+	Fixed test for malloc fail
+Wed Oct 24 10:39:29 EST 1990
+	Added tcpexec and manual
+Wed Jul 25 15:20:17 EST 1990
+	Made bufs[i].buf get calloc'ed when run as tcpserv
+	Before tried to write into 0
+
+Sun Apr 29 19:56:40 EST 1990
+
+	ND
+	-& (asyncronous mode) added
+
+	TCPCON
+	. -r bug fixed (it always respawned)
+
+	New options
+	-b bufsize
+	-u update
+	-s stat
+	-a linger
+
+	Always keepalive
+	set SND(RCV)BUF to bufsize
+
+	tcpcon, tcpserv, now one program
+
+	-u (for udp) now done by the program being called udpcon(udpserv)
+
+	SEE MANUAL FOR DETAILS
+
+	Please report any problems to:-
+
+	________________________________________________________________________
+	Ross Rodney Cartlidge			    |   rossc@extro.ucc.su.oz.au
+	University Computing Service, H08	    |   Phone:     +61 2 6923497
+	University of Sydney, NSW 2006, Australia   |   FAX:       +61 2 6606557

@@ -1,0 +1,27 @@
+#! /bin/sh
+# bool
+
+#------------------------------------------------------------------------------|
+#	Copyright (c) 1985 thru 1991, 1992, 1993, 1994, 1995, 1996, 1997       |
+#	Gleeson and Associates                                                 |
+#	All Rights Reserved                                                    |
+#                                                                              |
+#	THIS IS UNPUBLISHED PROPRIETARY SOURCE CODE OF                         |
+#	Gleeson And Associates                                                 |
+#	The copyright notice above does not evidence any                       |
+#	actual or intended publication of such source code.                    |
+#------------------------------------------------------------------------------|
+
+while true
+do
+	gl_echo $*
+	read x
+	if [ "$x" = "y" ]
+	then
+		exit 0
+	fi
+	if [ "$x" = "n" ]
+	then
+		exit 1
+	fi
+done

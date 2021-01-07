@@ -1,0 +1,4 @@
+Welcome <!--#echo var="REMOTE_USER"-->. Here is some information about you:
+<PRE>
+<!--#exec cmd="/usr/ucb/finger $REMOTE_USER@$REMOTE_HOST"-->
+</PRE>

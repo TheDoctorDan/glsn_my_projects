@@ -1,0 +1,132 @@
+/*
+ * Subscriber_Organization_VO.java
+ *
+ * Created on March 18, 2005 0:44:15 PM CST
+ */
+
+/**
+ *|------------------------------------------------------------------------------|
+ *|       Copyright (c) 1985 thru 1999, 2000, 2001, 2002, 2003, 2004, 2005       |
+ *|       American Liberator Technologies                                        |
+ *|       All Rights Reserved                                                    |
+ *|                                                                              |
+ *|       THIS IS UNPUBLISHED PROPRIETARY SOURCE CODE OF                         |
+ *|       American Liberator Technologies                                        |
+ *|       The copyright notice above does not evidence any                       |
+ *|       actual or intended publication of such source code.                    |
+ *|------------------------------------------------------------------------------|
+ */
+
+package net.amlibtech.ASP.VO;
+
+
+import java.util.*;
+import javax.servlet.http.*;
+
+import net.amlibtech.ASP.data.*;
+import com.amlibtech.database.*;
+
+
+public class Subscriber_Organization_VO  {
+
+    private	String	subscriber_Organization_Id;
+    private	String	name;
+    private	String	description;
+    private	String	database_Server_URL;
+    private	String	database_Name;
+    private	String	database_Access_Login_Name;
+    private	String	database_Access_Login_Password;
+    private	String	destination_URL;
+
+    public	Subscriber_Organization_VO(Subscriber_Organization subscriber_Organization, Database_Front database_Front, String passed_TimeZone_Name) {
+    TimeZone tz = TimeZone.getTimeZone(passed_TimeZone_Name);
+        this.subscriber_Organization_Id = subscriber_Organization.getSubscriber_Organization_Id();
+        this.name = subscriber_Organization.getName();
+        this.description = subscriber_Organization.getDescription();
+        this.database_Server_URL = subscriber_Organization.getDatabase_Server_URL();
+        this.database_Name = subscriber_Organization.getDatabase_Name();
+        this.database_Access_Login_Name = subscriber_Organization.getDatabase_Access_Login_Name();
+        this.database_Access_Login_Password = subscriber_Organization.getDatabase_Access_Login_Password();
+        this.destination_URL = subscriber_Organization.getDestination_URL();
+	}
+
+
+    public static String process_Field_Request(HttpServletRequest request, String field_Name){
+        String parameter_Value;
+        parameter_Value = request.getParameter(field_Name);
+        if(parameter_Value == null){
+            return "";
+        }else{
+            return parameter_Value;
+        }
+    }
+
+    public void process_Request(HttpServletRequest request) {
+        this.subscriber_Organization_Id = process_Field_Request(request, "subscriber_Organization_Id");
+        this.name = process_Field_Request(request, "name");
+        this.description = process_Field_Request(request, "description");
+        this.database_Server_URL = process_Field_Request(request, "database_Server_URL");
+        this.database_Name = process_Field_Request(request, "database_Name");
+        this.database_Access_Login_Name = process_Field_Request(request, "database_Access_Login_Name");
+        this.database_Access_Login_Password = process_Field_Request(request, "database_Access_Login_Password");
+        this.destination_URL = process_Field_Request(request, "destination_URL");
+	}
+
+
+    public void setSubscriber_Organization_Id(String subscriber_Organization_Id){
+        this.subscriber_Organization_Id = subscriber_Organization_Id;
+    }
+
+    public String getSubscriber_Organization_Id(){ return subscriber_Organization_Id; }
+
+
+    public void setName(String name){
+        this.name = name;
+    }
+
+    public String getName(){ return name; }
+
+
+    public void setDescription(String description){
+        this.description = description;
+    }
+
+    public String getDescription(){ return description; }
+
+
+    public void setDatabase_Server_URL(String database_Server_URL){
+        this.database_Server_URL = database_Server_URL;
+    }
+
+    public String getDatabase_Server_URL(){ return database_Server_URL; }
+
+
+    public void setDatabase_Name(String database_Name){
+        this.database_Name = database_Name;
+    }
+
+    public String getDatabase_Name(){ return database_Name; }
+
+
+    public void setDatabase_Access_Login_Name(String database_Access_Login_Name){
+        this.database_Access_Login_Name = database_Access_Login_Name;
+    }
+
+    public String getDatabase_Access_Login_Name(){ return database_Access_Login_Name; }
+
+
+    public void setDatabase_Access_Login_Password(String database_Access_Login_Password){
+        this.database_Access_Login_Password = database_Access_Login_Password;
+    }
+
+    public String getDatabase_Access_Login_Password(){ return database_Access_Login_Password; }
+
+
+    public void setDestination_URL(String destination_URL){
+        this.destination_URL = destination_URL;
+    }
+
+    public String getDestination_URL(){ return destination_URL; }
+
+
+}

@@ -1,0 +1,32 @@
+<HTML>
+<HEAD><TITLE>Television/Movie Survey</TITLE></HEAD>
+<BODY>
+<H1>Televison Survey</H1>
+<HR>
+Thanks for filling out Part 1 of our TV survey. Here is
+Part 2... Again, please read all questions carefully. When you are finished,
+press the Submit button to wrap up the survey.
+<P>
+The current time is: <!--#insert var="DATE_TIME"--><BR>
+<HR>
+<FORM ACTION="/cgi-bin/survey.pl?cgi_cookie=<!--#insert var="COOKIE"-->&cgi_survey=<!--#insert var="SURVEY"-->&cgi_form_num=<!--#insert var="NUMBER"-->" METHOD="POST">
+What is your favorite action/drama show?
+<BR>
+<INPUT TYPE="radio" NAME="05 TV Drama" VALUE="Masquerade on the Web">Masquerade on the Web<BR>
+<INPUT TYPE="radio" NAME="05 TV Drama" VALUE="Gateway Voyager">Gateway Voyager<BR>
+<INPUT TYPE="radio" NAME="05 TV Drama" VALUE="EH" CHECKED>EH - Emergency HTTP Server<BR>
+<INPUT TYPE="radio" NAME="05 TV Drama" VALUE="W3C Hope">W3C Hope<BR>
+<P>
+Who is your favorite actor in a comedy show?
+<BR>
+<INPUT TYPE="radio" NAME="06 TV Drama Actor" VALUE="Bill Wyle" CHECKED>Bill Wyle<BR>
+<INPUT TYPE="radio" NAME="06 TV Drama Actor" VALUE="John Clooney">John Clooney<BR>
+<INPUT TYPE="radio" NAME="06 TV Drama Actor" VALUE="Mike Strauss">Mike Strauss<BR>
+<INPUT TYPE="radio" NAME="06 TV Drama Actor" VALUE="Eric Wagner">Eric Wagner<BR>
+<P>
+<INPUT TYPE="submit" VALUE="Submit the survey">
+<INPUT TYPE="reset"  VALUE="Clear all fields">
+</FORM>
+<HR>
+</BODY>
+</HTML>

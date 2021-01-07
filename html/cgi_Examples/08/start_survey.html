@@ -1,0 +1,29 @@
+<HTML>
+<HEAD><TITLE>Television/Movie Survey</TITLE></HEAD>
+<BODY>
+<H1>Welcome to the CGI Network!</H1>
+<HR>
+In order to better serve you, we would like to know what type of movies and
+variety shows you like to watch on TV. Over the last couple of years, you, the
+viewers, were directly responsible for the lasting success of many of our
+shows. Your comments are extremely valuable to us, so please take a few
+moments to fill out a survey.
+<P>
+The current time is: <!--#insert var="DATE_TIME"--><BR>
+<HR>
+<FORM ACTION="/cgi-bin/survey.pl?cgi_cookie=<!--#insert var="COOKIE"-->&cgi_form_num=<!--#insert var="NUMBER"-->" METHOD="POST">
+<PRE>
+Full Name: <INPUT TYPE="text" NAME="01 Full Name" SIZE=40>
+E-Mail:    <INPUT TYPE="text" NAME="02 EMail Address" SIZE=40>
+</PRE>
+<P>
+Which survey would you like to fill out: <BR>
+<INPUT TYPE="radio" NAME="cgi_survey" VALUE="Television" CHECKED>Television<BR>
+<INPUT TYPE="radio" NAME="cgi_survey" VALUE="Movie">Movies<BR>
+<P>
+<INPUT TYPE="submit" VALUE="Submit the survey">
+<INPUT TYPE="reset"  VALUE="Clear all fields">
+</FORM>
+<HR>
+</BODY>
+</HTML>

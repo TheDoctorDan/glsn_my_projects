@@ -1,0 +1,1377 @@
+/*
+ * Invoice_Header_Servlet.java
+ *
+ * Created on August 9, 2005 9:27:51 PM CDT
+ */
+
+/**
+ *|------------------------------------------------------------------------------|
+ *|       Copyright (c) 1985 thru 1999, 2000, 2001, 2002, 2003, 2004, 2005       |
+ *|       American Liberator Technologies                                        |
+ *|       All Rights Reserved                                                    |
+ *|                                                                              |
+ *|       THIS IS UNPUBLISHED PROPRIETARY SOURCE CODE OF                         |
+ *|       American Liberator Technologies                                        |
+ *|       The copyright notice above does not evidence any                       |
+ *|       actual or intended publication of such source code.                    |
+ *|------------------------------------------------------------------------------|
+ */
+
+
+package servlets;
+
+import java.io.*;
+import java.net.*;
+import java.util.*;
+
+import javax.servlet.*;
+import javax.servlet.http.*;
+
+
+import java.lang.*;
+import data.*;
+import VO.*;
+
+import com.amlibtech.web.common_list.*;
+import com.amlibtech.web.data.*;
+import com.amlibtech.web.util.*;
+import com.amlibtech.web.navigation.*;
+import com.amlibtech.web.servlet_exceptions.*;
+import com.amlibtech.database.*;
+import com.amlibtech.login.data.*;
+import com.amlibtech.util.*;
+
+
+/**
+ *
+ * @author  dgleeson
+ * @version
+ */
+
+
+public class Invoice_Header_Servlet extends HttpServlet {
+    private static final String servlet_Name ="Invoice_Header_Servlet";
+    private static final String servlet_Path_Name ="/" + servlet_Name;
+    private Database_Front database_Front;
+    private String entity_Name = "Invoice Header";
+    private String entities_Name = "Invoice Headers";
+    
+    /** Initializes the servlet.
+     */
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        
+    }
+    
+    /** Destroys the servlet.
+     */
+    public void destroy() {
+        
+    }
+    
+    
+    
+    protected synchronized WebPage_Info_Node get_Passed_WebPage_Info_Node(HttpServletRequest request, HttpServletResponse response)
+    throws ServletException, IOException {
+        
+        
+        HttpSession session = request.getSession();
+        String message = "";
+        WebPage_Info_Node webPage_Info_Node=null;
+        String webPage_Info_Node_Id = request.getParameter("webPage_Info_Node_Id");
+        if(webPage_Info_Node_Id != null){
+            try {
+                WebPage_Info_List webPage_Info_List = WebPage_Info_List.get_Session_Instance(session);
+                webPage_Info_Node  =  webPage_Info_List.getWebPage_Info_Node_By_Id(webPage_Info_Node_Id);
+            }
+            
+            catch(Parameter_Validation_Exception pve){
+                message = servlet_Name + ": " + pve.getMessage();
+                session.setAttribute("s_message", message);
+                Nav_Base.forward(response, session, "/error.jsp");
+                return null;
+            }
+            return webPage_Info_Node;
+        }else{
+            message = servlet_Name + ": No webPage_Info_Node_Id passed with form.";
+            session.setAttribute("s_message", message);
+            Nav_Base.forward(response, session, "/error.jsp");
+            return null;
+        }
+    }
+    
+    
+    
+    
+    protected synchronized void process_New_Request(HttpServletRequest request, HttpServletResponse response)
+    throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        String message = "";
+        
+        
+        Invoice_Header invoice_Header= new Invoice_Header();
+        
+        String customer_Id = (String) session.getAttribute("s_customer_Id");
+        if(customer_Id !=null)
+            invoice_Header.setCustomer_Id(customer_Id);
+        
+        Directory_Publication directory_Publication;
+        try{
+            directory_Publication = Directory_Publication.get_Current_Hosting(database_Front);
+            invoice_Header.setDirectory_Publication_Id(directory_Publication.getDirectory_Publication_Id());
+        }
+        catch(Directory_Publication_Exception dpe){
+            try {
+                directory_Publication = Directory_Publication.get_Current_Subscribing(database_Front);
+                invoice_Header.setDirectory_Publication_Id(directory_Publication.getDirectory_Publication_Id());
+            }
+            catch(Directory_Publication_Exception dpe2){
+                ;
+            }
+        }
+        
+        Invoice_Header_VO invoice_Header_VO = new Invoice_Header_VO(invoice_Header, database_Front, User.get_Logged_In_TimeZone_Name(session));
+        
+        WebPage_Info_Node webPage_Info_Node = new WebPage_Info_Node(
+        // what_Am_I_Doing
+        "New",
+        // servlet
+        servlet_Path_Name
+        );
+        webPage_Info_Node.setData_Object(invoice_Header);
+        webPage_Info_Node.setData_VO_Object(invoice_Header_VO);
+        
+        webPage_Info_Node.setLabel("New Invoice Header");
+        webPage_Info_Node.setDestination_URL("/invoice_header_maint.jsp");
+        
+        webPage_Info_Node.add_To_Session_List(session);
+        webPage_Info_Node.set_Session_Instance(session);
+        webPage_Info_Node.dispatch(response, session);
+        return;
+    }
+    
+    
+    
+    protected synchronized void process_Create_Request(HttpServletRequest request, HttpServletResponse response)
+    throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        String message = "";
+        
+        WebPage_Info_Node   webPage_Info_Node = get_Passed_WebPage_Info_Node(request, response);
+        if(webPage_Info_Node==null)
+            return;
+        
+        Invoice_Header invoice_Header = (Invoice_Header)webPage_Info_Node.getData_Object();
+        Invoice_Header_VO invoice_Header_VO = (Invoice_Header_VO)webPage_Info_Node.getData_VO_Object();
+        
+        invoice_Header_VO.process_Request(request);
+        webPage_Info_Node.setData_VO_Object(invoice_Header_VO);
+        
+        webPage_Info_Node.set_Session_Instance(session);
+        
+        
+        
+        
+        try {
+            invoice_Header.validate_Fields_Of_Request(request, database_Front);
+        }
+        
+        catch(Database_Record_Exception dbre){
+            session.setAttribute("s_message", dbre.getMessage());
+            // back to _maint.jsp
+            webPage_Info_Node.dispatch(response, session);
+            return;
+        }
+        
+        try {
+            // set new Key value of invoice_Number #
+            invoice_Header.setInvoice_Number(Invoice_Header.get_New_Invoice_Number(database_Front, (String)session.getAttribute("s_user_Id")));
+            
+            int row_Count = database_Front.addRecord(invoice_Header);
+        }
+        
+        catch(Database_Front_Exception dbfe){
+            message = servlet_Name + ": Failed to update " + entity_Name  + " in database. " + dbfe.getMessage();
+            session.setAttribute("s_message", message);
+            Nav_Base.forward(response, session, "/error.jsp");
+            return;
+        }
+        
+        webPage_Info_Node.remove_From_Session_List(session);
+        webPage_Info_Node.remove_Session_Instance(session);
+        
+        
+        Nav_Base.forward(response, session, "/Invoice_Header_Servlet?to_Do=Select&invoice_Number=" + invoice_Header.getInvoice_Number());
+        return;
+    }
+    
+    
+    
+    protected synchronized void process_Cancel_New_Request(HttpServletRequest request, HttpServletResponse response)
+    throws ServletException, IOException {
+        // Cancel New
+        HttpSession session = request.getSession();
+        String message = "";
+        
+        WebPage_Info_Node   webPage_Info_Node = get_Passed_WebPage_Info_Node(request, response);
+        if(webPage_Info_Node==null)
+            return;
+        
+        webPage_Info_Node.remove_From_Session_List(session);
+        webPage_Info_Node.remove_Session_Instance(session);
+        
+        Nav_Base.forward(response, session, "/window_close.html");
+        return;
+    }
+    
+    
+    
+    protected synchronized void process_Edit_Request(HttpServletRequest request, HttpServletResponse response)
+    throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        String message = "";
+        
+        Invoice_Header invoice_Header_Keys = new Invoice_Header();
+        
+        //Initialize Key Fields
+        
+        
+        try {
+            invoice_Header_Keys = Invoice_Header.process_Key_Fields_Request(request, database_Front);
+        }
+        
+        catch(Database_Record_Exception dbre){
+            session.setAttribute("s_message", dbre.getMessage());
+            Nav_Base.forward(response, session, "/error.jsp");
+            return;
+        }
+        
+        
+        Invoice_Header invoice_Header;
+        
+        try {
+            invoice_Header = (Invoice_Header) database_Front.getLocked_Record(invoice_Header_Keys);
+        }
+        
+        catch(Database_Front_Exception dbfe){
+            message = servlet_Name + ": Failed to lock " + entity_Name  + " in database. " + dbfe.getMessage();
+            session.setAttribute("s_message", message);
+            Nav_Base.forward(response, session, "/error.jsp");
+            return;
+        }catch(Database_Front_No_Results_Exception dbfe){
+            message = servlet_Name + ": Failed to lock " + entity_Name  + " in database. " + dbfe.getMessage();
+            session.setAttribute("s_message", message);
+            Nav_Base.forward(response, session, "/error.jsp");
+            return;
+        }
+        
+        Invoice_Header_VO invoice_Header_VO = new Invoice_Header_VO(invoice_Header, database_Front, User.get_Logged_In_TimeZone_Name(session));
+        
+        
+        WebPage_Info_Node webPage_Info_Node = new WebPage_Info_Node(
+        // what_Am_I_Doing
+        "Edit",
+        // servlet
+        servlet_Path_Name
+        );
+        
+        webPage_Info_Node.setData_Object(invoice_Header);
+        webPage_Info_Node.setData_VO_Object(invoice_Header_VO);
+        
+        webPage_Info_Node.setLabel("Edit Invoice Header");
+        webPage_Info_Node.setDestination_URL("/invoice_header_maint.jsp");
+        
+        webPage_Info_Node.add_To_Session_List(session);
+        webPage_Info_Node.set_Session_Instance(session);
+        webPage_Info_Node.dispatch(response, session);
+        return;
+    }
+    
+    
+    
+    protected synchronized void process_Apply_Request(HttpServletRequest request, HttpServletResponse response)
+    throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        String message = "";
+        
+        WebPage_Info_Node   webPage_Info_Node = get_Passed_WebPage_Info_Node(request, response);
+        if(webPage_Info_Node==null)
+            return;
+        
+        Invoice_Header invoice_Header = (Invoice_Header)webPage_Info_Node.getData_Object();
+        Invoice_Header_VO invoice_Header_VO = (Invoice_Header_VO)webPage_Info_Node.getData_VO_Object();
+        
+        invoice_Header_VO.process_Request(request);
+        
+        webPage_Info_Node.setData_VO_Object(invoice_Header_VO);
+        webPage_Info_Node.set_Session_Instance(session);
+        
+        try {
+            invoice_Header.validate_Fields_Of_Request(request, database_Front);
+        }
+        
+        
+        catch(Database_Record_Exception dbre){
+            session.setAttribute("s_message", dbre.getMessage());
+            
+            // back to _maint.jsp
+            webPage_Info_Node.dispatch(response, session);
+            return;
+        }
+        
+        try {
+            int row_count = database_Front.updateRecord(invoice_Header);
+        }
+        catch(Database_Front_Exception dbfe){
+            message = servlet_Name + ": Failed to update " + entity_Name  + " in database. " + dbfe.getMessage();
+            session.setAttribute("s_message", message);
+            Nav_Base.forward(response, session, "/error.jsp");
+            return;
+        }
+        
+        webPage_Info_Node.remove_From_Session_List(session);
+        webPage_Info_Node.remove_Session_Instance(session);
+        
+        Nav_Base.forward(response, session, "/window_close.html");
+        return;
+    }
+    
+    
+    
+    protected synchronized void process_Cancel_Request(HttpServletRequest request, HttpServletResponse response)
+    throws ServletException, IOException {
+        // Cancel Edit, unlock record
+        HttpSession session = request.getSession();
+        String message = "";
+        
+        WebPage_Info_Node   webPage_Info_Node = get_Passed_WebPage_Info_Node(request, response);
+        if(webPage_Info_Node==null)
+            return;
+        
+        try {
+            database_Front.cancel_Record_Lock();
+        }
+        
+        catch(Database_Front_Exception dbfe){
+            message = servlet_Name + ": Failed to unlock " + entity_Name  + " in database. " + dbfe.getMessage();
+            session.setAttribute("s_message", message);
+            Nav_Base.forward(response, session, "/error.jsp");
+            return;
+        }
+        
+        webPage_Info_Node.remove_From_Session_List(session);
+        webPage_Info_Node.remove_Session_Instance(session);
+        
+        Nav_Base.forward(response, session, "/window_close.html");
+        return;
+    }
+    
+    
+    
+    protected synchronized void process_Delete_Request(HttpServletRequest request, HttpServletResponse response)
+    throws ServletException, IOException {
+        // Delete Record
+        HttpSession session = request.getSession();
+        String message = "";
+        
+        WebPage_Info_Node   webPage_Info_Node = get_Passed_WebPage_Info_Node(request, response);
+        if(webPage_Info_Node==null)
+            return;
+        
+        Invoice_Header invoice_Header = (Invoice_Header)webPage_Info_Node.getData_Object();
+        
+        try {
+            invoice_Header.is_Delete_Allowed(database_Front, session);
+        }
+        
+        catch(Database_Record_Exception dbre){
+            session.setAttribute("s_message", dbre.getMessage());
+            webPage_Info_Node.set_Session_Instance(session);
+            // back to _maint.jsp
+            webPage_Info_Node.dispatch(response, session);
+            return;
+        }
+        
+        WebPage_Info_Node new_WebPage_Info_Node = new WebPage_Info_Node(
+        // what_Am_I_Doing
+        "Delete",
+        // servlet
+        servlet_Path_Name
+        );
+        
+        new_WebPage_Info_Node.setData_Object(invoice_Header);
+        new_WebPage_Info_Node.setData_VO_Object((Invoice_Header_VO) webPage_Info_Node.getData_VO_Object());
+        
+        new_WebPage_Info_Node.setLabel("Delete Invoice Header");
+        new_WebPage_Info_Node.setDestination_URL("/invoice_header_delete.jsp");
+        
+        new_WebPage_Info_Node.setCalling_WebPage_Info_Node(webPage_Info_Node);
+        
+        new_WebPage_Info_Node.add_To_Session_List(session);
+        new_WebPage_Info_Node.set_Session_Instance(session);
+        new_WebPage_Info_Node.dispatch(response, session);
+        
+        return;
+    }
+    
+    
+    
+    protected synchronized void process_Delete_Confirmed_Request(HttpServletRequest request, HttpServletResponse response)
+    throws ServletException, IOException {
+        // Delete Record
+        HttpSession session = request.getSession();
+        String message = "";
+        
+        WebPage_Info_Node   webPage_Info_Node = get_Passed_WebPage_Info_Node(request, response);
+        if(webPage_Info_Node==null)
+            return;
+        
+        webPage_Info_Node.remove_From_Session_List(session);
+        webPage_Info_Node.remove_Session_Instance(session);
+        
+        Invoice_Header invoice_Header = (Invoice_Header) webPage_Info_Node.getData_Object();
+        
+        WebPage_Info_Node maint_WebPage_Info_Node = webPage_Info_Node.getCalling_WebPage_Info_Node();
+        
+        try {
+            invoice_Header.is_Delete_Allowed(database_Front, session);
+        }
+        
+        catch(Database_Record_Exception dbre){
+            session.setAttribute("s_message", dbre.getMessage());
+            // back to _maint.jsp
+            maint_WebPage_Info_Node.set_Session_Instance(session);
+            maint_WebPage_Info_Node.dispatch(response, session);
+            return;
+        }
+        
+        try {
+            int row_Count = database_Front.deleteRecord(invoice_Header);
+        }
+        
+        catch(Database_Front_Exception dbfe){
+            message = servlet_Name + ": Failed to Delete " + entity_Name  + " in database. " + dbfe.getMessage();
+            session.setAttribute("s_message", message);
+            Nav_Base.forward(response, session, "/error.jsp");
+            return;
+        }
+        
+        
+        Invoice_Log invoice_Log;
+        try {
+            invoice_Log = (Invoice_Log) database_Front.getRecord(new Invoice_Log(new Integer(invoice_Header.getInvoice_Number().trim())));
+            invoice_Log.setDeleted(Boolean.TRUE);
+            int row = database_Front.updateRecord(invoice_Log);
+        }
+        catch(Database_Front_Exception dbfe){
+            message = servlet_Name + ": Failed to correct Invoice_Log in database. " + dbfe.getMessage();
+            session.setAttribute("s_message", message);
+            Nav_Base.forward(response, session, "/error.jsp");
+            return;
+        }catch(Database_Front_No_Results_Exception dbfe){
+            message = servlet_Name + ": Failed to correct Invoice_Log in database. " + dbfe.getMessage();
+            session.setAttribute("s_message", message);
+            Nav_Base.forward(response, session, "/error.jsp");
+            return;
+        }
+        
+        
+        
+        maint_WebPage_Info_Node.remove_From_Session_List(session);
+        maint_WebPage_Info_Node.remove_Session_Instance(session);
+        
+        Nav_Base.forward(response, session, "/window_close.html");
+        return;
+    }
+    
+    
+    
+    protected synchronized void process_Delete_Cancelled_Request(HttpServletRequest request, HttpServletResponse response)
+    throws ServletException, IOException {
+        // Delete Cancelled
+        HttpSession session = request.getSession();
+        String message = "";
+        session.setAttribute("s_message", message);
+        
+        WebPage_Info_Node   webPage_Info_Node = get_Passed_WebPage_Info_Node(request, response);
+        if(webPage_Info_Node==null)
+            return;
+        
+        webPage_Info_Node.remove_From_Session_List(session);
+        webPage_Info_Node.remove_Session_Instance(session);
+        
+        WebPage_Info_Node maint_WebPage_Info_Node = webPage_Info_Node.getCalling_WebPage_Info_Node();
+        
+        // back to _maint.jsp
+        maint_WebPage_Info_Node.set_Session_Instance(session);
+        maint_WebPage_Info_Node.dispatch(response, session);
+        
+        return;
+    }
+    
+    
+    protected synchronized void process_Start_List_Request(HttpServletRequest request, HttpServletResponse response)
+    throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        String message = "";
+        
+        Customer customer=null;
+        Customer_VO customer_VO = null;
+        
+        String customer_Id = request.getParameter("customer_Id");
+        if(customer_Id != null){
+            session.setAttribute("s_customer_Id", customer_Id);
+            
+            
+            // Start Parent_Table Section ===================
+            
+            Customer customer_Keys=null;
+            
+            try {
+                customer_Keys = Customer.process_Key_Fields_Request(request, database_Front);
+            }
+            
+            catch(Database_Record_Exception dbre){
+                message = servlet_Name + ": " + dbre.getMessage();
+                session.setAttribute("s_message", message);
+                Nav_Base.forward(response, session, "/error.jsp");
+                return;
+            }
+            
+            
+            try {
+                customer = (Customer) database_Front.getRecord(customer_Keys);
+            }
+            
+            catch(Database_Front_Exception dbfe){
+                message = servlet_Name + ": Failed to find " + "Customer"  + " in database. Database_Front_Exception :" + dbfe.getMessage();
+                session.setAttribute("s_message", dbfe.getMessage());
+                Nav_Base.forward(response, session, "/error.jsp");
+                return;
+            }catch(Database_Front_No_Results_Exception dbfe){
+                message = servlet_Name + ": Failed to find " + "Customer"  + " in database. Database_Front_Exception :" + dbfe.getMessage();
+                session.setAttribute("s_message", dbfe.getMessage());
+                Nav_Base.forward(response, session, "/error.jsp");
+                return;
+            }
+            
+            customer_VO = new Customer_VO(customer, database_Front, User.get_Logged_In_TimeZone_Name(session));
+            
+            // End Parent_Table Section ===================
+            
+            
+        }else{
+            session.removeAttribute("s_customer_Id");
+        }
+        // create webPage_Info_Node
+        WebPage_Info_Node webPage_Info_Node = new WebPage_Info_Node(
+        // what_Am_I_Doing
+        "List",
+        // servlet
+        servlet_Path_Name
+        );
+        
+        if(customer_Id != null){
+            
+            // Start Parent_Table Section ===================
+            webPage_Info_Node.setParent_Data_Object(customer);
+            webPage_Info_Node.setParent_Data_VO_Object(customer_VO);
+            // End Parent_Table Section ===================
+        }
+        
+        webPage_Info_Node.setLabel("Invoice Header List");
+        webPage_Info_Node.setDestination_URL("/invoice_header_list.jsp");
+        
+        webPage_Info_Node.add_To_Session_List(session);
+        
+        Nav_Base.forward(response, session, servlet_Path_Name +"?to_Do=List&webPage_Info_Node_Id="+ webPage_Info_Node.getId());
+        
+        return;
+    }
+    
+    
+    
+    protected synchronized void process_Restart_List_Request(HttpServletRequest request, HttpServletResponse response)
+    throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        String message = "";
+        
+        WebPage_Info_Node   webPage_Info_Node = get_Passed_WebPage_Info_Node(request, response);
+        if(webPage_Info_Node==null)
+            return;
+        
+        Nav_Base.forward(response, session, servlet_Path_Name +"?to_Do=List&webPage_Info_Node_Id="+ webPage_Info_Node.getId());
+        
+        return;
+    }
+    
+    
+    
+    protected synchronized void process_List_Request(HttpServletRequest request, HttpServletResponse response)
+    throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        String message = "";
+        
+        WebPage_Info_Node   webPage_Info_Node = get_Passed_WebPage_Info_Node(request, response);
+        if(webPage_Info_Node==null)
+            return;
+        
+        Invoice_Header[] invoice_Header_Record_List=null;
+        
+        Display_List_Sort_Manager display_List_Sort_Manager=null;
+        
+        display_List_Sort_Manager = (Display_List_Sort_Manager) webPage_Info_Node.getDisplay_List_Sort_Manager();
+        if(display_List_Sort_Manager==null){
+            display_List_Sort_Manager = new Display_List_Sort_Manager();
+            webPage_Info_Node.setDisplay_List_Sort_Manager(display_List_Sort_Manager);
+        }
+        
+        String sort_Field_Name = request.getParameter("sort_Field_Name");
+        if(sort_Field_Name !=null){
+            if(Invoice_Header.field_Description_List.is_Valid_Field(sort_Field_Name)){
+                display_List_Sort_Manager.sort_Field_CUD(sort_Field_Name);
+            }
+        }
+        String sort_SQL_Clause = display_List_Sort_Manager.getSort_SQL_Clause();
+        
+        String  where_SQL_Clause ="";
+        
+       
+        
+        // Start Parent_Table Section ===================
+        Customer customer = (Customer) webPage_Info_Node.getParent_Data_Object();
+        if(customer != null){
+            where_SQL_Clause = " WHERE  customer_Id = '" + SQLUtil.encode(customer.getCustomer_Id()) + "'  ";
+        }
+        // End Parent_Table Section ===================
+        
+        
+
+        Display_List_Pagination_Manager display_List_Pagination_Manager = webPage_Info_Node.getDisplay_List_Pagination_Manager();
+        if(display_List_Pagination_Manager==null){
+            int row_Count = 0;
+
+            try{
+                row_Count = database_Front.getCount_Of_Records(new Invoice_Header(), where_SQL_Clause);
+            }
+            catch(Database_Front_Exception dbfe){
+                message = servlet_Name + ": " + dbfe.getMessage();
+                session.setAttribute("s_message", message);
+                Nav_Base.forward(response, session, "/error.jsp");
+                return;
+            }
+X
+            display_List_Pagination_Manager = new Display_List_Pagination_Manager(10, row_Count);
+        //}else{
+            //display_List_Pagination_Manager.setItems_In_Result_Set(row_Count);
+        }
+        display_List_Pagination_Manager.servlet_Request_Proccesor(request);
+        webPage_Info_Node.setDisplay_List_Pagination_Manager(display_List_Pagination_Manager);
+
+      
+        
+        
+        
+        try {
+            invoice_Header_Record_List = (Invoice_Header[]) database_Front.getMany_Records(new Invoice_Header(), where_SQL_Clause + " " + sort_SQL_Clause, display_List_Pagination_Manager.getFirst_Item_Number_On_Current_Page(), display_List_Pagination_Manager.getItems_Per_Page());
+        }
+        
+        catch(Database_Front_Exception dbfe){
+            message = servlet_Name + ": Failed to find " + entities_Name  + " in database. " + dbfe.getMessage();
+            session.setAttribute("s_message", message);
+            Nav_Base.forward(response, session, "/error.jsp");
+            return;
+        }
+        
+        
+             
+        response.setContentType("text/html");
+        PrintWriter out = response.getWriter();
+        
+        display_List_Page_Begin(out, session, webPage_Info_Node, display_List_Sort_Manager);
+
+        // Start Parent_Table Section ===================
+        if(customer != null){
+            display_List_Customer_Info_Heading(out, session, customer);
+        }
+        // End Parent_Table Section ===================
+        
+              
+        display_List_Headings(out, session, webPage_Info_Node, display_List_Sort_Manager, customer);
+
+        
+        //webPage_Info_Node.setData_Object_Records(invoice_Header_Record_List);
+        
+        if(invoice_Header_Record_List == null){
+            out.println("<tr><td> No Records Returned </td></tr>");
+
+        }else{
+            for(int row=0; row < invoice_Header_Record_List.length; row++){                
+                display_List_Line_Item(out, session, row, webPage_Info_Node, customer, invoice_Header_Record_List[row]);
+            }
+        }
+        
+        
+        
+        
+        webPage_Info_Node.setReload_URL("/Invoice_Header_Servlet?to_Do=List&page=" + webPage_Info_Node.getDisplay_List_Pagination_Manager().getCurrent_Page() + "&webPage_Info_Node_Id=" + webPage_Info_Node.getId());
+        
+        webPage_Info_Node.set_Session_Instance(session);
+        
+        display_List_Page_End(out, session, webPage_Info_Node);
+
+        //webPage_Info_Node.dispatch(response, session);
+        out.close();
+
+        return;
+    }
+    
+    
+    
+    
+    protected synchronized void process_Select_Request(HttpServletRequest request, HttpServletResponse response)
+    throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        String message = "";
+        
+        Invoice_Header invoice_Header=null;
+        Invoice_Header invoice_Header_Keys=null;
+        
+        
+        try {
+            invoice_Header_Keys = Invoice_Header.process_Key_Fields_Request(request, database_Front);
+        }
+        
+        catch(Database_Record_Exception dbre){
+            session.setAttribute("s_message", dbre.getMessage());
+            Nav_Base.forward(response, session, "/error.jsp");
+            return;
+        }
+        
+        
+        try {
+            invoice_Header = (Invoice_Header) database_Front.getRecord(invoice_Header_Keys);
+        }
+        
+        catch(Database_Front_Exception dbfe){
+            message = servlet_Name + ": Failed to find " + entity_Name  + " in database. " + dbfe.getMessage();
+            session.setAttribute("s_message", message);
+            Nav_Base.forward(response, session, "/error.jsp");
+            return;
+        }catch(Database_Front_No_Results_Exception dbfe){
+            message = servlet_Name + ": Failed to find " + entity_Name  + " in database. " + dbfe.getMessage();
+            session.setAttribute("s_message", message);
+            Nav_Base.forward(response, session, "/error.jsp");
+            return;
+        }
+        
+        Invoice_Header_VO invoice_Header_VO = new Invoice_Header_VO(invoice_Header, database_Front, User.get_Logged_In_TimeZone_Name(session));
+        
+        WebPage_Info_Node webPage_Info_Node = new WebPage_Info_Node(
+        // what_Am_I_Doing
+        "Select",
+        // servlet
+        servlet_Path_Name
+        );
+        
+        webPage_Info_Node.setData_Object(invoice_Header);
+        webPage_Info_Node.setData_VO_Object(invoice_Header_VO);
+        
+        webPage_Info_Node.setLabel("Selected Invoice Header");
+        webPage_Info_Node.setDestination_URL("/invoice_header_selected.jsp");
+        
+        webPage_Info_Node.add_To_Session_List(session);
+        webPage_Info_Node.set_Session_Instance(session);
+        webPage_Info_Node.dispatch(response, session);
+        return;
+    }
+    
+    
+    
+    protected synchronized void process_Start_Lookup_Request(HttpServletRequest request, HttpServletResponse response)
+    throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        String message = "";
+        
+        
+        Stack stack = new Stack();
+        
+        String lookup_Answer_Invoice_Number = request.getParameter("lookup_Answer_Invoice_Number");
+        if(lookup_Answer_Invoice_Number ==null){
+            message = "lookup_Answer_Invoice_Number, not passed to servlet.";
+            session.setAttribute("s_message", message);
+            Nav_Base.forward(response, session, "/error.jsp");
+            return;
+        }
+        stack.push(lookup_Answer_Invoice_Number);
+        
+        String lookup_Answer_Invoice_Date = request.getParameter("lookup_Answer_Invoice_Date");
+        if(lookup_Answer_Invoice_Date ==null){
+            message = "lookup_Answer_Invoice_Date, not passed to servlet.";
+            session.setAttribute("s_message", message);
+            Nav_Base.forward(response, session, "/error.jsp");
+            return;
+        }
+        stack.push(lookup_Answer_Invoice_Date);
+        
+        stack.push(new Integer(2));
+        
+        
+        WebPage_Info_Node webPage_Info_Node = new WebPage_Info_Node(
+        // what_Am_I_Doing
+        "Lookup",
+        // servlet
+        servlet_Path_Name
+        );
+        
+        webPage_Info_Node.setArg_Stack(stack);
+        
+        webPage_Info_Node.setLabel("Invoice Header Lookup");
+        webPage_Info_Node.setDestination_URL("/invoice_header_lookup.jsp");
+        
+        webPage_Info_Node.add_To_Session_List(session);
+        
+        Nav_Base.forward(response, session, servlet_Path_Name +"?to_Do=Lookup&webPage_Info_Node_Id="+ webPage_Info_Node.getId());
+        return;
+    }
+    
+    
+    
+    protected synchronized void process_Restart_Lookup_Request(HttpServletRequest request, HttpServletResponse response)
+    throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        String message = "";
+        
+        WebPage_Info_Node   webPage_Info_Node = get_Passed_WebPage_Info_Node(request, response);
+        if(webPage_Info_Node==null)
+            return;
+        
+        Nav_Base.forward(response, session, servlet_Path_Name +"?to_Do=Lookup&webPage_Info_Node_Id="+ webPage_Info_Node.getId());
+        return;
+    }
+    
+    
+    
+    protected synchronized void process_Stop_Lookup_Request(HttpServletRequest request, HttpServletResponse response)
+    throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        String message = "";
+        
+        WebPage_Info_Node   webPage_Info_Node = get_Passed_WebPage_Info_Node(request, response);
+        if(webPage_Info_Node==null)
+            return;
+        
+        Integer num_Args;
+        
+        String lookup_Answer_Invoice_Number;
+        String lookup_Answer_Invoice_Date;
+        
+        Invoice_Header invoice_Header=null;
+        Invoice_Header invoice_Header_Keys=null;
+        
+        try {
+            invoice_Header_Keys = Invoice_Header.process_Key_Fields_Request(request, database_Front);
+        }
+        
+        catch(Database_Record_Exception dbre){
+            session.setAttribute("s_message", dbre.getMessage());
+            Nav_Base.forward(response, session, "/error.jsp");
+            return;
+        }
+        
+        try {
+            invoice_Header = (Invoice_Header) database_Front.getRecord(invoice_Header_Keys);
+        }
+        
+        catch(Database_Front_Exception dbfe){
+            message = servlet_Name + ": Failed to find " + entity_Name  + " in database. " + dbfe.getMessage();
+            session.setAttribute("s_message", message);
+            Nav_Base.forward(response, session, "/error.jsp");
+            return;
+        }catch(Database_Front_No_Results_Exception dbfe){
+            message = servlet_Name + ": Failed to find " + entity_Name  + " in database. " + dbfe.getMessage();
+            session.setAttribute("s_message", message);
+            Nav_Base.forward(response, session, "/error.jsp");
+            return;
+        }
+        
+        Invoice_Header_VO invoice_Header_VO = new Invoice_Header_VO(invoice_Header, database_Front, User.get_Logged_In_TimeZone_Name(session));
+        
+        
+        Stack stack = webPage_Info_Node.getArg_Stack();
+        if(stack==null){
+            message = "Missing Arg_Stack.";
+            session.setAttribute("s_message", message);
+            Nav_Base.forward(response, session, "/error.jsp");
+            return;
+        }
+        
+        try {
+            num_Args = (Integer)stack.pop();
+            if(num_Args.intValue() != 2){
+                message = "Stack does not have 2 arguments on top. ";
+                session.setAttribute("s_message", message);
+                Nav_Base.forward(response, session, "/error.jsp");
+                return;
+            }
+            lookup_Answer_Invoice_Date = (String) stack.pop();
+            lookup_Answer_Invoice_Number = (String) stack.pop();
+            
+        }
+        
+        catch(EmptyStackException ese){
+            message = "Arg_Stack is empty. " + ese.getMessage();
+            session.setAttribute("s_message", message);
+            Nav_Base.forward(response, session, "/error.jsp");
+            return;
+        }
+        
+        webPage_Info_Node.remove_From_Session_List(session);
+        webPage_Info_Node.remove_Session_Instance(session);
+        
+        response.setContentType("text/html");
+        PrintWriter out = response.getWriter();
+        /* TODO output your page here */
+        
+        out.println("<script type=\"text/javascript\">");
+        
+        
+        out.print("window.opener." + lookup_Answer_Invoice_Number + ".value='" + invoice_Header_VO.getInvoice_Number() + "';");
+        out.print("window.opener." + lookup_Answer_Invoice_Date + ".value='" + invoice_Header_VO.getInvoice_Date() + "';");
+        out.print("window.close();");
+        out.println("</script>");
+        
+        
+        /* */
+        out.close();
+        
+        return;
+    }
+    
+    
+    
+    /** Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
+     * @param request servlet request
+     * @param response servlet response
+     */
+    protected synchronized void processRequest(HttpServletRequest request, HttpServletResponse response)
+    throws ServletException, IOException {
+        
+        HttpSession session = request.getSession();
+        
+        String message = "";
+        session.setAttribute("s_message", message);
+        
+        try {
+            Nav_Base.setBase_URL(request, "/Invoice_Header_Servlet");
+        }
+        catch(Nav_Base_Exception nbe){
+            throw new ServletException(nbe.getMessage());
+        }
+        
+        
+        String user_Id = (String)session.getAttribute("s_user_Id");
+        if(user_Id==null){
+            message = "You must be logged in to access this page.";
+            session.setAttribute("s_message", message);
+            Nav_Base.forward(response, session, "/error.jsp");
+            return;
+        }
+        
+        
+        
+        try {
+            database_Front = Database_Front.get_Session_Instance(session);
+        }
+        catch(Database_Front_Exception dbfe){
+            Nav_Base.forward(response, session, "/login.jsp");
+            return;
+        }
+        
+        
+        
+        String to_Do = request.getParameter("to_Do");
+        if(to_Do==null){
+            message = servlet_Name + ": No action To Do has been given to servlet.";
+            session.setAttribute("s_message", message);
+            Nav_Base.forward(response, session, "/error.jsp");
+            return;
+        }
+        
+        boolean do_Process=true;
+        while(do_Process){
+            do_Process=false;
+            
+            if(to_Do.equals("New")){
+                
+                process_New_Request(request, response);
+                
+                return;
+                
+            }else if(to_Do.equals("Create")){
+                
+                process_Create_Request(request, response);
+                
+                return;
+                
+            }else if(to_Do.equals("Cancel_New")){
+                
+                process_Cancel_New_Request(request, response);
+                
+                return;
+                
+            }else if(to_Do.equals("Edit")){
+                
+                process_Edit_Request(request, response);
+                
+                return;
+                
+            }else if(to_Do.equals("Apply")){
+                
+                process_Apply_Request(request, response);
+                
+                return;
+                
+            }else if(to_Do.equals("Cancel")){
+                
+                process_Cancel_Request(request, response);
+                
+                return;
+                
+            }else if(to_Do.equals("Delete")){
+                
+                process_Delete_Request(request, response);
+                
+                return;
+                
+            }else if(to_Do.equals("Delete_Confirmed")){
+                
+                process_Delete_Confirmed_Request(request, response);
+                
+                return;
+                
+            }else if(to_Do.equals("Delete_Cancelled")){
+                
+                process_Delete_Cancelled_Request(request, response);
+                
+                return;
+                
+            } else if(to_Do.equals("Start_List")){
+                
+                process_Start_List_Request(request, response);
+                
+                return;
+                
+            } else if(to_Do.equals("Restart_List")){
+                
+                process_Restart_List_Request(request, response);
+                
+                return;
+                
+            }else if(to_Do.equals("List")){
+                
+                process_List_Request(request, response);
+                
+                return;
+                
+            }else if(to_Do.equals("Select")){
+                
+                process_Select_Request(request, response);
+                
+                return;
+                
+            } else if(to_Do.equals("Start_Lookup")){
+                
+                process_Start_Lookup_Request(request, response);
+                
+                return;
+                
+            } else if(to_Do.equals("Restart_Lookup")){
+                
+                process_Restart_Lookup_Request(request, response);
+                
+                return;
+                
+            } else if(to_Do.equals("Lookup")){
+                
+                process_List_Request(request, response);
+                
+                return;
+                
+            } else if(to_Do.equals("Stop_Lookup")){
+                
+                process_Stop_Lookup_Request(request, response);
+                
+                return;
+                
+            }else{
+                
+                message = servlet_Name + ": Action To Do is unknown to servlet. :" + to_Do + ":";
+                session.setAttribute("s_message", message);
+                Nav_Base.forward(response, session, "/error.jsp");
+                return;
+                
+            }
+            
+        }
+        
+        return;
+        
+        
+    }
+    
+    
+    
+    /** Handles the HTTP <code>GET</code> method.
+     * @param request servlet request
+     * @param response servlet response
+     */
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    throws ServletException, IOException {
+        processRequest(request, response);
+    }
+    
+    /** Handles the HTTP <code>POST</code> method.
+     * @param request servlet request
+     * @param response servlet response
+     */
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    throws ServletException, IOException {
+        processRequest(request, response);
+    }
+    
+    /** Returns a short description of the servlet.
+     */
+    public String getServletInfo() {
+        return "Processes request for creating, reading, updating, deleting " + entities_Name  + ".";
+    }
+    
+    void display_List_Page_Begin(PrintWriter out, HttpSession session, WebPage_Info_Node webPage_Info_Node, Display_List_Sort_Manager display_List_Sort_Manager){
+        
+        
+        String my_Text_Color = "000000";
+        
+        
+        
+        
+        out.println("<html>");
+        out.println("");
+        out.println("    <head><title>Invoice Header List</title>");
+        out.println("    <link rel=\"stylesheet\" href=\"images/myw.css\" type=\"text/css\">");
+        out.println("    </head>");
+        out.println("");
+        out.println("");
+        out.println("<script type=\"text/javascript\">");
+        out.println("	function re_Load_WebPage() {");
+        out.println("		this.location.href ='" + Nav_Base.get_Session_Instance(session).getBase_URL() + "/Invoice_Header_Servlet?to_Do=List&webPage_Info_Node_Id=" + webPage_Info_Node.getId() + "&page=this';");
+        out.println("	}");
+        out.println("</script>");
+        out.println("");
+        out.println("<body onload=\"self.focus();\" class='story'>");
+        out.println("    <jsp:include page=\"/include/heading.jsp\" />");
+        out.println("");
+        out.println("");
+        out.println("	<center><h2>Invoice Header List</h2></center>");
+        out.println("");
+        
+        
+        out.println("");
+        out.println("<table class='story'><tbody><tr>");
+        out.println("");
+        out.println("<td>");
+        
+        Display_List_Pagination_Manager display_List_Pagination_Manager = (Display_List_Pagination_Manager)webPage_Info_Node.getDisplay_List_Pagination_Manager();
+        if(display_List_Pagination_Manager !=null){
+            
+            out.println(display_List_Pagination_Manager.to_Html_WebPage(Nav_Base.get_Session_Instance(session).getBase_URL(), "", "Invoice_Header_Servlet", "List", webPage_Info_Node.getId(), my_Text_Color) );
+            
+        }
+        
+        out.println("</td>");
+        
+        out.println("<td>__</td>");
+        
+        out.println("<td>");
+        
+        out.println("<table><tbody><tr>");
+        out.println("<td><font color=\"" +  my_Text_Color + "\">");
+        out.println(display_List_Sort_Manager.getSort_Order_Description(Invoice_Header.field_Description_List) );
+        out.println("</font></td>");
+        out.println("</tr></tbody></table>");
+        out.println("");
+        out.println("</td>");
+        out.println("");
+        
+        String message = (String)session.getAttribute("s_message");
+        if(message != null && message.equals("")==false){
+            
+            out.println("<td><font color=\"" + my_Text_Color + "\">");
+            out.println("<h2><i>Error Message:");
+            out.println(message + "</i></h2>");
+            out.println("</font>");
+            out.println("</td>");
+            
+        }
+        
+        
+        out.println("</tr></tbody></table>");
+        
+        
+        
+        out.println("");
+        
+        
+        
+        
+    }
+    
+    
+    
+    void display_List_Customer_Info_Heading(PrintWriter out, HttpSession session, Customer customer){
+                
+        Customer_VO    customer_VO = new Customer_VO(customer, database_Front, User.get_Logged_In_TimeZone_Name(session));
+
+        out.println("<table border='1' align='center' cellspacing='0'>");
+        out.println("<tbody>");
+        out.println("<tr>");
+        out.println("	<th align='right'>" + Customer.field_Description_List.getField_Title("last_Name") + " :</th>");
+        out.println("	<td>" + customer_VO.getLast_Name() + "&nbsp;</td>");
+        out.println("	<th align='right'>First Names :</th>");
+        out.println("	<td>" + customer_VO.getFirst_Names() + "&nbsp;</td>");
+        out.println("	<th align='right'>" + Customer.field_Description_List.getField_Title("customer_Id") + " :</th>");
+        out.println("	<td>" + customer_VO.getCustomer_Id() + "&nbsp;</td>");
+        out.println("</tr>");
+        out.println("<tr>");
+        out.println("	<th align='right'>" + Customer.field_Description_List.getField_Title("country_Abbr") + " :</th>");
+        out.println("	<td>" + customer_VO.getCountry_Abbr() + "&nbsp;</td>");
+        
+        if(customer.getCountry_Abbr().equals("US") || customer.getCountry_Abbr().equals("CA")){
+            
+            out.println("            <th align='right'>" + Customer.field_Description_List.getField_Title("us_Canada_State_Abbr") + " :</th>");
+            out.println("            <td>" + customer_VO.getUs_Canada_State_Abbr() + "&nbsp;</td>");
+            
+        }else{
+            
+            out.println("            <th align='right'>" + Customer.field_Description_List.getField_Title("intl_State_Province") + " :</th>");
+            out.println("            <td>" + customer_VO.getIntl_State_Province() + "&nbsp;</td>");
+            
+        }
+        
+        out.println("	<th align='right'>" + Customer.field_Description_List.getField_Title("city") + " :</th>");
+        out.println("	<td>" + customer_VO.getCity() + "&nbsp;</td>");
+        out.println("</tr>");
+        out.println("</tbody>");
+        out.println("</table> ");
+    }
+    
+    
+    void display_List_Headings(PrintWriter out, HttpSession session, WebPage_Info_Node webPage_Info_Node, Display_List_Sort_Manager display_List_Sort_Manager, Customer customer){
+        
+        out.println("<form><input type='button' value='Close' onClick=\"window.opener.re_Load_WebPage();window.close();return(false);\"</form>");
+        out.println("");
+        out.println("<table border='2' cellpadding='5' cellspacing='1'  width='100%'>");
+        out.println("<tbody>");
+        out.println("<tr>");
+        out.println("<td>");
+        out.println("<form name='new1' method='post' action=\"" + Nav_Base.get_Session_Instance(session).getBase_URL() + "/Invoice_Header_Servlet\" target='_blank'>");
+        out.println("<input type='hidden' name='webPage_Info_Node_Id' value=\"" + webPage_Info_Node.getId() + "\">");
+        out.println("<input type='submit' name='to_Do' value='New'>");
+        out.println("</form>");
+        out.println("</td>");
+        out.println("</tr>");
+        out.println("<tr>");
+        out.println("<th>Action</th>");
+        out.println("<th>" + Invoice_Header.field_Description_List.getField_Title("invoice_Number") );
+        out.println("    " + display_List_Sort_Manager.getHref_WebPage(Nav_Base.get_Session_Instance(session).getBase_URL(), "Invoice_Header_Servlet", "List", webPage_Info_Node.getId(), "invoice_Number") );
+        out.println("</th>");
+        out.println("<th>" + Invoice_Header.field_Description_List.getField_Title("invoice_Date"));
+        out.println("    " + display_List_Sort_Manager.getHref_WebPage(Nav_Base.get_Session_Instance(session).getBase_URL(), "Invoice_Header_Servlet", "List", webPage_Info_Node.getId(), "invoice_Date") );
+        out.println("</th>");
+        
+        if(customer == null ){
+            
+            out.println("<th>" + Invoice_Header.field_Description_List.getField_Title("customer_Id"));
+            out.println("    " + display_List_Sort_Manager.getHref_WebPage(Nav_Base.get_Session_Instance(session).getBase_URL(), "Invoice_Header_Servlet", "List", webPage_Info_Node.getId(), "customer_Id") );
+            out.println("</th>");
+            
+        }
+        
+        out.println("<th>" + Invoice_Header.field_Description_List.getField_Title("total_Billed") );
+        out.println("    " + display_List_Sort_Manager.getHref_WebPage(Nav_Base.get_Session_Instance(session).getBase_URL(), "Invoice_Header_Servlet", "List", webPage_Info_Node.getId(), "total_Billed") );
+        out.println("</th>");
+        out.println("<th>" + Invoice_Header.field_Description_List.getField_Title("total_Payments") );
+        out.println("    " + display_List_Sort_Manager.getHref_WebPage(Nav_Base.get_Session_Instance(session).getBase_URL(), "Invoice_Header_Servlet", "List", webPage_Info_Node.getId(), "total_Payments") );
+        out.println("</th>");
+        out.println("<th>" + Invoice_Header.field_Description_List.getField_Title("total_Due"));
+        out.println("    " + display_List_Sort_Manager.getHref_WebPage(Nav_Base.get_Session_Instance(session).getBase_URL(), "Invoice_Header_Servlet", "List", webPage_Info_Node.getId(), "total_Due") );
+        out.println("</th>");
+        out.println("<th>" + Invoice_Header.field_Description_List.getField_Title("expecting_Payment_From_PayPal") );
+        out.println("    " + display_List_Sort_Manager.getHref_WebPage(Nav_Base.get_Session_Instance(session).getBase_URL(), "Invoice_Header_Servlet", "List", webPage_Info_Node.getId(), "expecting_Payment_From_PayPal") );
+        out.println("</th>");
+        out.println("");
+        out.println("</tr>");
+        
+        
+        
+        
+    }
+    
+    void display_List_Line_Item(PrintWriter out, HttpSession session, int row, WebPage_Info_Node webPage_Info_Node, Customer customer, Invoice_Header invoice_Header){
+        
+        Invoice_Header_VO invoice_Header_VO =
+                new Invoice_Header_VO(invoice_Header, database_Front, User.get_Logged_In_TimeZone_Name(session));
+                
+        out.println("");
+        out.println("<tr>");
+        out.println("<td>");
+        out.println("<form name='select_" + row + "' method='post' action='" + Nav_Base.get_Session_Instance(session).getBase_URL() + "/Invoice_Header_Servlet' target='_blank'>");
+        out.println("<input type='hidden' name='webPage_Info_Node_Id' value='" + webPage_Info_Node.getId() + "'>");
+        out.println("<input type='hidden' name='invoice_Number' value='" + invoice_Header_VO.getInvoice_Number() + "'>");
+        out.println("<input type='submit' name='to_Do' value='Select'>");
+        out.println("</form>");
+        out.println("</td>");
+        out.println("<td nowrap>" + invoice_Header_VO.getInvoice_Number() + "&nbsp;</td>");
+        out.println("");
+        out.println("<td nowrap>" + invoice_Header_VO.getInvoice_Date() + "&nbsp;</td>");
+        
+        if(customer == null ){
+            
+            out.println("<td nowrap>" + invoice_Header_VO.getCustomer_Id() + "&nbsp; " + invoice_Header_VO.getCustomer_VO().getLast_Name() + ",  " + invoice_Header_VO.getCustomer_VO().getFirst_Names() + "</td>");
+            
+        }
+        
+        
+        
+        out.println("<td nowrap>" + invoice_Header_VO.getTotal_Billed() + "&nbsp;</td>");
+        
+        out.println("<td nowrap>" + invoice_Header_VO.getTotal_Payments() + "&nbsp;</td>");
+        
+        out.println("<td nowrap>" + invoice_Header_VO.getTotal_Due() + "&nbsp;</td>");
+        
+        out.println("<td nowrap>" + invoice_Header_VO.getExpecting_Payment_From_PayPal() + "&nbsp;</td>");
+        
+        
+        out.println("</tr>");
+        out.println("");
+    }
+    
+    void display_List_Page_End(PrintWriter out, HttpSession session, WebPage_Info_Node webPage_Info_Node){
+        out.println("");
+        out.println("<tr>");
+        out.println("<td>");
+        out.println("<form name='new2' method='post' action='" + Nav_Base.get_Session_Instance(session).getBase_URL() + "/Invoice_Header_Servlet' target='_blank'>");
+        out.println("<input type='hidden' name='webPage_Info_Node_Id' value='" + webPage_Info_Node.getId() + "'>");
+        out.println("<input type='submit' name='to_Do' value='New'>");
+        out.println("</form>");
+        out.println("</td>");
+        out.println("</tr>");
+        out.println("");
+        out.println("</tbody>");
+        out.println("</table>");
+        out.println("");
+        out.println("</body>");
+        out.println("</html>");
+        
+    }
+}
+

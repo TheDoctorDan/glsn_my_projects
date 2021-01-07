@@ -1,0 +1,7 @@
+javac TestHttps.java
+
+echo
+echo "hit return"
+read x
+
+java TestHttps

@@ -1,0 +1,284 @@
+#make a new web site
+echo "Enter Domain Name"
+read DOMAIN_NAME
+if [ -z  "$DOMAIN_NAME" ]
+then
+	echo "Ending"
+	exit 1
+fi
+
+echo "Enter Host of Domain"
+read HOST
+if [ -z  "$HOST" ]
+then
+	echo "Ending"
+	exit 1
+fi
+
+echo "Enter User Name"
+read USER
+if [ -z  "$USER" ]
+then
+	echo "Ending"
+	exit 1
+fi
+
+echo "Enter /home/WebSites/ Directory"
+read DIRECTORY
+if [ -z  "$DIRECTORY" ]
+then
+	echo "Ending"
+	exit 1
+fi
+
+
+echo "Enter IP address 69.129.42.?"
+read IP_SUFFIX
+if [ -z  "$IP_SUFFIX" ]
+then
+	echo "Ending"
+	exit 1
+fi
+
+
+if [ -f /etc/sysconfig/network-scripts/ifcfg-eth0:$IP_SUFFIX ]
+then
+	echo "/etc/sysconfig/network-scripts/ifcfg-eth0:$IP_SUFFIX" " already exist."
+	echo "Ending"
+	exit 1
+fi
+
+new_ifcfg="ifcfg-eth0:$IP_SUFFIX"
+
+IP_ADDRESS="69.129.42.$IP_SUFFIX"
+
+
+
+bool "Use FrontPage Extensions ?"
+if [ $? -ne 0 ]
+then
+	USE_FP_EXTENSIONS="n"
+else
+	USE_FP_EXTENSIONS="y"
+fi
+
+
+echo "Domain Name	: $DOMAIN_NAME"
+echo "Host of Domain	: $HOST"
+echo "URL		: $HOST.$DOMAIN_NAME"
+echo "User Name	: $USER"
+echo "Directory 	: /home/WebSites/${DIRECTORY}"
+echo "IP Address	: $IP_ADDRESS"
+echo "FP Extensions     : $USE_FP_EXTENSIONS"
+
+bool "OK ?"
+if [ $? -ne 0 ]
+then
+	echo "Ending"
+	exit 1
+fi
+
+
+
+
+x=`grep "^${USER}:" /etc/passwd`
+if [ $? -eq 0 ]
+then
+	echo "User exist"
+	HOME_DIRECTORY=`echo $x |awk ' BEGIN { FS=":" } { print $6 } ' | sed 's/\/\.\/$//' `
+else
+	HOME_DIRECTORY="/home/WebSites/${DIRECTORY}"
+	adduser -d /home/WebSites/${DIRECTORY} $USER
+	echo
+	vipw <<xxx
+/^${USER}:
+:s/:${HOME_DIRECTORY}:/:${HOME_DIRECTORY}\/.\/:/
+:wq
+xxx
+fi
+
+if [ -d $HOME_DIRECTORY ]
+then
+	chmod 755 $HOME_DIRECTORY
+	chown $USER.$USER $HOME_DIRECTORY
+else
+	mkdir $HOME_DIRECTORY
+	chmod 755 $HOME_DIRECTORY
+	chown $USER.$USER $HOME_DIRECTORY
+fi
+
+HOME_ADMIN_DIRECTORY="/home/Admin_WebSites/${DIRECTORY}"
+
+if [ -d $HOME_ADMIN_DIRECTORY ]
+then
+	chmod 755 $HOME_ADMIN_DIRECTORY
+	chown $USER.$USER $HOME_ADMIN_DIRECTORY
+else
+	mkdir $HOME_ADMIN_DIRECTORY
+	chmod 755 $HOME_ADMIN_DIRECTORY
+	chown $USER.$USER $HOME_ADMIN_DIRECTORY
+fi
+
+
+
+x=`grep "^web_ftp.*[:,]${USER}[,$]" /etc/group`
+if [ $? -eq 0 ]
+then
+	echo "User already in web_ftp group"
+else
+	vigr <<xxx
+/^web_ftp:
+A,${USER}
+:wq
+xxx
+	echo
+
+fi
+
+cd /etc/sysconfig/network-scripts
+
+echo "creating"
+echo "new_ifcfg $new_ifcfg"
+
+echo "#${HOST}.${DOMAIN_NAME}" >$new_ifcfg
+echo "DEVICE=eth0:$IP_SUFFIX" >>$new_ifcfg
+echo "IPADDR=$IP_ADDRESS" >>$new_ifcfg
+echo "NETMASK=255.255.255.0" >>$new_ifcfg
+echo "BOOTPROTO=none" >>$new_ifcfg
+echo "BROADCAST=69.129.42.255" >>$new_ifcfg
+echo "NETWORK=69.129.42.0" >>$new_ifcfg
+echo "USERCTL=no" >>$new_ifcfg
+echo "ONBOOT=yes" >>$new_ifcfg
+
+chmod 600 $new_ifcfg
+
+echo "bringing up interface"
+ifup eth0:$IP_SUFFIX
+
+
+
+
+echo "Modifing httpd.conf"
+cd /etc/httpd/conf
+FILE="httpd.conf"
+
+
+echo  >>$FILE
+echo  >>$FILE
+echo  >>$FILE
+echo "# Virtual host ${HOST}.${DOMAIN_NAME}"  >>$FILE
+echo "Listen ${IP_ADDRESS}:80"  >>$FILE
+echo "<VirtualHost ${IP_ADDRESS}>"  >>$FILE
+echo "	ServerName ${HOST}.${DOMAIN_NAME}"  >>$FILE
+echo "#	ServerAdmin webmaster@amlibtech.net" >>$FILE
+echo "	ServerAdmin &#119;&#101;&#098;&#109;&#097;&#115;&#116;&#101;&#114;&#064;&#097;&#109;&#108;&#105;&#098;&#116;&#101;&#099;&#104;&#046;&#110;&#101;&#116;" >>$FILE
+echo "	ServerSignature EMail"  >>$FILE
+echo ""  >>$FILE
+echo "	DocumentRoot \"${HOME_DIRECTORY}/html\""  >>$FILE
+echo "	DirectoryIndex  Default.htm index.html index.htm index.shtml" >>$FILE
+echo ""  >>$FILE
+echo "	ErrorLog ${HOME_ADMIN_DIRECTORY}/logs/error_log"  >>$FILE
+echo "	CustomLog ${HOME_ADMIN_DIRECTORY}/logs/access_log combined"  >>$FILE
+echo ""  >>$FILE
+echo "	<Directory \"${HOME_DIRECTORY}/html\">"  >>$FILE
+echo "		Options Includes FollowSymLinks"  >>$FILE
+echo "		XBitHack on"  >>$FILE
+if [ $USE_FP_EXTENSIONS == "y" ]
+then
+echo "		AllowOverride All"  >>$FILE
+else
+echo "		AllowOverride None"  >>$FILE
+fi
+echo "		Order allow,deny"  >>$FILE
+echo "		Allow from all"  >>$FILE
+echo "	</Directory>"  >>$FILE
+echo ""  >>$FILE
+echo "	<Directory \"${HOME_ADMIN_DIRECTORY}/usage\">"  >>$FILE
+echo "		Options Includes FollowSymLinks"  >>$FILE
+echo "		AllowOverride None"  >>$FILE
+echo "		Order allow,deny"  >>$FILE
+echo "		Allow from all"  >>$FILE
+echo "		AuthType Basic"  >>$FILE
+echo "		AuthName \"Usage Information\""  >>$FILE
+echo "		AuthUserFile \"${HOME_ADMIN_DIRECTORY}/etc/passwords\""  >>$FILE
+echo "		AuthGroupFile \"${HOME_ADMIN_DIRECTORY}/etc/groups\""  >>$FILE
+echo "		require group Usage_Group"  >>$FILE
+echo "	</Directory>"  >>$FILE
+echo ""  >>$FILE
+echo "	Alias /usage \"${HOME_ADMIN_DIRECTORY}/usage/\""  >>$FILE
+echo "	ScriptAlias /cgi-bin/ \"${HOME_DIRECTORY}/cgi-bin/\""  >>$FILE
+echo ""  >>$FILE
+echo "	<Directory \"${HOME_DIRECTORY}/cgi-bin\">"  >>$FILE
+echo "		AllowOverride None"  >>$FILE
+echo "		Options ExecCGI"  >>$FILE
+echo "		Order allow,deny"  >>$FILE
+echo "		Allow from all"  >>$FILE
+echo "	</Directory>"  >>$FILE
+echo ""  >>$FILE
+echo "</VirtualHost>"  >>$FILE
+echo  >>$FILE
+echo  >>$FILE
+echo  >>$FILE
+
+
+cd $HOME_ADMIN_DIRECTORY
+tar xf /usr/gleeson/src/www/www_skel.tar
+chown -R $USER.$USER .
+
+chgrp apache ./etc/passwords ./etc/groups
+chmod 640 ./etc/passwords ./etc/groups
+
+cd $HOME_DIRECTORY
+ln -s /etc/mime.types .mime.types
+mkdir html cgi-bin
+chown -R $USER.$USER .
+cd html
+{
+echo "<html>"
+echo "<p>Under construction"
+echo "</html>"
+} >index.html
+
+
+if [ $USE_FP_EXTENSIONS == "y" ]
+then
+	echo "adding FP Extensions"
+	cd /usr/local/frontpage/version5.0/bin
+
+	./owsadm.exe -o install -p 80 \
+        -m "${HOST}.${DOMAIN_NAME}" \
+	-servconf "/etc/httpd/conf/httpd.conf" \
+	-u hostmaster -pw frodolives! \
+	-xuser $USER -xg $USER
+
+	./owsadm.exe -o enable \
+        -m "${HOST}.${DOMAIN_NAME}" 
+fi
+
+
+
+echo "Modifing logrotate.d/apache"
+cd /etc/logrotate.d
+FILE="apache"
+
+echo  >>$FILE
+echo  >>$FILE
+echo "${HOME_ADMIN_DIRECTORY}/logs/access_log ${HOME_DIRECTORY}/logs/error_log {"  >>$FILE
+echo "    weekly"  >>$FILE
+echo "    rotate 52"  >>$FILE
+echo "    missingok"  >>$FILE
+echo "    compress"  >>$FILE
+echo "    sharedscripts"  >>$FILE
+echo "    postrotate"  >>$FILE
+echo "	/bin/kill -HUP \`cat /var/run/httpd.pid 2>/dev/null\` 2> /dev/null || true"  >>$FILE
+echo "    endscript"  >>$FILE
+echo "}"  >>$FILE
+echo  >>$FILE
+echo  >>$FILE
+
+
+#echo "restarting apache"
+#cd /etc/init.d
+#./httpd graceful
+
+

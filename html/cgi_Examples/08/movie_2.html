@@ -1,0 +1,32 @@
+<HTML>
+<HEAD><TITLE>Television/Movie Survey</TITLE></HEAD>
+<BODY>
+<H1>Movie Survey</H1>
+<HR>
+Thanks for filling out Part 1 of our movie survey. Here is 
+Part 2... Again, please read all questions carefully. When you are finished,
+press the Submit button to wrap up the survey.
+<P>
+The current time is: <!--#insert var="DATE_TIME"--><BR>
+<HR>
+<FORM ACTION="/cgi-bin/survey.pl?cgi_cookie=<!--#insert var="COOKIE"-->&cgi_survey=<!--#insert var="SURVEY"-->&cgi_form_num=<!--#insert var="NUMBER"-->" METHOD="POST">
+What is your favorite comedy movie?
+<BR>
+<INPUT TYPE="radio" NAME="09 Comedy Movie" VALUE="WebHeads" CHECKED>WebHeads<BR>
+<INPUT TYPE="radio" NAME="09 Comedy Movie" VALUE="The Three CGI Musketeers">The Three CGI Musketeers<BR>
+<INPUT TYPE="radio" NAME="09 Comedy Movie" VALUE="Web Feet">Web Feet<BR>
+<INPUT TYPE="radio" NAME="09 Comedy Movie" VALUE="Who's the Server">Who's the Server<BR>
+<P>
+Who is your favorite actor in a comedy movie?
+<BR>
+<INPUT TYPE="radio" NAME="10 Movie Comedian" VALUE="Mike Hanks" CHECKED>Mike Hanks<BR>
+<INPUT TYPE="radio" NAME="10 Movie Comedian" VALUE="Joe Seinfeld">Joe Seinfeld<BR>
+<INPUT TYPE="radio" NAME="10 Movie Comedian" VALUE="Rob Allen">Rob Allen<BR>
+<INPUT TYPE="radio" NAME="10 Movie Comedian" VALUE="George Martin">George Martin<BR>
+<P>
+<INPUT TYPE="submit" VALUE="Submit the survey">
+<INPUT TYPE="reset"  VALUE="Clear all fields">
+</FORM>
+<HR>
+</BODY>
+</HTML>

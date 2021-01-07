@@ -1,0 +1,107 @@
+# KRUN.ME2
+#
+
+eliminate_wrong_cpu_version()
+{
+	VERSION_NAME=$1
+	CPU_CODE=$2
+	for cpu in i386 i486 i586 i686
+	do
+		if [ "$CPU_CODE" != "$cpu" ]
+		then
+			if [ -f $HD_RPMS_DIR/${VERSION_NAME}."$cpu".rpm ]
+			then
+				if [ -f $HD_RPMS_DIR/${VERSION_NAME}."$CPU_CODE".rpm \
+				-o -f $HD_DONE_DIR/${VERSION_NAME}."$CPU_CODE".rpm \
+				-o -f $HD_NOT_INSTALLED_DIR/${VERSION_NAME}."$CPU_CODE".rpm ]
+				then
+					echo "have "$CPU_CODE" version remove $HD_RPMS_DIR/${VERSION_NAME}."$cpu".rpm"
+					rm $HD_RPMS_DIR/${VERSION_NAME}."$cpu".rpm
+				fi
+			fi
+		fi
+	done
+}
+
+PATH="$PATH:/usr/gleeson/src/rpm_updates/scripts"
+export PATH
+
+clear
+
+
+HD_BASE_DIR="/var/tmp/rpm_updates/RedHat_Kernels"
+export HD_BASE_DIR
+
+HD_DONE_DIR=$HD_BASE_DIR"/DONE"
+export HD_DONE_DIR
+
+HD_NOT_INSTALLED_DIR="$HD_BASE_DIR/NOT_INSTALLED"
+export HD_NOT_INSTALLED_DIR
+
+HD_RPMS_DIR="$HD_BASE_DIR/RPMS"
+export HD_RPMS_DIR
+
+
+#Generate PACKAGE_NAMES and VERSION_NAMES
+PACKAGE_NAMES="$HD_BASE_DIR/PACKAGE_NAMES"
+>$PACKAGE_NAMES
+
+VERSION_NAMES="$HD_BASE_DIR/VERSION_NAMES"
+>$VERSION_NAMES
+
+cd $HD_RPMS_DIR
+
+for FILENAME in `ls`
+do
+	case $FILENAME in
+	*.i386.rpm)
+		nv=`echo $FILENAME | sed 's/\.i386\.rpm$//' `
+		echo $nv >>$VERSION_NAMES
+		pkg=`echo $nv | sed 's/\-[0-9].*$//g'`
+		echo $pkg >>$PACKAGE_NAMES
+		;;
+	*.i586.rpm)
+		nv=`echo $FILENAME | sed 's/\.i586\.rpm$//' `
+		echo $nv >>$VERSION_NAMES
+		pkg=`echo $nv | sed 's/\-[0-9].*$//g'`
+		echo $pkg >>$PACKAGE_NAMES
+		;;
+	*.i686.rpm)
+		nv=`echo $FILENAME | sed 's/\.i686\.rpm$//' `
+		echo $nv >>$VERSION_NAMES
+		pkg=`echo $nv | sed 's/\-[0-9].*$//g'`
+		echo $pkg >>$PACKAGE_NAMES
+		;;
+	*.noarch.rpm)
+		nv=`echo $FILENAME | sed 's/\.noarch\.rpm$//' `
+		echo $nv >>$VERSION_NAMES
+		pkg=`echo $nv | sed 's/\-[0-9].*$//g'`
+		echo $pkg >>$PACKAGE_NAMES
+		;;
+	*)
+		echo "Don't know what to do with $FILENAME"
+		;;
+	esac
+done
+sort -u -o $VERSION_NAMES $VERSION_NAMES
+sort -u -o $PACKAGE_NAMES $PACKAGE_NAMES
+
+CPU_CODE=`get_cpu_code`
+
+for VERSION_NAME in `cat $VERSION_NAMES`
+do
+	eliminate_wrong_cpu_version $VERSION_NAME  $CPU_CODE
+done
+
+
+#for FILENAME in `ls`
+#do
+#	echo $FILENAME
+#	rpm -K --nogpg $FILENAME
+#	if [ $? -ne 0 ]
+#	then
+#		echo "bad md5"
+#		exit 1
+#	fi
+#done
+

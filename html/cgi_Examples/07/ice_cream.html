@@ -1,0 +1,21 @@
+<HTML>
+<HEAD><TITLE>Ice Cream Survey</TITLE></HEAD>
+<BODY>
+<H1>Favorite Ice Cream Survey</H1>
+<HR>
+<FORM ACTION="/cgi-bin/ice_cream.pl" METHOD="POST">
+What is your favorite flavor of ice cream?
+<P>
+<INPUT TYPE="radio" NAME="ice_cream" VALUE="Vanilla" CHECKED>Vanilla<BR>
+<INPUT TYPE="radio" NAME="ice_cream" VALUE="Strawberry">Strawberry<BR>
+<INPUT TYPE="radio" NAME="ice_cream" VALUE="Chocolate">Chocolate<BR>
+<INPUT TYPE="radio" NAME="ice_cream" VALUE="Other">Other<BR>
+<P>
+<INPUT TYPE="submit" VALUE="Submit the survey">
+<INPUT TYPE="reset"  VALUE="Clear your choice">
+</FORM>
+<HR>
+If you would like to see the current results, click
+<A HREF="/cgi-bin/pie.pl/ice_cream.dat">here</A>.
+</BODY>
+</HTML>

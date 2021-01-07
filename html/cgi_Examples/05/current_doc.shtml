@@ -1,0 +1,7 @@
+<H2>File Summary</H2>
+<HR>
+The document you are viewing is titled:  <!--#echo var="DOCUMENT_NAME"-->,
+and you can access it a later time by opening the URL to:
+<!--#echo var="DOCUMENT_URI"-->. Please add this to your bookmark list.
+<HR>
+Document last modified on <!--#echo var="LAST_MODIFIED"-->.

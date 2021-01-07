@@ -1,0 +1,1856 @@
+/*
+ * Installed_Subsystems.java
+ *
+ * Created on June 7, 2006, 10:04 AM
+ */
+
+package com.amlibtech.login.data;
+
+import com.amlibtech.data_fields.*;
+import com.amlibtech.database.*;
+import com.amlibtech.util.*;
+import java.util.*;
+import javax.servlet.http.*;
+
+/**
+ *
+ * @author  dgleeson
+ */
+public class Installed_Subsystems extends Database_Record_Base {
+
+    // Declaration Section
+    private DFString_Filled	subscriber_Organization_Id;
+    private DFString    portal_Name;
+
+
+    private DFBoolean asp_Management;
+    private DFBoolean site_Management;
+
+    // ALL 'EM
+    private DFBoolean company_Management;
+
+    private DFBoolean person_Management; // these 2 were contact_management
+    private DFBoolean organization_Management;
+
+    private DFBoolean customer_Management; // was customer_service
+    private DFBoolean vendor_Management; // was vendor_service
+    private DFBoolean employee_Management; // was vendor_service
+
+    // Account 'EM
+    private DFBoolean general_Ledger;
+    private DFBoolean accounts_Payable;
+    private DFBoolean accounts_Receivable;
+
+    // Inventory 'EM
+    private DFBoolean inventory;
+
+    // Service 'EM
+    private DFBoolean gleeson_Time_Clock;
+    private DFBoolean time_Billing;
+
+    // Produce 'EM
+    private DFBoolean bill_Of_Material;
+    private DFBoolean factory_Order_Completion;
+    private DFBoolean factory_Order_Entry;
+    private DFBoolean factory_Order_Time_Reporting;
+
+    // Pay 'EM
+    private DFBoolean payroll;
+
+    // Sales Order 'EM
+    private DFBoolean sales_Order_Entry;
+
+    // Sales Invoice 'EM
+    private DFBoolean sales_Order_Invoicing;
+    private DFBoolean credit_Cards;
+    private DFBoolean product_Sales_History;
+    private DFBoolean customer_Sales_History;
+
+
+    // Commission 'EM
+    private DFBoolean sales_Commission;
+
+
+    // Purchase Order 'EM
+    private DFBoolean purchase_Order_Entry;
+    private DFBoolean vendor_Purchase_History;
+
+
+    // Material Ship 'EM
+    private DFBoolean sales_Order_Shipping;
+
+    // Material Receive 'EM
+    private DFBoolean purchase_Order_Receiving;
+    private DFBoolean purchase_Order_Tie_To_Ap;
+
+
+    // Sales Plan 'EM
+    private DFBoolean sales_Forecasting;
+
+    // Production and Purchase Plan 'EM
+    private DFBoolean factory_Purchase_Scheduling;
+
+
+
+    // Survey 'EM
+    private DFBoolean survey_Questionnaire;
+
+    // ISP 'EM
+    private DFBoolean isp_Management;
+
+    // Quote 'EM
+    private DFBoolean sales_Agent_Quotation;
+
+
+    // Enroll 'EM
+    private DFBoolean enroll_Em_Admin;
+    // studio, dept, course, teacher, semester, schedule
+    private DFBoolean enroll_Em_Billable;
+    // fees, discounts, scholarships, products and services
+    private DFBoolean enroll_Em_Registration;
+    // customer, student, register
+    private DFBoolean enroll_Em_Entities;
+    // organization, person, employee, vendor, customer, student, teacher
+    private DFBoolean enroll_Em_Accounts_Receivable;
+    // AR, invoice, payment, credit card, time-payments
+    private DFBoolean enroll_Em_Daily;
+    // attendance, makup classes, injury tracking
+    private DFBoolean enroll_Em_Eval;
+    // placement evaluation, single class evaluation, proficiency report
+    private DFBoolean enroll_Em_Performance;
+    // performances
+    private DFBoolean enroll_Em_Reports;
+    // reports
+
+   
+
+
+
+
+    //============== Begin jdbr Constructor Section ===========================
+
+
+    // Empty Constructor
+    /** Creates a new instance of Installed_Subsystems
+     * @exception throws Database_Record_Exception
+     */
+    public Installed_Subsystems() throws Database_Record_Exception {
+        super("Installed_Subsystems", "Installed_Subsystemss");
+        try {
+            this.subscriber_Organization_Id = new DFString_Filled("subscriber_Organization_Id", "Subscriber Organization ID#", Subscriber_Organization.SUBSCRIBER_ORGANIZATION_ID_LEN, DFString_Filled.FILL_TYPE_LEFT, ' ');
+            this.portal_Name = new DFString("portal_Name", "Portal Name", Subscriber_Organization_Portal.SUBSCRIBER_ORGANIZATION_PORTAL_NAME_LEN);
+            this.asp_Management =  new DFBoolean("asp_Management", "ASP Management");
+            this.site_Management =  new DFBoolean("site_Management", "Site Management");
+            this.company_Management =  new DFBoolean("company_Management", "Company Management");
+            this.person_Management =  new DFBoolean("person_Management", "Person Management");
+            this.organization_Management =  new DFBoolean("organization_Management", "Organization Management");
+            this.customer_Management =  new DFBoolean("customer_Management", "Customer Management");
+            this.vendor_Management =  new DFBoolean("vendor_Management", "Vendor Management");
+            this.employee_Management =  new DFBoolean("employee_Management", "Employee Management");
+            this.general_Ledger =  new DFBoolean("general_Ledger", "General Ledger");
+            this.accounts_Payable =  new DFBoolean("accounts_Payable", "Accounts Payable");
+            this.accounts_Receivable =  new DFBoolean("accounts_Receivable", "accounts Receivable");
+            this.inventory =  new DFBoolean("inventory", "Inventory");
+            this.gleeson_Time_Clock =  new DFBoolean("gleeson_Time_Clock", "Gleeson Time Clock");
+            this.time_Billing =  new DFBoolean("time_Billing", "Time Billing");
+            this.bill_Of_Material =  new DFBoolean("bill_Of_Material", "Bill of Material");
+            this.factory_Order_Completion =  new DFBoolean("factory_Order_Completion", "Factory Order Completion");
+            this.factory_Order_Entry =  new DFBoolean("factory_Order_Entry", "Factory Order Entry");
+            this.factory_Order_Time_Reporting =  new DFBoolean("factory_Order_Time_Reporting", "Factory Order Time Reporting");
+            this.payroll =  new DFBoolean("payroll", "Payroll");
+            this.sales_Order_Entry =  new DFBoolean("sales_Order_Entry", "Sales Order Entry");
+            this.sales_Order_Invoicing =  new DFBoolean("sales_Order_Invoicing", "Sales Order Invoicing");
+            this.credit_Cards =  new DFBoolean("credit_Cards", "Credit Card Processing");
+            this.product_Sales_History =  new DFBoolean("product_Sales_History", "Product  Sales History");
+            this.customer_Sales_History =  new DFBoolean("customer_Sales_History", "Customer Sales History");
+            this.sales_Commission =  new DFBoolean("sales_Commission", "Sales Commission");
+            this.purchase_Order_Entry =  new DFBoolean("purchase_Order_Entry", "Purchase Order Entry");
+            this.vendor_Purchase_History =  new DFBoolean("vendor_Purchase_History", "Vendor Purchase History");
+            this.sales_Order_Shipping =  new DFBoolean("sales_Order_Shipping", "Sales Order Shipping");
+            this.purchase_Order_Receiving =  new DFBoolean("purchase_Order_Receiving", "Purchase Order Receiving");
+            this.purchase_Order_Tie_To_Ap =  new DFBoolean("purchase_Order_Tie_To_Ap", "Purchase Order Tie To AP");
+            this.sales_Forecasting =  new DFBoolean("sales_Forecasting", "Sales Forecasting");
+            this.factory_Purchase_Scheduling =  new DFBoolean("Factory Purchase Scheduling", "Factory Purchase Scheduling");
+            this.survey_Questionnaire =  new DFBoolean("survey_Questionnaire", "Survey Questionnaire");
+            this.isp_Management =  new DFBoolean("isp_Management", "ISP Management");
+            this.sales_Agent_Quotation =  new DFBoolean("sales_Agent_Quotation", "Sales Agent Quotation");
+            this.enroll_Em_Admin =  new DFBoolean("enroll_Em_Admin", "Enroll 'EM Admin");
+            this.enroll_Em_Billable =  new DFBoolean("enroll_Em_Billable", "Enroll 'EM Billable");
+
+
+
+            this.enroll_Em_Registration =  new DFBoolean("enroll_Em_Registration", "Enroll 'EM Registration");
+            this.enroll_Em_Entities =  new DFBoolean("enroll_Em_Entities", "Enroll 'EM Entities");
+            this.enroll_Em_Accounts_Receivable =  new DFBoolean("enroll_Em_Accounts_Receivable", "Enroll 'EM Accounts_Receivable");
+            this.enroll_Em_Daily =  new DFBoolean("enroll_Em_Daily", "Enroll 'EM Daily");
+            this.enroll_Em_Eval =  new DFBoolean("enroll_Em_Eval", "Enroll 'EM Evaluations");
+            this.enroll_Em_Performance =  new DFBoolean("enroll_Em_Performance", "Enroll 'EM Performance");
+            this.enroll_Em_Reports =  new DFBoolean("enroll_Em_Reports", "Enroll 'EM Reports");
+
+            String[] index =   { "subscriber_Organization_Id", "portal_Name" };
+            this.setPrimary_Index_Fields(index);
+        }
+        catch(DFException dfe){
+            throw new Database_Record_Exception(this.getClass().getName() + ": constructor() : failed because DFException : " + dfe.getMessage());
+        }
+    }
+
+
+
+
+    // Keys Only Constructor
+    /** Creates a new instance of Installed_Subsystems with key fields set to passed values.
+     * @exception throws Database_Record_Exception
+     */
+    public Installed_Subsystems(String subscriber_Organization_Id, String portal_Name) throws Database_Record_Exception {
+        this();
+        try {
+            this.subscriber_Organization_Id.setValue(subscriber_Organization_Id);
+            this.portal_Name.setValue(portal_Name);
+
+        }
+        catch(DFException dfe){
+            throw new Database_Record_Exception(this.getClass().getName() + ": constructor(ID) : failed because DFException : " + dfe.getMessage());
+        }
+    }
+
+
+
+
+    //============== End jdbr Constructor Section ===========================
+
+
+  
+    public static Installed_Subsystems get_Installed_Subsystems(Subscriber_Organization subscriber_Organization, Subscriber_Organization_Portal subscriber_Organization_Portal)
+    throws Database_Front_Exception, Database_Record_Exception {
+        Installed_Subsystems installed_Subsystems=null;
+        boolean debug_Mode=true;
+        String message ="";
+        
+        Database_Front alt_Asp_Database_Front=null;
+        
+        Client_App_Constants alt_Asp_Client_App_Constants = new Client_App_Constants("jdbc:mysql://localhost/ALTASP", "ASP_admin", "master23er2indi");
+        
+        alt_Asp_Database_Front = new Database_Front(alt_Asp_Client_App_Constants);
+        
+        try{
+            alt_Asp_Database_Front.open();
+        }
+        catch(Database_Front_Exception dbfe){
+            if(debug_Mode){
+                message = "Connection to ALTASP DataBase Failed. Database_Front_Exception :" + dbfe.getMessage();
+                throw new Database_Front_Exception(message);
+            }else{
+                throw dbfe;
+            }
+        }
+        
+        
+        try {
+            installed_Subsystems = (Installed_Subsystems) alt_Asp_Database_Front.getRecord(new Installed_Subsystems(subscriber_Organization.getSubscriber_Organization_Id().toString(), subscriber_Organization_Portal.getPortal_Name().toString()));
+        }
+        catch(Database_Front_Exception dbfe){
+            if(debug_Mode){
+                message = "Failed to find Installed_Subsystems in database. Database_Front_Exception :" + dbfe.getMessage();
+                throw new Database_Front_Exception(message);
+            }else{
+                throw dbfe;
+            }
+        }
+        
+        
+        
+        
+        try{
+            alt_Asp_Database_Front.close();
+        }
+        catch(Database_Front_Exception dbfe){
+            if(debug_Mode){
+                message = "Close of Connection to ALTASP DataBase Failed. Database_Front_Exception :" + dbfe.getMessage();
+                throw new Database_Front_Exception(message);
+            }else{
+                throw dbfe;
+            }
+        }
+        
+        return installed_Subsystems;
+    }
+    
+     
+    
+    /** writes this Installed_Subsystems to session attribute  "i_Am_Installed_Subsystems"  */
+    public void set_Session_Instance(HttpSession session){
+        session.setAttribute("i_Am_Installed_Subsystems", this);
+    }
+    
+    /**
+     * Reads User from session attribute "i_Am_Installed_Subsystems".
+     * @return A Installed_Subsystems instance of logged in user.
+     * @throws if the session in invalid or
+     * if no user has logged in.
+     */
+    public static Installed_Subsystems get_Session_Instance(HttpSession session)
+    throws Database_Record_Exception {
+        Installed_Subsystems temp_Installed_Subsystems;
+        try {
+            temp_Installed_Subsystems = (Installed_Subsystems) session.getAttribute("i_Am_Installed_Subsystems");
+        }
+        catch(IllegalStateException ise){
+            throw new Database_Record_Exception("Your Session has Timed Out.");
+        }
+        if(temp_Installed_Subsystems == null){
+            throw new Database_Record_Exception("No Portal has been selected for this session.");
+        }
+        return temp_Installed_Subsystems;
+    }
+    
+
+
+
+    public String[] getList_Of_Installed()
+    {
+        LinkedList  list = new LinkedList();
+        
+        if(asp_Management.getValue().equals(Boolean.TRUE))
+            list.add("asp_Management");
+
+        if(site_Management.getValue().equals(Boolean.TRUE))
+            list.add("site_Management");
+
+        if(company_Management.getValue().equals(Boolean.TRUE))
+            list.add("company_Management");
+
+        if(person_Management.getValue().equals(Boolean.TRUE))
+            list.add("person_Management");
+
+        if(organization_Management.getValue().equals(Boolean.TRUE))
+            list.add("organization_Management");
+
+        if(customer_Management.getValue().equals(Boolean.TRUE))
+            list.add("customer_Management");
+
+        if(vendor_Management.getValue().equals(Boolean.TRUE))
+            list.add("vendor_Management");
+
+        if(employee_Management.getValue().equals(Boolean.TRUE))
+            list.add("employee_Management");
+
+        if(general_Ledger.getValue().equals(Boolean.TRUE))
+            list.add("general_Ledger");
+
+        if(accounts_Payable.getValue().equals(Boolean.TRUE))
+            list.add("accounts_Payable");
+
+        if(accounts_Receivable.getValue().equals(Boolean.TRUE))
+            list.add("accounts_Receivable");
+
+        if(inventory.getValue().equals(Boolean.TRUE))
+            list.add("inventory");
+
+        if(gleeson_Time_Clock.getValue().equals(Boolean.TRUE))
+            list.add("gleeson_Time_Clock");
+
+        if(time_Billing.getValue().equals(Boolean.TRUE))
+            list.add("time_Billing");
+
+        if(bill_Of_Material.getValue().equals(Boolean.TRUE))
+            list.add("bill_Of_Material");
+
+        if(factory_Order_Completion.getValue().equals(Boolean.TRUE))
+            list.add("factory_Order_Completion");
+
+        if(factory_Order_Entry.getValue().equals(Boolean.TRUE))
+            list.add("factory_Order_Entry");
+
+        if(factory_Order_Time_Reporting.getValue().equals(Boolean.TRUE))
+            list.add("factory_Order_Time_Reporting");
+
+        if(payroll.getValue().equals(Boolean.TRUE))
+            list.add("payroll");
+
+        if(sales_Order_Entry.getValue().equals(Boolean.TRUE))
+            list.add("sales_Order_Entry");
+
+        if(sales_Order_Invoicing.getValue().equals(Boolean.TRUE))
+            list.add("sales_Order_Invoicing");
+
+        if(credit_Cards.getValue().equals(Boolean.TRUE))
+            list.add("credit_Cards");
+
+        if(product_Sales_History.getValue().equals(Boolean.TRUE))
+            list.add("product_Sales_History");
+
+        if(customer_Sales_History.getValue().equals(Boolean.TRUE))
+            list.add("customer_Sales_History");
+
+        if(sales_Commission.getValue().equals(Boolean.TRUE))
+            list.add("sales_Commission");
+
+        if(purchase_Order_Entry.getValue().equals(Boolean.TRUE))
+            list.add("purchase_Order_Entry");
+
+        if(vendor_Purchase_History.getValue().equals(Boolean.TRUE))
+            list.add("vendor_Purchase_History");
+
+        if(sales_Order_Shipping.getValue().equals(Boolean.TRUE))
+            list.add("sales_Order_Shipping");
+
+        if(purchase_Order_Receiving.getValue().equals(Boolean.TRUE))
+            list.add("purchase_Order_Receiving");
+
+        if(purchase_Order_Tie_To_Ap.getValue().equals(Boolean.TRUE))
+            list.add("purchase_Order_Tie_To_Ap");
+
+        if(sales_Forecasting.getValue().equals(Boolean.TRUE))
+            list.add("sales_Forecasting");
+
+        if(factory_Purchase_Scheduling.getValue().equals(Boolean.TRUE))
+            list.add("factory_Purchase_Scheduling");
+
+        if(survey_Questionnaire.getValue().equals(Boolean.TRUE))
+            list.add("survey_Questionnaire");
+
+        if(isp_Management.getValue().equals(Boolean.TRUE))
+            list.add("isp_Management");
+
+        if(sales_Agent_Quotation.getValue().equals(Boolean.TRUE))
+            list.add("sales_Agent_Quotation");
+
+        if(enroll_Em_Admin.getValue().equals(Boolean.TRUE))
+            list.add("enroll_Em_Admin");
+
+        if(enroll_Em_Billable.getValue().equals(Boolean.TRUE))
+            list.add("enroll_Em_Billable");
+
+        if(enroll_Em_Registration.getValue().equals(Boolean.TRUE))
+            list.add("enroll_Em_Registration");
+
+        if(enroll_Em_Entities.getValue().equals(Boolean.TRUE))
+            list.add("enroll_Em_Entities");
+
+        if(enroll_Em_Accounts_Receivable.getValue().equals(Boolean.TRUE))
+            list.add("enroll_Em_Accounts_Receivable");
+
+        if(enroll_Em_Daily.getValue().equals(Boolean.TRUE))
+            list.add("enroll_Em_Daily");
+
+        if(enroll_Em_Eval.getValue().equals(Boolean.TRUE))
+            list.add("enroll_Em_Eval");
+
+        if(enroll_Em_Performance.getValue().equals(Boolean.TRUE))
+            list.add("enroll_Em_Performance");
+
+        if(enroll_Em_Reports.getValue().equals(Boolean.TRUE))
+            list.add("enroll_Em_Reports");
+
+        
+        String[] answer = new String[list.size()];
+        for(int i=0;i<list.size(); i++){
+            answer[i] = (String)list.get(i);
+        }
+        return answer;
+    }
+
+
+
+
+
+    //============== Begin jdbr Generated Section ===========================
+
+
+
+    /**
+     * Returns name of Database table for these records.
+     * @see Database_Front.
+     * @return Table Name.
+     */
+    public String get_Table_Name() {
+        return "installed_subsystems";
+    }
+
+
+
+
+    /** Used to check for reasons not to delete this record from table.
+     * @exception throws Database_Record_Exception
+     * @param database_Front used if routine needs to check database.
+     * @param httpSession used if routine needs extra info from a session attribute.
+     */
+    public synchronized void is_Delete_Allowed(Database_Front database_Front, HttpSession httpSession) throws Database_Record_Exception {
+        return;
+    }
+
+
+
+
+    /**
+     * Used by Database_Front to return many records.
+     * @param array_size is the size of the array required.
+     * @return Installed_Subsystems[] the size of array_Size as an Database_Record_Base[].
+     */
+    public Database_Record_Base[] get_Array_of_Records(int array_Size) {
+        Installed_Subsystems[] installed_Subsystems_Records;
+        installed_Subsystems_Records = new Installed_Subsystems[array_Size];
+        return installed_Subsystems_Records;
+    }
+
+
+
+
+
+    /**
+     * Creates a <code>String</code> containing an SQL command to generate table for this record.
+     * @return SQL CREATE TABLE Command.
+     */
+    public String getSQL_Create_Table() {
+
+        StringBuffer out = new StringBuffer();
+
+        out.append("CREATE TABLE `" + get_Table_Name() + "` (\n");
+        out.append("\t" + subscriber_Organization_Id.getSQL_Declaration());
+        out.append("\t" + portal_Name.getSQL_Declaration());
+        out.append("\t" + asp_Management.getSQL_Declaration());
+        out.append("\t" + site_Management.getSQL_Declaration());
+        out.append("\t" + company_Management.getSQL_Declaration());
+        out.append("\t" + person_Management.getSQL_Declaration());
+        out.append("\t" + organization_Management.getSQL_Declaration());
+        out.append("\t" + customer_Management.getSQL_Declaration());
+        out.append("\t" + vendor_Management.getSQL_Declaration());
+        out.append("\t" + employee_Management.getSQL_Declaration());
+        out.append("\t" + general_Ledger.getSQL_Declaration());
+        out.append("\t" + accounts_Payable.getSQL_Declaration());
+        out.append("\t" + accounts_Receivable.getSQL_Declaration());
+        out.append("\t" + inventory.getSQL_Declaration());
+        out.append("\t" + gleeson_Time_Clock.getSQL_Declaration());
+        out.append("\t" + time_Billing.getSQL_Declaration());
+        out.append("\t" + bill_Of_Material.getSQL_Declaration());
+        out.append("\t" + factory_Order_Completion.getSQL_Declaration());
+        out.append("\t" + factory_Order_Entry.getSQL_Declaration());
+        out.append("\t" + factory_Order_Time_Reporting.getSQL_Declaration());
+        out.append("\t" + payroll.getSQL_Declaration());
+        out.append("\t" + sales_Order_Entry.getSQL_Declaration());
+        out.append("\t" + sales_Order_Invoicing.getSQL_Declaration());
+        out.append("\t" + credit_Cards.getSQL_Declaration());
+        out.append("\t" + product_Sales_History.getSQL_Declaration());
+        out.append("\t" + customer_Sales_History.getSQL_Declaration());
+        out.append("\t" + sales_Commission.getSQL_Declaration());
+        out.append("\t" + purchase_Order_Entry.getSQL_Declaration());
+        out.append("\t" + vendor_Purchase_History.getSQL_Declaration());
+        out.append("\t" + sales_Order_Shipping.getSQL_Declaration());
+        out.append("\t" + purchase_Order_Receiving.getSQL_Declaration());
+        out.append("\t" + purchase_Order_Tie_To_Ap.getSQL_Declaration());
+        out.append("\t" + sales_Forecasting.getSQL_Declaration());
+        out.append("\t" + factory_Purchase_Scheduling.getSQL_Declaration());
+        out.append("\t" + survey_Questionnaire.getSQL_Declaration());
+        out.append("\t" + isp_Management.getSQL_Declaration());
+        out.append("\t" + sales_Agent_Quotation.getSQL_Declaration());
+        out.append("\t" + enroll_Em_Admin.getSQL_Declaration());
+        out.append("\t" + enroll_Em_Billable.getSQL_Declaration());
+        out.append("\t" + enroll_Em_Registration.getSQL_Declaration());
+        out.append("\t" + enroll_Em_Entities.getSQL_Declaration());
+        out.append("\t" + enroll_Em_Accounts_Receivable.getSQL_Declaration());
+        out.append("\t" + enroll_Em_Daily.getSQL_Declaration());
+        out.append("\t" + enroll_Em_Eval.getSQL_Declaration());
+        out.append("\t" + enroll_Em_Performance.getSQL_Declaration());
+        out.append("\t" + enroll_Em_Reports.getSQL_Declaration());
+
+
+        out.append("        PRIMARY KEY  (`" + subscriber_Organization_Id.getField_Name() + "`, `" + portal_Name.getField_Name() + "`)\n");
+        out.append(") TYPE=InnoDB;\n");
+
+        return (out.toString());
+    }
+
+
+
+
+    /**
+     * Used by Database_Front to sort records.
+     * @param which_Index used to select which index to use.  PRIMARY_INDEX is always available.
+     * @return SQL ORDER BY clause for selected index.
+     * @exception throws Database_Front_Exception if selected index is invalid.
+     */
+    public String getNext_Sort_Clause(int which_Index) throws Database_Front_Exception {
+        switch(which_Index){
+            case PRIMARY_INDEX:
+                return "ORDER BY subscriber_Organization_Id ASC, portal_Name ASC";
+            default:
+                throw new Database_Front_Exception(this.getClass().getName() + ".getNext_Sort_Clause(): unknown Index:"+which_Index);
+        }
+    }
+
+
+
+
+    /**
+     * Used by Database_Front to split matching records into small sets of records.
+     * skip_Levels will increment as each prior level fails.
+     * @param which_Index used to select which index to use.  PRIMARY_INDEX is always available.
+     * @param skip_Levels used to control how many fields of the index are to be used.
+     *  As last field of multi-field index maxes out, We want to allow next to last field to increase.
+     * And then again on the next level.  Etc.
+     * @return WHERE clause for which_Index and skip_Levels.
+     * @return <code>null</code> if skip_Levels exceeds maximum number for selected index.
+     * @return <code>null</code> if skip_Levels less than 0.
+     * @exception throws Database_Front_Exception if selected index is invalid.
+     */
+    public String getNext_Where_Clause(int which_Index, int skip_Levels) throws Database_Front_Exception {
+        switch(which_Index){
+        case PRIMARY_INDEX:
+            switch(skip_Levels){
+            case 0:
+                return "WHERE subscriber_Organization_Id = '" + SQLUtil.encode(this.subscriber_Organization_Id.toString()) + "' "
+                    + " AND portal_Name > '" + SQLUtil.encode(this.portal_Name.toString()) + "' ";
+            case 1:
+                return "WHERE subscriber_Organization_Id > '" + SQLUtil.encode(this.subscriber_Organization_Id.toString()) + "' ";
+            default:
+                return null;
+            }
+        default:
+            throw new Database_Front_Exception(this.getClass().getName() + ".getNext_Sort_Clause(): unknown Index:"+which_Index);
+        }
+    }
+
+
+
+
+
+    /**
+     * Returns first field name. Used Database_Front to build short SELECT clause.
+     * @see Database_Front.is_Match().
+     * @return the field_Name of first data field in record.
+     */
+    public String get_First_Field_Name() {
+        return "subscriber_Organization_Id";
+    }
+
+
+
+
+
+    /**
+     * Used by Database_Front to INSERT records.
+     * @see counter part get_Values_Clause()
+     * @return parenthesised comma separated list of ALL field_Names in record.
+     */
+    public String get_Into_Clause() {
+        return "(subscriber_Organization_Id, portal_Name, asp_Management, site_Management, company_Management, person_Management, organization_Management, customer_Management, vendor_Management, employee_Management, general_Ledger, accounts_Payable, accounts_Receivable, inventory, gleeson_Time_Clock, time_Billing, bill_Of_Material, factory_Order_Completion, factory_Order_Entry, factory_Order_Time_Reporting, payroll, sales_Order_Entry, sales_Order_Invoicing, credit_Cards, product_Sales_History, customer_Sales_History, sales_Commission, purchase_Order_Entry, vendor_Purchase_History, sales_Order_Shipping, purchase_Order_Receiving, purchase_Order_Tie_To_Ap, sales_Forecasting, factory_Purchase_Scheduling, survey_Questionnaire, isp_Management, sales_Agent_Quotation, enroll_Em_Admin, enroll_Em_Billable, enroll_Em_Registration, enroll_Em_Entities, enroll_Em_Accounts_Receivable, enroll_Em_Daily, enroll_Em_Eval, enroll_Em_Performance, enroll_Em_Reports)";
+    }
+
+
+
+
+
+    /**
+     * Used by Database_Front to INSERT records.
+     * @see counter part get_Into_Clause()
+     * @return parenthesised comma separated list of ?. One for each field_Name in record.
+     */
+    public String get_Values_Clause() {
+        return "(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    }
+
+
+
+
+
+    /**
+     * Used by Database_Front to INSERT, FIND, DELETE, UPDATE a record.
+     * @return comma separated list of field_Name = ? of all field_Names in Primary Key.
+     */
+    public String get_Key_Where_Clause() {
+        return "subscriber_Organization_Id = ? AND portal_Name = ?";
+    }
+
+
+
+
+
+    /**
+     * Used by Database_Front to UPDATE a record.
+     * @return comma separated list of field_Name = ? of all field_Names NOT in Primary Key.
+     */
+    public String get_Set_Clause() {
+        return "asp_Management = ?, site_Management = ?, company_Management = ?, person_Management = ?, organization_Management = ?, customer_Management = ?, vendor_Management = ?, employee_Management = ?, general_Ledger = ?, accounts_Payable = ?, accounts_Receivable = ?, inventory = ?, gleeson_Time_Clock = ?, time_Billing = ?, bill_Of_Material = ?, factory_Order_Completion = ?, factory_Order_Entry = ?, factory_Order_Time_Reporting = ?, payroll = ?, sales_Order_Entry = ?, sales_Order_Invoicing = ?, credit_Cards = ?, product_Sales_History = ?, customer_Sales_History = ?, sales_Commission = ?, purchase_Order_Entry = ?, vendor_Purchase_History = ?, sales_Order_Shipping = ?, purchase_Order_Receiving = ?, purchase_Order_Tie_To_Ap = ?, sales_Forecasting = ?, factory_Purchase_Scheduling = ?, survey_Questionnaire = ?, isp_Management = ?, sales_Agent_Quotation = ?, enroll_Em_Admin = ?, enroll_Em_Billable = ?, enroll_Em_Registration = ?, enroll_Em_Entities = ?, enroll_Em_Accounts_Receivable = ?, enroll_Em_Daily = ?, enroll_Em_Eval = ?, enroll_Em_Performance = ?, enroll_Em_Reports = ?";
+    }
+
+
+
+
+
+    /**
+     * Used by Database_Front to encode fields into a SQL prepared statement.
+     * The first section is for fields in Primary key.
+     * See get_Key_Where_Clause() .
+     * The second section is for the rest of the data fields.
+     * @see get_Set_Clause().
+     * @see also get_Into_Clause() and get_Values_Clause().
+     * @param preparedStatement is the SQL statement with ? for values.
+     * @param order indicates which groups of values in which order are in the preparedStatement.
+     * order values can be:
+     * <ul><li>ORDER_KEYS_FIRST used when index fields are at beginning of the preparedStatement. (addRecord(), INSERT INTO ...).
+     * <li>ORDER_KEYS_LAST used when index fields are at end of the preparedStatement. (updateRecord(), UPDATE x SET ... WHERE ...).
+     * <li>ORDER_KEYS_ONLY used when index fields are the only values in the preparedStatement. (is_Match(), getResultSet_Row(), Select * FROM x WHERE ..., deleteRecord(), DELETE FROM ...).
+     * <li>ORDER_KEYS_NEVER used when index fields are not in the preparedStatement.
+     * </ul>
+     * @return preparedStatement with values inserted where ? were.
+     * @exception throws Database_Record_Exception if any of the data_fields.DFBase Classes : get_PreparedStatement_Value() fails.
+     */
+    public synchronized java.sql.PreparedStatement preparedStatement_Encode(java.sql.PreparedStatement preparedStatement, int order)
+    throws Database_Record_Exception {
+        int count=1;
+        try {
+            for(int pass=1;pass<=2;pass++){
+                if((pass == 1 && order == ORDER_KEYS_FIRST) ||
+                (pass == 1 && order == ORDER_KEYS_ONLY) ||
+                (pass == 2 && order == ORDER_KEYS_LAST)
+                ){
+                    preparedStatement = this.subscriber_Organization_Id.get_PreparedStatement_Value(preparedStatement, count++);
+                    preparedStatement = this.portal_Name.get_PreparedStatement_Value(preparedStatement, count++);
+                }
+                if((pass == 1 && order == ORDER_KEYS_FIRST) ||
+                (pass == 1 && order == ORDER_KEYS_LAST) ||
+                (pass == 1 && order == ORDER_KEYS_NEVER)
+                ){
+
+                    preparedStatement = this.asp_Management.get_PreparedStatement_Value(preparedStatement, count++);
+                    preparedStatement = this.site_Management.get_PreparedStatement_Value(preparedStatement, count++);
+                    preparedStatement = this.company_Management.get_PreparedStatement_Value(preparedStatement, count++);
+                    preparedStatement = this.person_Management.get_PreparedStatement_Value(preparedStatement, count++);
+                    preparedStatement = this.organization_Management.get_PreparedStatement_Value(preparedStatement, count++);
+                    preparedStatement = this.customer_Management.get_PreparedStatement_Value(preparedStatement, count++);
+                    preparedStatement = this.vendor_Management.get_PreparedStatement_Value(preparedStatement, count++);
+                    preparedStatement = this.employee_Management.get_PreparedStatement_Value(preparedStatement, count++);
+                    preparedStatement = this.general_Ledger.get_PreparedStatement_Value(preparedStatement, count++);
+                    preparedStatement = this.accounts_Payable.get_PreparedStatement_Value(preparedStatement, count++);
+                    preparedStatement = this.accounts_Receivable.get_PreparedStatement_Value(preparedStatement, count++);
+                    preparedStatement = this.inventory.get_PreparedStatement_Value(preparedStatement, count++);
+                    preparedStatement = this.gleeson_Time_Clock.get_PreparedStatement_Value(preparedStatement, count++);
+                    preparedStatement = this.time_Billing.get_PreparedStatement_Value(preparedStatement, count++);
+                    preparedStatement = this.bill_Of_Material.get_PreparedStatement_Value(preparedStatement, count++);
+                    preparedStatement = this.factory_Order_Completion.get_PreparedStatement_Value(preparedStatement, count++);
+                    preparedStatement = this.factory_Order_Entry.get_PreparedStatement_Value(preparedStatement, count++);
+                    preparedStatement = this.factory_Order_Time_Reporting.get_PreparedStatement_Value(preparedStatement, count++);
+                    preparedStatement = this.payroll.get_PreparedStatement_Value(preparedStatement, count++);
+                    preparedStatement = this.sales_Order_Entry.get_PreparedStatement_Value(preparedStatement, count++);
+                    preparedStatement = this.sales_Order_Invoicing.get_PreparedStatement_Value(preparedStatement, count++);
+                    preparedStatement = this.credit_Cards.get_PreparedStatement_Value(preparedStatement, count++);
+                    preparedStatement = this.product_Sales_History.get_PreparedStatement_Value(preparedStatement, count++);
+                    preparedStatement = this.customer_Sales_History.get_PreparedStatement_Value(preparedStatement, count++);
+                    preparedStatement = this.sales_Commission.get_PreparedStatement_Value(preparedStatement, count++);
+                    preparedStatement = this.purchase_Order_Entry.get_PreparedStatement_Value(preparedStatement, count++);
+                    preparedStatement = this.vendor_Purchase_History.get_PreparedStatement_Value(preparedStatement, count++);
+                    preparedStatement = this.sales_Order_Shipping.get_PreparedStatement_Value(preparedStatement, count++);
+                    preparedStatement = this.purchase_Order_Receiving.get_PreparedStatement_Value(preparedStatement, count++);
+                    preparedStatement = this.purchase_Order_Tie_To_Ap.get_PreparedStatement_Value(preparedStatement, count++);
+                    preparedStatement = this.sales_Forecasting.get_PreparedStatement_Value(preparedStatement, count++);
+                    preparedStatement = this.factory_Purchase_Scheduling.get_PreparedStatement_Value(preparedStatement, count++);
+                    preparedStatement = this.survey_Questionnaire.get_PreparedStatement_Value(preparedStatement, count++);
+                    preparedStatement = this.isp_Management.get_PreparedStatement_Value(preparedStatement, count++);
+                    preparedStatement = this.sales_Agent_Quotation.get_PreparedStatement_Value(preparedStatement, count++);
+                    preparedStatement = this.enroll_Em_Admin.get_PreparedStatement_Value(preparedStatement, count++);
+                    preparedStatement = this.enroll_Em_Billable.get_PreparedStatement_Value(preparedStatement, count++);
+                    preparedStatement = this.enroll_Em_Registration.get_PreparedStatement_Value(preparedStatement, count++);
+                    preparedStatement = this.enroll_Em_Entities.get_PreparedStatement_Value(preparedStatement, count++);
+                    preparedStatement = this.enroll_Em_Accounts_Receivable.get_PreparedStatement_Value(preparedStatement, count++);
+                    preparedStatement = this.enroll_Em_Daily.get_PreparedStatement_Value(preparedStatement, count++);
+                    preparedStatement = this.enroll_Em_Eval.get_PreparedStatement_Value(preparedStatement, count++);
+                    preparedStatement = this.enroll_Em_Performance.get_PreparedStatement_Value(preparedStatement, count++);
+                    preparedStatement = this.enroll_Em_Reports.get_PreparedStatement_Value(preparedStatement, count++);
+                }
+            }
+        }
+        catch(DFException dfe){
+            throw new Database_Record_Exception(this.getClass().getName() + ": preparedStatement_Encode(): failed because DFException : " + dfe.getMessage());
+        }
+
+        return preparedStatement;
+    }
+
+
+
+
+
+    /**
+     * Used by Database_Front to decode SQL resultSet into data fields of record.
+     * @param resultSet is a ResultSet returned from PrepareStatement.executeUpdate().
+     * @return Installed_Subsystems record.
+     * @exception throws Database_Record_Exception if any of the data_fields.DFBase Classes : setValue_ResultSet() fails.
+     */
+    public synchronized Database_Record_Base resultSet_Row_Decode(java.sql.ResultSet resultSet) throws Database_Record_Exception {
+        Installed_Subsystems result;
+        try {
+            result = new Installed_Subsystems();
+
+            result.subscriber_Organization_Id.setValue_ResultSet(resultSet);
+            result.portal_Name.setValue_ResultSet(resultSet);
+            result.asp_Management.setValue_ResultSet(resultSet);
+            result.site_Management.setValue_ResultSet(resultSet);
+            result.company_Management.setValue_ResultSet(resultSet);
+            result.person_Management.setValue_ResultSet(resultSet);
+            result.organization_Management.setValue_ResultSet(resultSet);
+            result.customer_Management.setValue_ResultSet(resultSet);
+            result.vendor_Management.setValue_ResultSet(resultSet);
+            result.employee_Management.setValue_ResultSet(resultSet);
+            result.general_Ledger.setValue_ResultSet(resultSet);
+            result.accounts_Payable.setValue_ResultSet(resultSet);
+            result.accounts_Receivable.setValue_ResultSet(resultSet);
+            result.inventory.setValue_ResultSet(resultSet);
+            result.gleeson_Time_Clock.setValue_ResultSet(resultSet);
+            result.time_Billing.setValue_ResultSet(resultSet);
+            result.bill_Of_Material.setValue_ResultSet(resultSet);
+            result.factory_Order_Completion.setValue_ResultSet(resultSet);
+            result.factory_Order_Entry.setValue_ResultSet(resultSet);
+            result.factory_Order_Time_Reporting.setValue_ResultSet(resultSet);
+            result.payroll.setValue_ResultSet(resultSet);
+            result.sales_Order_Entry.setValue_ResultSet(resultSet);
+            result.sales_Order_Invoicing.setValue_ResultSet(resultSet);
+            result.credit_Cards.setValue_ResultSet(resultSet);
+            result.product_Sales_History.setValue_ResultSet(resultSet);
+            result.customer_Sales_History.setValue_ResultSet(resultSet);
+            result.sales_Commission.setValue_ResultSet(resultSet);
+            result.purchase_Order_Entry.setValue_ResultSet(resultSet);
+            result.vendor_Purchase_History.setValue_ResultSet(resultSet);
+            result.sales_Order_Shipping.setValue_ResultSet(resultSet);
+            result.purchase_Order_Receiving.setValue_ResultSet(resultSet);
+            result.purchase_Order_Tie_To_Ap.setValue_ResultSet(resultSet);
+            result.sales_Forecasting.setValue_ResultSet(resultSet);
+            result.factory_Purchase_Scheduling.setValue_ResultSet(resultSet);
+            result.survey_Questionnaire.setValue_ResultSet(resultSet);
+            result.isp_Management.setValue_ResultSet(resultSet);
+            result.sales_Agent_Quotation.setValue_ResultSet(resultSet);
+            result.enroll_Em_Admin.setValue_ResultSet(resultSet);
+            result.enroll_Em_Billable.setValue_ResultSet(resultSet);
+            result.enroll_Em_Registration.setValue_ResultSet(resultSet);
+            result.enroll_Em_Entities.setValue_ResultSet(resultSet);
+            result.enroll_Em_Accounts_Receivable.setValue_ResultSet(resultSet);
+            result.enroll_Em_Daily.setValue_ResultSet(resultSet);
+            result.enroll_Em_Eval.setValue_ResultSet(resultSet);
+            result.enroll_Em_Performance.setValue_ResultSet(resultSet);
+            result.enroll_Em_Reports.setValue_ResultSet(resultSet);
+
+        }
+        catch(DFException dfe){
+            throw new Database_Record_Exception(this.getClass().getName() + ": resultSet_Row_Decode(): failed because DFException : " + dfe.getMessage());
+        }
+
+        return result;
+    }
+
+
+
+
+
+    /** Validate index fields of an html form.
+     * @param prefix contains string prepended to input field name of submitted html form.
+     * @param httpServletRequest contains values of submitted html form.
+     * @param database_Front used if values need to be validated against database.
+     * @param suffix contains string appended to input field name of submitted html form.
+     * @except throws Database_Record_Exception if a value is invalid.
+     */
+    public synchronized void validate_Key_Fields_Of_Request(String prefix, HttpServletRequest httpServletRequest, Database_Front database_Front, String suffix) throws Database_Record_Exception {
+        int error_Count =0;
+
+        error_Count += this.subscriber_Organization_Id.validate_Request(prefix, httpServletRequest, suffix);
+        error_Count += this.portal_Name.validate_Request(prefix, httpServletRequest, suffix);
+
+        if(error_Count !=0)
+            throw new Database_Record_Exception(this.getClass().getName() + "validate_Key_Fields_Of_Request(): Invalid Key Data Field(s).");
+
+    }
+
+
+
+
+
+    /** Validate non-index fields of an html form.
+     * @param prefix contains string prepended to input field name of submitted html form.
+     * @param httpServletRequest contains values of submitted html form.
+     * @param database_Front used if values need to be validated against database.
+     * @param suffix contains string appended to input field name of submitted html form.
+     * @except throws Database_Record_Exception if a value is invalid.
+     */
+    public synchronized void validate_Fields_Of_Request(String prefix, HttpServletRequest httpServletRequest, Database_Front database_Front, String suffix) throws Database_Record_Exception {
+
+        int error_Count =0;
+
+        error_Count += this.asp_Management.validate_Request(prefix, httpServletRequest, suffix);
+        error_Count += this.site_Management.validate_Request(prefix, httpServletRequest, suffix);
+        error_Count += this.company_Management.validate_Request(prefix, httpServletRequest, suffix);
+        error_Count += this.person_Management.validate_Request(prefix, httpServletRequest, suffix);
+        error_Count += this.organization_Management.validate_Request(prefix, httpServletRequest, suffix);
+        error_Count += this.customer_Management.validate_Request(prefix, httpServletRequest, suffix);
+        error_Count += this.vendor_Management.validate_Request(prefix, httpServletRequest, suffix);
+        error_Count += this.employee_Management.validate_Request(prefix, httpServletRequest, suffix);
+        error_Count += this.general_Ledger.validate_Request(prefix, httpServletRequest, suffix);
+        error_Count += this.accounts_Payable.validate_Request(prefix, httpServletRequest, suffix);
+        error_Count += this.accounts_Receivable.validate_Request(prefix, httpServletRequest, suffix);
+        error_Count += this.inventory.validate_Request(prefix, httpServletRequest, suffix);
+        error_Count += this.gleeson_Time_Clock.validate_Request(prefix, httpServletRequest, suffix);
+        error_Count += this.time_Billing.validate_Request(prefix, httpServletRequest, suffix);
+        error_Count += this.bill_Of_Material.validate_Request(prefix, httpServletRequest, suffix);
+        error_Count += this.factory_Order_Completion.validate_Request(prefix, httpServletRequest, suffix);
+        error_Count += this.factory_Order_Entry.validate_Request(prefix, httpServletRequest, suffix);
+        error_Count += this.factory_Order_Time_Reporting.validate_Request(prefix, httpServletRequest, suffix);
+        error_Count += this.payroll.validate_Request(prefix, httpServletRequest, suffix);
+        error_Count += this.sales_Order_Entry.validate_Request(prefix, httpServletRequest, suffix);
+        error_Count += this.sales_Order_Invoicing.validate_Request(prefix, httpServletRequest, suffix);
+        error_Count += this.credit_Cards.validate_Request(prefix, httpServletRequest, suffix);
+        error_Count += this.product_Sales_History.validate_Request(prefix, httpServletRequest, suffix);
+        error_Count += this.customer_Sales_History.validate_Request(prefix, httpServletRequest, suffix);
+        error_Count += this.sales_Commission.validate_Request(prefix, httpServletRequest, suffix);
+        error_Count += this.purchase_Order_Entry.validate_Request(prefix, httpServletRequest, suffix);
+        error_Count += this.vendor_Purchase_History.validate_Request(prefix, httpServletRequest, suffix);
+        error_Count += this.sales_Order_Shipping.validate_Request(prefix, httpServletRequest, suffix);
+        error_Count += this.purchase_Order_Receiving.validate_Request(prefix, httpServletRequest, suffix);
+        error_Count += this.purchase_Order_Tie_To_Ap.validate_Request(prefix, httpServletRequest, suffix);
+        error_Count += this.sales_Forecasting.validate_Request(prefix, httpServletRequest, suffix);
+        error_Count += this.factory_Purchase_Scheduling.validate_Request(prefix, httpServletRequest, suffix);
+        error_Count += this.survey_Questionnaire.validate_Request(prefix, httpServletRequest, suffix);
+        error_Count += this.isp_Management.validate_Request(prefix, httpServletRequest, suffix);
+        error_Count += this.sales_Agent_Quotation.validate_Request(prefix, httpServletRequest, suffix);
+        error_Count += this.enroll_Em_Admin.validate_Request(prefix, httpServletRequest, suffix);
+        error_Count += this.enroll_Em_Billable.validate_Request(prefix, httpServletRequest, suffix);
+        error_Count += this.enroll_Em_Registration.validate_Request(prefix, httpServletRequest, suffix);
+        error_Count += this.enroll_Em_Entities.validate_Request(prefix, httpServletRequest, suffix);
+        error_Count += this.enroll_Em_Accounts_Receivable.validate_Request(prefix, httpServletRequest, suffix);
+        error_Count += this.enroll_Em_Daily.validate_Request(prefix, httpServletRequest, suffix);
+        error_Count += this.enroll_Em_Eval.validate_Request(prefix, httpServletRequest, suffix);
+        error_Count += this.enroll_Em_Performance.validate_Request(prefix, httpServletRequest, suffix);
+        error_Count += this.enroll_Em_Reports.validate_Request(prefix, httpServletRequest, suffix);
+
+
+        if(error_Count !=0)
+            throw new Database_Record_Exception(this.getClass().getName() + "validate_Fields_Of_Request(): Invalid Data Field(s).");
+
+
+    }
+
+
+
+
+
+    /** Returns a list of fields of this record. Set manually by programmer.
+     * @exception Database_Record_Exception if fails to build list.
+     */
+    public DFSql_Column_Node[] get_Column_List() throws Database_Record_Exception {
+
+        // programmer has entered ...
+        LinkedList programmers_Columns = new LinkedList();
+        try {
+            programmers_Columns.add( subscriber_Organization_Id.getDFSql_Column_Node());
+            programmers_Columns.add( portal_Name.getDFSql_Column_Node());
+            programmers_Columns.add( asp_Management.getDFSql_Column_Node());
+            programmers_Columns.add( site_Management.getDFSql_Column_Node());
+            programmers_Columns.add( company_Management.getDFSql_Column_Node());
+            programmers_Columns.add( person_Management.getDFSql_Column_Node());
+            programmers_Columns.add( organization_Management.getDFSql_Column_Node());
+            programmers_Columns.add( customer_Management.getDFSql_Column_Node());
+            programmers_Columns.add( vendor_Management.getDFSql_Column_Node());
+            programmers_Columns.add( employee_Management.getDFSql_Column_Node());
+            programmers_Columns.add( general_Ledger.getDFSql_Column_Node());
+            programmers_Columns.add( accounts_Payable.getDFSql_Column_Node());
+            programmers_Columns.add( accounts_Receivable.getDFSql_Column_Node());
+            programmers_Columns.add( inventory.getDFSql_Column_Node());
+            programmers_Columns.add( gleeson_Time_Clock.getDFSql_Column_Node());
+            programmers_Columns.add( time_Billing.getDFSql_Column_Node());
+            programmers_Columns.add( bill_Of_Material.getDFSql_Column_Node());
+            programmers_Columns.add( factory_Order_Completion.getDFSql_Column_Node());
+            programmers_Columns.add( factory_Order_Entry.getDFSql_Column_Node());
+            programmers_Columns.add( factory_Order_Time_Reporting.getDFSql_Column_Node());
+            programmers_Columns.add( payroll.getDFSql_Column_Node());
+            programmers_Columns.add( sales_Order_Entry.getDFSql_Column_Node());
+            programmers_Columns.add( sales_Order_Invoicing.getDFSql_Column_Node());
+            programmers_Columns.add( credit_Cards.getDFSql_Column_Node());
+            programmers_Columns.add( product_Sales_History.getDFSql_Column_Node());
+            programmers_Columns.add( customer_Sales_History.getDFSql_Column_Node());
+            programmers_Columns.add( sales_Commission.getDFSql_Column_Node());
+            programmers_Columns.add( purchase_Order_Entry.getDFSql_Column_Node());
+            programmers_Columns.add( vendor_Purchase_History.getDFSql_Column_Node());
+            programmers_Columns.add( sales_Order_Shipping.getDFSql_Column_Node());
+            programmers_Columns.add( purchase_Order_Receiving.getDFSql_Column_Node());
+            programmers_Columns.add( purchase_Order_Tie_To_Ap.getDFSql_Column_Node());
+            programmers_Columns.add( sales_Forecasting.getDFSql_Column_Node());
+            programmers_Columns.add( factory_Purchase_Scheduling.getDFSql_Column_Node());
+            programmers_Columns.add( survey_Questionnaire.getDFSql_Column_Node());
+            programmers_Columns.add( isp_Management.getDFSql_Column_Node());
+            programmers_Columns.add( sales_Agent_Quotation.getDFSql_Column_Node());
+            programmers_Columns.add( enroll_Em_Admin.getDFSql_Column_Node());
+            programmers_Columns.add( enroll_Em_Billable.getDFSql_Column_Node());
+            programmers_Columns.add( enroll_Em_Registration.getDFSql_Column_Node());
+            programmers_Columns.add( enroll_Em_Entities.getDFSql_Column_Node());
+            programmers_Columns.add( enroll_Em_Accounts_Receivable.getDFSql_Column_Node());
+            programmers_Columns.add( enroll_Em_Daily.getDFSql_Column_Node());
+            programmers_Columns.add( enroll_Em_Eval.getDFSql_Column_Node());
+            programmers_Columns.add( enroll_Em_Performance.getDFSql_Column_Node());
+            programmers_Columns.add( enroll_Em_Reports.getDFSql_Column_Node());
+
+
+        }
+        catch(DFException dfe){
+            throw new Database_Record_Exception(this.getClass().getName()+": get_Column_List() failed because :" + dfe.getMessage());
+        }
+
+        DFSql_Column_Node[] programmers_Column_Nodes = new DFSql_Column_Node[programmers_Columns.size()];
+
+        for(int i=0; i<programmers_Column_Nodes.length;i++){
+            programmers_Column_Nodes[i] = (DFSql_Column_Node) programmers_Columns.get(i);
+        }
+
+        return programmers_Column_Nodes;
+    }
+
+
+
+    /**
+     * Getter for property subscriber_Organization_Id.
+     * @return Value of property subscriber_Organization_Id.
+     */
+    public DFString_Filled getSubscriber_Organization_Id() {
+        return subscriber_Organization_Id;
+    }
+
+
+    /**
+     * Setter for property subscriber_Organization_Id.
+     * @param subscriber_Organization_Id New value of property subscriber_Organization_Id.
+     */
+    public void setSubscriber_Organization_Id(String subscriber_Organization_Id) throws DFException {
+        this.subscriber_Organization_Id.setValue(subscriber_Organization_Id);
+    }
+
+
+    /**
+     * Getter for property portal_Name.
+     * @return Value of property portal_Name.
+     */
+    public DFString getPortal_Name() {
+        return portal_Name;
+    }
+
+
+    /**
+     * Setter for property portal_Name.
+     * @param portal_Name New value of property portal_Name.
+     */
+    public void setPortal_Name(String portal_Name) throws DFException {
+        this.portal_Name.setValue(portal_Name);
+    }
+
+
+    /**
+     * Getter for property asp_Management.
+     * @return Value of property asp_Management.
+     */
+    public DFBoolean getAsp_Management() {
+        return asp_Management;
+    }
+
+
+    /**
+     * Setter for property asp_Management.
+     * @param asp_Management New value of property asp_Management.
+     */
+    public void setAsp_Management(Boolean asp_Management) throws DFException {
+        this.asp_Management.setValue(asp_Management);
+    }
+
+
+    /**
+     * Getter for property site_Management.
+     * @return Value of property site_Management.
+     */
+    public DFBoolean getSite_Management() {
+        return site_Management;
+    }
+
+
+    /**
+     * Setter for property site_Management.
+     * @param site_Management New value of property site_Management.
+     */
+    public void setSite_Management(Boolean site_Management) throws DFException {
+        this.site_Management.setValue(site_Management);
+    }
+
+
+    /**
+     * Getter for property company_Management.
+     * @return Value of property company_Management.
+     */
+    public DFBoolean getCompany_Management() {
+        return company_Management;
+    }
+
+
+    /**
+     * Setter for property company_Management.
+     * @param company_Management New value of property company_Management.
+     */
+    public void setCompany_Management(Boolean company_Management) throws DFException {
+        this.company_Management.setValue(company_Management);
+    }
+
+
+    /**
+     * Getter for property person_Management.
+     * @return Value of property person_Management.
+     */
+    public DFBoolean getPerson_Management() {
+        return person_Management;
+    }
+
+
+    /**
+     * Setter for property person_Management.
+     * @param person_Management New value of property person_Management.
+     */
+    public void setPerson_Management(Boolean person_Management) throws DFException {
+        this.person_Management.setValue(person_Management);
+    }
+
+
+    /**
+     * Getter for property organization_Management.
+     * @return Value of property organization_Management.
+     */
+    public DFBoolean getOrganization_Management() {
+        return organization_Management;
+    }
+
+
+    /**
+     * Setter for property organization_Management.
+     * @param organization_Management New value of property organization_Management.
+     */
+    public void setOrganization_Management(Boolean organization_Management) throws DFException {
+        this.organization_Management.setValue(organization_Management);
+    }
+
+
+    /**
+     * Getter for property customer_Management.
+     * @return Value of property customer_Management.
+     */
+    public DFBoolean getCustomer_Management() {
+        return customer_Management;
+    }
+
+
+    /**
+     * Setter for property customer_Management.
+     * @param customer_Management New value of property customer_Management.
+     */
+    public void setCustomer_Management(Boolean customer_Management) throws DFException {
+        this.customer_Management.setValue(customer_Management);
+    }
+
+
+    /**
+     * Getter for property vendor_Management.
+     * @return Value of property vendor_Management.
+     */
+    public DFBoolean getVendor_Management() {
+        return vendor_Management;
+    }
+
+
+    /**
+     * Setter for property vendor_Management.
+     * @param vendor_Management New value of property vendor_Management.
+     */
+    public void setVendor_Management(Boolean vendor_Management) throws DFException {
+        this.vendor_Management.setValue(vendor_Management);
+    }
+
+
+    /**
+     * Getter for property employee_Management.
+     * @return Value of property employee_Management.
+     */
+    public DFBoolean getEmployee_Management() {
+        return employee_Management;
+    }
+
+
+    /**
+     * Setter for property employee_Management.
+     * @param employee_Management New value of property employee_Management.
+     */
+    public void setEmployee_Management(Boolean employee_Management) throws DFException {
+        this.employee_Management.setValue(employee_Management);
+    }
+
+
+    /**
+     * Getter for property general_Ledger.
+     * @return Value of property general_Ledger.
+     */
+    public DFBoolean getGeneral_Ledger() {
+        return general_Ledger;
+    }
+
+
+    /**
+     * Setter for property general_Ledger.
+     * @param general_Ledger New value of property general_Ledger.
+     */
+    public void setGeneral_Ledger(Boolean general_Ledger) throws DFException {
+        this.general_Ledger.setValue(general_Ledger);
+    }
+
+
+    /**
+     * Getter for property accounts_Payable.
+     * @return Value of property accounts_Payable.
+     */
+    public DFBoolean getAccounts_Payable() {
+        return accounts_Payable;
+    }
+
+
+    /**
+     * Setter for property accounts_Payable.
+     * @param accounts_Payable New value of property accounts_Payable.
+     */
+    public void setAccounts_Payable(Boolean accounts_Payable) throws DFException {
+        this.accounts_Payable.setValue(accounts_Payable);
+    }
+
+
+    /**
+     * Getter for property accounts_Receivable.
+     * @return Value of property accounts_Receivable.
+     */
+    public DFBoolean getAccounts_Receivable() {
+        return accounts_Receivable;
+    }
+
+
+    /**
+     * Setter for property accounts_Receivable.
+     * @param accounts_Receivable New value of property accounts_Receivable.
+     */
+    public void setAccounts_Receivable(Boolean accounts_Receivable) throws DFException {
+        this.accounts_Receivable.setValue(accounts_Receivable);
+    }
+
+
+    /**
+     * Getter for property inventory.
+     * @return Value of property inventory.
+     */
+    public DFBoolean getInventory() {
+        return inventory;
+    }
+
+
+    /**
+     * Setter for property inventory.
+     * @param inventory New value of property inventory.
+     */
+    public void setInventory(Boolean inventory) throws DFException {
+        this.inventory.setValue(inventory);
+    }
+
+
+    /**
+     * Getter for property gleeson_Time_Clock.
+     * @return Value of property gleeson_Time_Clock.
+     */
+    public DFBoolean getGleeson_Time_Clock() {
+        return gleeson_Time_Clock;
+    }
+
+
+    /**
+     * Setter for property gleeson_Time_Clock.
+     * @param gleeson_Time_Clock New value of property gleeson_Time_Clock.
+     */
+    public void setGleeson_Time_Clock(Boolean gleeson_Time_Clock) throws DFException {
+        this.gleeson_Time_Clock.setValue(gleeson_Time_Clock);
+    }
+
+
+    /**
+     * Getter for property time_Billing.
+     * @return Value of property time_Billing.
+     */
+    public DFBoolean getTime_Billing() {
+        return time_Billing;
+    }
+
+
+    /**
+     * Setter for property time_Billing.
+     * @param time_Billing New value of property time_Billing.
+     */
+    public void setTime_Billing(Boolean time_Billing) throws DFException {
+        this.time_Billing.setValue(time_Billing);
+    }
+
+
+    /**
+     * Getter for property bill_Of_Material.
+     * @return Value of property bill_Of_Material.
+     */
+    public DFBoolean getBill_Of_Material() {
+        return bill_Of_Material;
+    }
+
+
+    /**
+     * Setter for property bill_Of_Material.
+     * @param bill_Of_Material New value of property bill_Of_Material.
+     */
+    public void setBill_Of_Material(Boolean bill_Of_Material) throws DFException {
+        this.bill_Of_Material.setValue(bill_Of_Material);
+    }
+
+
+    /**
+     * Getter for property factory_Order_Completion.
+     * @return Value of property factory_Order_Completion.
+     */
+    public DFBoolean getFactory_Order_Completion() {
+        return factory_Order_Completion;
+    }
+
+
+    /**
+     * Setter for property factory_Order_Completion.
+     * @param factory_Order_Completion New value of property factory_Order_Completion.
+     */
+    public void setFactory_Order_Completion(Boolean factory_Order_Completion) throws DFException {
+        this.factory_Order_Completion.setValue(factory_Order_Completion);
+    }
+
+
+    /**
+     * Getter for property factory_Order_Entry.
+     * @return Value of property factory_Order_Entry.
+     */
+    public DFBoolean getFactory_Order_Entry() {
+        return factory_Order_Entry;
+    }
+
+
+    /**
+     * Setter for property factory_Order_Entry.
+     * @param factory_Order_Entry New value of property factory_Order_Entry.
+     */
+    public void setFactory_Order_Entry(Boolean factory_Order_Entry) throws DFException {
+        this.factory_Order_Entry.setValue(factory_Order_Entry);
+    }
+
+
+    /**
+     * Getter for property factory_Order_Time_Reporting.
+     * @return Value of property factory_Order_Time_Reporting.
+     */
+    public DFBoolean getFactory_Order_Time_Reporting() {
+        return factory_Order_Time_Reporting;
+    }
+
+
+    /**
+     * Setter for property factory_Order_Time_Reporting.
+     * @param factory_Order_Time_Reporting New value of property factory_Order_Time_Reporting.
+     */
+    public void setFactory_Order_Time_Reporting(Boolean factory_Order_Time_Reporting) throws DFException {
+        this.factory_Order_Time_Reporting.setValue(factory_Order_Time_Reporting);
+    }
+
+
+    /**
+     * Getter for property payroll.
+     * @return Value of property payroll.
+     */
+    public DFBoolean getPayroll() {
+        return payroll;
+    }
+
+
+    /**
+     * Setter for property payroll.
+     * @param payroll New value of property payroll.
+     */
+    public void setPayroll(Boolean payroll) throws DFException {
+        this.payroll.setValue(payroll);
+    }
+
+
+    /**
+     * Getter for property sales_Order_Entry.
+     * @return Value of property sales_Order_Entry.
+     */
+    public DFBoolean getSales_Order_Entry() {
+        return sales_Order_Entry;
+    }
+
+
+    /**
+     * Setter for property sales_Order_Entry.
+     * @param sales_Order_Entry New value of property sales_Order_Entry.
+     */
+    public void setSales_Order_Entry(Boolean sales_Order_Entry) throws DFException {
+        this.sales_Order_Entry.setValue(sales_Order_Entry);
+    }
+
+
+    /**
+     * Getter for property sales_Order_Invoicing.
+     * @return Value of property sales_Order_Invoicing.
+     */
+    public DFBoolean getSales_Order_Invoicing() {
+        return sales_Order_Invoicing;
+    }
+
+
+    /**
+     * Setter for property sales_Order_Invoicing.
+     * @param sales_Order_Invoicing New value of property sales_Order_Invoicing.
+     */
+    public void setSales_Order_Invoicing(Boolean sales_Order_Invoicing) throws DFException {
+        this.sales_Order_Invoicing.setValue(sales_Order_Invoicing);
+    }
+
+
+    /**
+     * Getter for property credit_Cards.
+     * @return Value of property credit_Cards.
+     */
+    public DFBoolean getCredit_Cards() {
+        return credit_Cards;
+    }
+
+
+    /**
+     * Setter for property credit_Cards.
+     * @param credit_Cards New value of property credit_Cards.
+     */
+    public void setCredit_Cards(Boolean credit_Cards) throws DFException {
+        this.credit_Cards.setValue(credit_Cards);
+    }
+
+
+    /**
+     * Getter for property product_Sales_History.
+     * @return Value of property product_Sales_History.
+     */
+    public DFBoolean getProduct_Sales_History() {
+        return product_Sales_History;
+    }
+
+
+    /**
+     * Setter for property product_Sales_History.
+     * @param product_Sales_History New value of property product_Sales_History.
+     */
+    public void setProduct_Sales_History(Boolean product_Sales_History) throws DFException {
+        this.product_Sales_History.setValue(product_Sales_History);
+    }
+
+
+    /**
+     * Getter for property customer_Sales_History.
+     * @return Value of property customer_Sales_History.
+     */
+    public DFBoolean getCustomer_Sales_History() {
+        return customer_Sales_History;
+    }
+
+
+    /**
+     * Setter for property customer_Sales_History.
+     * @param customer_Sales_History New value of property customer_Sales_History.
+     */
+    public void setCustomer_Sales_History(Boolean customer_Sales_History) throws DFException {
+        this.customer_Sales_History.setValue(customer_Sales_History);
+    }
+
+
+    /**
+     * Getter for property sales_Commission.
+     * @return Value of property sales_Commission.
+     */
+    public DFBoolean getSales_Commission() {
+        return sales_Commission;
+    }
+
+
+    /**
+     * Setter for property sales_Commission.
+     * @param sales_Commission New value of property sales_Commission.
+     */
+    public void setSales_Commission(Boolean sales_Commission) throws DFException {
+        this.sales_Commission.setValue(sales_Commission);
+    }
+
+
+    /**
+     * Getter for property purchase_Order_Entry.
+     * @return Value of property purchase_Order_Entry.
+     */
+    public DFBoolean getPurchase_Order_Entry() {
+        return purchase_Order_Entry;
+    }
+
+
+    /**
+     * Setter for property purchase_Order_Entry.
+     * @param purchase_Order_Entry New value of property purchase_Order_Entry.
+     */
+    public void setPurchase_Order_Entry(Boolean purchase_Order_Entry) throws DFException {
+        this.purchase_Order_Entry.setValue(purchase_Order_Entry);
+    }
+
+
+    /**
+     * Getter for property vendor_Purchase_History.
+     * @return Value of property vendor_Purchase_History.
+     */
+    public DFBoolean getVendor_Purchase_History() {
+        return vendor_Purchase_History;
+    }
+
+
+    /**
+     * Setter for property vendor_Purchase_History.
+     * @param vendor_Purchase_History New value of property vendor_Purchase_History.
+     */
+    public void setVendor_Purchase_History(Boolean vendor_Purchase_History) throws DFException {
+        this.vendor_Purchase_History.setValue(vendor_Purchase_History);
+    }
+
+
+    /**
+     * Getter for property sales_Order_Shipping.
+     * @return Value of property sales_Order_Shipping.
+     */
+    public DFBoolean getSales_Order_Shipping() {
+        return sales_Order_Shipping;
+    }
+
+
+    /**
+     * Setter for property sales_Order_Shipping.
+     * @param sales_Order_Shipping New value of property sales_Order_Shipping.
+     */
+    public void setSales_Order_Shipping(Boolean sales_Order_Shipping) throws DFException {
+        this.sales_Order_Shipping.setValue(sales_Order_Shipping);
+    }
+
+
+    /**
+     * Getter for property purchase_Order_Receiving.
+     * @return Value of property purchase_Order_Receiving.
+     */
+    public DFBoolean getPurchase_Order_Receiving() {
+        return purchase_Order_Receiving;
+    }
+
+
+    /**
+     * Setter for property purchase_Order_Receiving.
+     * @param purchase_Order_Receiving New value of property purchase_Order_Receiving.
+     */
+    public void setPurchase_Order_Receiving(Boolean purchase_Order_Receiving) throws DFException {
+        this.purchase_Order_Receiving.setValue(purchase_Order_Receiving);
+    }
+
+
+    /**
+     * Getter for property purchase_Order_Tie_To_Ap.
+     * @return Value of property purchase_Order_Tie_To_Ap.
+     */
+    public DFBoolean getPurchase_Order_Tie_To_Ap() {
+        return purchase_Order_Tie_To_Ap;
+    }
+
+
+    /**
+     * Setter for property purchase_Order_Tie_To_Ap.
+     * @param purchase_Order_Tie_To_Ap New value of property purchase_Order_Tie_To_Ap.
+     */
+    public void setPurchase_Order_Tie_To_Ap(Boolean purchase_Order_Tie_To_Ap) throws DFException {
+        this.purchase_Order_Tie_To_Ap.setValue(purchase_Order_Tie_To_Ap);
+    }
+
+
+    /**
+     * Getter for property sales_Forecasting.
+     * @return Value of property sales_Forecasting.
+     */
+    public DFBoolean getSales_Forecasting() {
+        return sales_Forecasting;
+    }
+
+
+    /**
+     * Setter for property sales_Forecasting.
+     * @param sales_Forecasting New value of property sales_Forecasting.
+     */
+    public void setSales_Forecasting(Boolean sales_Forecasting) throws DFException {
+        this.sales_Forecasting.setValue(sales_Forecasting);
+    }
+
+
+    /**
+     * Getter for property factory_Purchase_Scheduling.
+     * @return Value of property factory_Purchase_Scheduling.
+     */
+    public DFBoolean getFactory_Purchase_Scheduling() {
+        return factory_Purchase_Scheduling;
+    }
+
+
+    /**
+     * Setter for property factory_Purchase_Scheduling.
+     * @param factory_Purchase_Scheduling New value of property factory_Purchase_Scheduling.
+     */
+    public void setFactory_Purchase_Scheduling(Boolean factory_Purchase_Scheduling) throws DFException {
+        this.factory_Purchase_Scheduling.setValue(factory_Purchase_Scheduling);
+    }
+
+
+    /**
+     * Getter for property survey_Questionnaire.
+     * @return Value of property survey_Questionnaire.
+     */
+    public DFBoolean getSurvey_Questionnaire() {
+        return survey_Questionnaire;
+    }
+
+
+    /**
+     * Setter for property survey_Questionnaire.
+     * @param survey_Questionnaire New value of property survey_Questionnaire.
+     */
+    public void setSurvey_Questionnaire(Boolean survey_Questionnaire) throws DFException {
+        this.survey_Questionnaire.setValue(survey_Questionnaire);
+    }
+
+
+    /**
+     * Getter for property isp_Management.
+     * @return Value of property isp_Management.
+     */
+    public DFBoolean getIsp_Management() {
+        return isp_Management;
+    }
+
+
+    /**
+     * Setter for property isp_Management.
+     * @param isp_Management New value of property isp_Management.
+     */
+    public void setIsp_Management(Boolean isp_Management) throws DFException {
+        this.isp_Management.setValue(isp_Management);
+    }
+
+
+    /**
+     * Getter for property sales_Agent_Quotation.
+     * @return Value of property sales_Agent_Quotation.
+     */
+    public DFBoolean getSales_Agent_Quotation() {
+        return sales_Agent_Quotation;
+    }
+
+
+    /**
+     * Setter for property sales_Agent_Quotation.
+     * @param sales_Agent_Quotation New value of property sales_Agent_Quotation.
+     */
+    public void setSales_Agent_Quotation(Boolean sales_Agent_Quotation) throws DFException {
+        this.sales_Agent_Quotation.setValue(sales_Agent_Quotation);
+    }
+
+
+    /**
+     * Getter for property enroll_Em_Admin.
+     * @return Value of property enroll_Em_Admin.
+     */
+    public DFBoolean getEnroll_Em_Admin() {
+        return enroll_Em_Admin;
+    }
+
+
+    /**
+     * Setter for property enroll_Em_Admin.
+     * @param enroll_Em_Admin New value of property enroll_Em_Admin.
+     */
+    public void setEnroll_Em_Admin(Boolean enroll_Em_Admin) throws DFException {
+        this.enroll_Em_Admin.setValue(enroll_Em_Admin);
+    }
+
+
+    /**
+     * Getter for property enroll_Em_Billable.
+     * @return Value of property enroll_Em_Billable.
+     */
+    public DFBoolean getEnroll_Em_Billable() {
+        return enroll_Em_Billable;
+    }
+
+
+    /**
+     * Setter for property enroll_Em_Billable.
+     * @param enroll_Em_Billable New value of property enroll_Em_Billable.
+     */
+    public void setEnroll_Em_Billable(Boolean enroll_Em_Billable) throws DFException {
+        this.enroll_Em_Billable.setValue(enroll_Em_Billable);
+    }
+
+
+    /**
+     * Getter for property enroll_Em_Registration.
+     * @return Value of property enroll_Em_Registration.
+     */
+    public DFBoolean getEnroll_Em_Registration() {
+        return enroll_Em_Registration;
+    }
+
+
+    /**
+     * Setter for property enroll_Em_Registration.
+     * @param enroll_Em_Registration New value of property enroll_Em_Registration.
+     */
+    public void setEnroll_Em_Registration(Boolean enroll_Em_Registration) throws DFException {
+        this.enroll_Em_Registration.setValue(enroll_Em_Registration);
+    }
+
+
+    /**
+     * Getter for property enroll_Em_Entities.
+     * @return Value of property enroll_Em_Entities.
+     */
+    public DFBoolean getEnroll_Em_Entities() {
+        return enroll_Em_Entities;
+    }
+
+
+    /**
+     * Setter for property enroll_Em_Entities.
+     * @param enroll_Em_Entities New value of property enroll_Em_Entities.
+     */
+    public void setEnroll_Em_Entities(Boolean enroll_Em_Entities) throws DFException {
+        this.enroll_Em_Entities.setValue(enroll_Em_Entities);
+    }
+
+
+    /**
+     * Getter for property enroll_Em_Accounts_Receivable.
+     * @return Value of property enroll_Em_Accounts_Receivable.
+     */
+    public DFBoolean getEnroll_Em_Accounts_Receivable() {
+        return enroll_Em_Accounts_Receivable;
+    }
+
+
+    /**
+     * Setter for property enroll_Em_Accounts_Receivable.
+     * @param enroll_Em_Accounts_Receivable New value of property enroll_Em_Accounts_Receivable.
+     */
+    public void setEnroll_Em_Accounts_Receivable(Boolean enroll_Em_Accounts_Receivable) throws DFException {
+        this.enroll_Em_Accounts_Receivable.setValue(enroll_Em_Accounts_Receivable);
+    }
+
+
+    /**
+     * Getter for property enroll_Em_Daily.
+     * @return Value of property enroll_Em_Daily.
+     */
+    public DFBoolean getEnroll_Em_Daily() {
+        return enroll_Em_Daily;
+    }
+
+
+    /**
+     * Setter for property enroll_Em_Daily.
+     * @param enroll_Em_Daily New value of property enroll_Em_Daily.
+     */
+    public void setEnroll_Em_Daily(Boolean enroll_Em_Daily) throws DFException {
+        this.enroll_Em_Daily.setValue(enroll_Em_Daily);
+    }
+
+
+    /**
+     * Getter for property enroll_Em_Eval.
+     * @return Value of property enroll_Em_Eval.
+     */
+    public DFBoolean getEnroll_Em_Eval() {
+        return enroll_Em_Eval;
+    }
+
+
+    /**
+     * Setter for property enroll_Em_Eval.
+     * @param enroll_Em_Eval New value of property enroll_Em_Eval.
+     */
+    public void setEnroll_Em_Eval(Boolean enroll_Em_Eval) throws DFException {
+        this.enroll_Em_Eval.setValue(enroll_Em_Eval);
+    }
+
+
+    /**
+     * Getter for property enroll_Em_Performance.
+     * @return Value of property enroll_Em_Performance.
+     */
+    public DFBoolean getEnroll_Em_Performance() {
+        return enroll_Em_Performance;
+    }
+
+
+    /**
+     * Setter for property enroll_Em_Performance.
+     * @param enroll_Em_Performance New value of property enroll_Em_Performance.
+     */
+    public void setEnroll_Em_Performance(Boolean enroll_Em_Performance) throws DFException {
+        this.enroll_Em_Performance.setValue(enroll_Em_Performance);
+    }
+
+
+    /**
+     * Getter for property enroll_Em_Reports.
+     * @return Value of property enroll_Em_Reports.
+     */
+    public DFBoolean getEnroll_Em_Reports() {
+        return enroll_Em_Reports;
+    }
+
+
+    /**
+     * Setter for property enroll_Em_Reports.
+     * @param enroll_Em_Reports New value of property enroll_Em_Reports.
+     */
+    public void setEnroll_Em_Reports(Boolean enroll_Em_Reports) throws DFException {
+        this.enroll_Em_Reports.setValue(enroll_Em_Reports);
+    }
+
+
+    //============== End jdbr Generated Section ===========================
+
+
+   
+
+    
+}
+
+
+/*
+
+      159  sys.software_quality_control
+
+     5846  sys.house_estimating
+
+        0  sys.product_production_history
+        0  sys.product_purchase_history
+        0  sys.sales_invoicing_history
+        0  sys.sales_order_picking
+        0  sys.shipment_tie_to_ap
+
+	*/
+
+

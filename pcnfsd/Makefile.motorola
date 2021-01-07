@@ -1,0 +1,101 @@
+# RE_SID: @(%)/net/shipyard/files2/builds/capybara/unix/pcnfsvr/pcnfsd/SCCS/s.Makefile.motorola 1.2 95/09/28 14:36:39 SMI
+#
+#       @(#)Makefile.motorola	1.2     28 Sep 1995
+#
+# Makefile for rpc.pcnfsd for Solaris 2.X or similar
+#
+
+HOME=/usr/gleeson
+
+SVR4_BUILD_DIR="motorola-mc88100"
+
+all: rpc.pcnfsd clnt.pcnfsd
+
+
+rpc.pcnfsd: $(HOME)/bin/rpc.pcnfsd
+
+
+clnt.pcnfsd: $(HOME)/bin/clnt.pcnfsd
+
+
+SVR_OBJS=  \
+	$(SVR4_BUILD_DIR)/pcnfsd_svc.o \
+	$(SVR4_BUILD_DIR)/pcnfsd_xdr.o \
+	$(SVR4_BUILD_DIR)/pcnfsd_v1.o \
+	$(SVR4_BUILD_DIR)/pcnfsd_v2.o \
+	$(SVR4_BUILD_DIR)/pcnfsd_misc.o \
+	$(SVR4_BUILD_DIR)/pcnfsd_cache.o \
+	$(SVR4_BUILD_DIR)/pcnfsd_print.o \
+	$O/strncpyt.o $O/atxy.o $O/initdb.o
+
+SVR_SRCS=  \
+	pcnfsd_svc.c \
+	pcnfsd_xdr.c \
+	pcnfsd_v1.c \
+	pcnfsd_v2.c \
+	pcnfsd_misc.c \
+	pcnfsd_cache.c \
+	pcnfsd_print.c
+
+TST_OBJS= \
+	$(SVR4_BUILD_DIR)/pcnfsd_clnt.o \
+	$(SVR4_BUILD_DIR)/pcnfsd_test.o \
+	$(SVR4_BUILD_DIR)/pcnfsd_xdr.o
+
+TST_SRCS= \
+	pcnfsd_clnt.c \
+	pcnfsd_test.c \
+	pcnfsd_xdr.c
+
+HDRS= pcnfsd.h common.h $O/lpdev.h $O/lpspool.h $(GOI)/isam.h $O/atxy.h
+
+LINTFLAGS= -hbax
+# uncomment as appropriate for debugging
+#CFLAGS = -DOSVER_SOLARIS2X
+#CFLAGS = -g -DDEBUG -DOSVER_SUNOS41
+
+CFLAGS= -L$(GOL) -O -I$(O) -I$(GOI) -Dmotorola
+LIBS= -lisam -lmisam -lgtc -lrpcsvc -lsocket -lnsl 
+LFLAGS = -L/usr/lib -Xt
+
+$(HOME)/bin/rpc.pcnfsd: $(SVR_OBJS) $(HDRS)
+	$(CC)  -o $@ $(CFLAGS) $(LFLAGS) $(SVR_OBJS) $(LIBS)
+
+$(SVR4_BUILD_DIR)/pcnfsd_svc.o: $(HDRS) pcnfsd_svc.c
+	$(CC)  -c $(CFLAGS) -o $@ pcnfsd_svc.c
+
+$(SVR4_BUILD_DIR)/pcnfsd_xdr.o: $(HDRS) pcnfsd_xdr.c
+	$(CC)  -c $(CFLAGS) -o $@ pcnfsd_xdr.c
+
+$(SVR4_BUILD_DIR)/pcnfsd_v1.o: $(HDRS) pcnfsd_v1.c
+	$(CC)  -c $(CFLAGS) -o $@ pcnfsd_v1.c
+
+$(SVR4_BUILD_DIR)/pcnfsd_v2.o: $(HDRS) pcnfsd_v2.c
+	$(CC)  -c $(CFLAGS) -o $@ pcnfsd_v2.c
+
+$(SVR4_BUILD_DIR)/pcnfsd_misc.o: $(HDRS) pcnfsd_misc.c
+	$(CC)  -c $(CFLAGS) -o $@ pcnfsd_misc.c
+
+$(SVR4_BUILD_DIR)/pcnfsd_cache.o: $(HDRS) pcnfsd_cache.c
+	$(CC)  -c $(CFLAGS) -o $@ pcnfsd_cache.c
+
+$(SVR4_BUILD_DIR)/pcnfsd_print.o: $(HDRS) pcnfsd_print.c
+	$(CC)  -c $(CFLAGS) -o $@ pcnfsd_print.c
+
+
+$(HOME)/bin/clnt.pcnfsd: $(TST_OBJS) $(HDRS)
+	$(CC)  -o $@ $(CFLAGS) $(LFLAGS) $(TST_OBJS) $(LIBS)
+
+$(SVR4_BUILD_DIR)/pcnfsd_clnt.o: $(HDRS) pcnfsd_clnt.c
+	$(CC)  -c $(CFLAGS) -o $@ pcnfsd_clnt.c
+
+$(SVR4_BUILD_DIR)/pcnfsd_test.o: $(HDRS) pcnfsd_test.c
+	$(CC)  -c $(CFLAGS) -o $@ pcnfsd_test.c
+
+
+lint: $(SRCS)
+	lint $(CFLAGS) $(LINTFLAGS) $(SVR_SRCS)
+	lint $(CFLAGS) $(LINTFLAGS) $(TST_SRCS)
+
+clean:
+	rm -rf $(SVR4_BUILD_DIR)

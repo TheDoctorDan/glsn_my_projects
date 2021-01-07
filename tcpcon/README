@@ -1,0 +1,101 @@
+This distribution is a set of programs to connect
+an arbitrary process to a device.
+It works by attaching the process to the master side
+of a pty device. This makes the slave side appear to be
+a connection to this process.
+
+The process can do anything, however, most commonly
+it is a process to establish a network connection
+such as telnet or tcpcon , a command supplied which
+connects to an arbitrary tcp address and port.
+
+It is usually used to assign a device to a port
+on a terminal server so that the port can be used
+just like a real port on a machine. This enables the
+port to connect a printer, run a getty, slip, uucp, ACSnet, etc.
+
+FILES:-
+Makefile
+README
+CHANGES
+nd.1
+nd.c
+tcpcon.1
+tcpcon.c
+tcpcon.mips.c	version for RISC/OS  (select on ptys doesn't work properly)
+
+INSTALLATION:
+.	Edit Makefile to reflect your machine
+.	type "make install"
+.	Install the manual entries.
+.	Set up an "nd" device (See manual entries and also notes below)
+
+A TEST:
+Try these commands to test it
+	nd -l /dev/ptypf tcpcon localhost smtp &
+	cat < /dev/ttypf &
+	stty -echo < /dev/ttypf # "<" should be ">" for BSD systems
+	cat > /dev/ttypf
+You should now be talking to the SMTP server of your machine.
+try the command help<CR>
+Use <CNTL>D to kill cat and then
+kill the async cat.
+
+Notes for Bridge/3COM terminal servers.
+
+.	Enable the generic port 2000 service for your terminal
+	servers.
+
+.	Assign an IP address to the server port to which
+	you wish to connect.
+
+.	Make the port a host device.
+
+.	Set the Physical parameters of the port  ( Use CTS/RTS flow control
+	and 8bit no parity if possible)
+
+To set up a connection to a port with address "ipaddr"
+set up the following line in /etc/inittab after creating the directory
+"/etc/tcpcon.d"
+
+vn:respawn:/usr/local/nd -r -d /etc/tcpcon.d -t ptypf /usr/local/tcpcon -l /dev/ptypf ipaddr 2000
+
+If you don't have inittab then the nd command should be in a startup rc file.
+
+The pty's should be allocated from your last pty downward to stop nd
+clashing with automatically allocated ptys.
+
+
+Notes for Bridge/3COM terminal servers.
+
+.	Create a server process for each port you wish to
+	put a virtual device on, calling each process port<n>
+	and assigning it to TCP port 2000+n.
+
+.	Attach the appropriate server to the port.
+
+.	Set the Physical parameters of the port  ( Use CTS/RTS flow control
+	and 8bit no parity if possible)
+
+.	Enable the server.
+
+To set up device on port 6 of a cmc server with IP name cmcip, say
+set up the following line in /etc/inittab after creating the directory
+"/etc/tcpcon.d"
+
+vn:respawn:/usr/local/nd -r -d /etc/tcpcon.d -t ptypf /usr/local/tcpcon -l /dev/ptypf cmcip 2006
+
+If you don't have inittab then the nd command should be in a startup rc file.
+
+The pty's should be allocated from your last pty downward to stop nd
+clashing with automatically allocated ptys.
+
+Caveats
+	I only just added the UDP support so it might be buggy
+
+	Some systems (RISC/OS 4.0.1 eg) don't make a read return
+	on a pty when the corresponding tty is closed. This makes the
+	process (eg the tcp connection) continue, when the tty is closed,
+	this is annoying if you wish to cause a modem drop at the other end.
+	To get round this you have to send a SIGINT to the nd process. See nd(1)
+	for more details.

@@ -1,0 +1,31 @@
+<HTML>
+<HEAD><TITLE>Welcome to the CGI Shopping Cart</TITLE></HEAD>
+<BODY>
+<H1>CGI Shopping Cart</H1>
+Thanks for visiting out server. Here is a catalog of some of our books.
+Make your selections and press the submit buttons. Note: multiple
+selections are allowed.
+<HR>
+<FORM ACTION="/cgi-bin/shopping.pl" METHOD="POST">
+<H2>Books on Networking</H2>
+<SELECT NAME="03 Networking Books" SIZE=3 MULTIPLE>
+<OPTION SELECTED>Managing Internet Information Services
+<OPTION>TCP/IP Network Administration
+<OPTION>Linux Network Administrator's Guide
+<OPTION>Managing UUCP and Usenet
+<OPTION>The USENET Handbook
+</SELECT>
+<HR>
+<H2>UNIX related Books</H2>
+<SELECT NAME="04 UNIX Books" SIZE=3 MULTIPLE>
+<OPTION SELECTED>Learning the UNIX Operating System
+<OPTION>Learning the Korn Shell
+<OPTION>UNIX Power Tools
+<OPTION>Learning Perl
+<OPTION>Programming Perl
+<OPTION>Learning the GNU Emacs
+</SELECT>
+<INPUT TYPE="submit" VALUE="Submit the selection">
+<INPUT TYPE="reset"  VALUE="Clear all fields">
+</FORM>
+</BODY></HTML>

@@ -1,0 +1,157 @@
+#!/bin/sh
+#
+# Copyright Milan Technology Inc., 1991, 1992
+#
+
+# @(#)Make 1.0  8/13/92
+# Shell script for creating binaries for different machines
+
+clear
+echo "The following architecures are available"
+echo " "
+echo " 1. SUN (Sun Sparc, Sun3 (68K), Sun-386i etc)"
+echo " 2. BSD (SGI, DEC Ultrix, Sequent BSD, DataGeneral etc)" 
+echo " 3. System V , Interactive 5.3"
+echo " 4. System V , Interactive 5.4"
+echo " 5. System V , SCO Unix "
+echo " 6. System V , AT&T-386"
+echo " 7. System V , HP/UX (Old machines)"
+echo " 8. System V , HP/UX (New machines)"
+echo " 9. AIX - RS-6000"
+echo "10. System V, Sequent "
+echo "11. System V, Release 4 "
+echo "12. Solaris 2.x "
+echo "13. DGUX (System V, Release 4) "
+echo " "
+echo "Please choose an architecture that best describes your computer"
+echo " "
+echo "Please enter your choice : "
+read choice
+
+if  test $choice -gt 13 ; then
+echo "Invalid choice. Please try again"
+echo "Exiting..."
+exit 1
+fi
+
+if  test $choice -lt 1 ; then
+echo "Invalid choice. Please try again"
+echo "Exiting..."
+exit 1
+fi
+
+if test $choice -lt 3 ; then
+echo " "
+echo "Building binaries for BSD based systems"
+touch *.c
+make -k -f MakeBSD
+echo " "
+echo "Binaries for BSD done"
+fi
+
+if test $choice -eq 3 ;  then
+echo " "
+echo "Building binaries for Interactive 5.3 system"
+touch *.c
+make -k -f MakeInt5.3
+echo " "
+echo "Binaries for Interactive.5.3 done"
+fi
+
+if test $choice -eq 4 ; then
+echo " "
+echo "Building binaries for Interactive 5.4 system"
+touch *.c
+make -k -f MakeInt5.3
+echo " "
+echo "Binaries for Interactive.5.4 done"
+fi
+
+if test $choice -eq 5 ; then
+echo " "
+echo "Building binaries for SCO Unix system"
+touch *.c
+make -k -f MakeSCO
+echo " "
+echo "Binaries for SCO done"
+fi
+
+if test $choice -eq 6 ;  then
+echo " "
+echo "Building binaries for AT&T-386 system"
+touch *.c
+make -k -f MakeATT
+echo " "
+echo "Binaries for AT&T 386 done"
+fi
+
+
+if test  $choice -eq 7 ; then
+echo " "
+echo "Building binaries for HP Unix system"
+touch *.c
+make -k -f MakeHPold
+echo " "
+echo "Binaries for HP/UX (old) done"
+fi
+
+if test  $choice -eq 8 ; then
+echo " "
+echo "Building binaries for HP Unix system"
+touch *.c
+make -k -f MakeHPnew
+echo " "
+echo "Binaries for HP/UX (new) done"
+fi
+
+if test $choice -eq 9 ; then
+echo " "
+echo "Building binaries for IBM RS-6000 system"
+touch *.c
+make -k -f MakeRS6k
+echo " "
+echo "Binaries for RS6000 done"
+fi
+
+if test $choice -eq 10 ; then
+echo " "
+echo "Building binaries for Sequent System V system"
+touch *.c
+make -k -f MakeSEQ
+echo " "
+echo "Binaries for Sequent done"
+fi
+
+if test $choice -eq 11 ; then
+echo " "
+echo "Building binaries for SVR 4 System"
+touch *.c
+make -k -f MakeSVR4
+echo " "
+echo "Binaries for SVR 4 done"
+fi
+
+if test $choice -eq 12 ; then
+echo " "
+echo "Building binaries for Solaris system"
+touch *.c
+make -k -f MakeSolaris
+echo " "
+echo "Binaries for Solaris"
+fi
+
+if test $choice -eq 13 ; then
+echo " "
+echo "Building binaries for DGUX"
+touch *.c
+make -k -f MakeDGUX
+echo " "
+echo "Binaries for DGUX"
+fi
+
+exit 0
+
+
+
+
+

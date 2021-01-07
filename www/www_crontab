@@ -1,0 +1,2 @@
+20 3 * * * . /etc/profile;  cd /home/Admin_WebSites/wXXX/cron; daily >output/daily.out 2>&1 ; mail -s Webalizer hostmaster@amlibtech.net <output/daily.out
+0 10 1 * * . /etc/profile;  cd /home/Admin_WebSites/wXXX/cron; monthly USER@DOMAIN.com >output/monthly.out 2>&1 ; if [ -s output/monthly.out ]; then mail -s Monthly_Cron_Job hostmaster@amlibtech.net <output/monthly.out; fi

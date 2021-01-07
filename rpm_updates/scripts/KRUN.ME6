@@ -1,0 +1,23 @@
+#KRUN.ME6
+#
+# run lilo
+#
+
+if [ -f /etc/lilo.conf ]
+then
+
+echo "running lilo -v"
+lilo -v
+if [ $? -ne 0 ]
+then
+	echo "lilo FAILED"
+	exit 1
+fi
+
+echo "Now reboot new version(s)"
+
+else
+	echo "No Lilo.conf"
+	echo "hit enter"
+	read x
+fi

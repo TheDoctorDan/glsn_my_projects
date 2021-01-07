@@ -1,0 +1,4 @@
++ftsi:"xxx" Transmitting station ID
++fcsi:"xxx" called station ID
++fcig:"xxx" Polling station ID
++flid:"xxx" local station ID

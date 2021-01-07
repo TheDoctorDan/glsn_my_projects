@@ -1,0 +1,6 @@
+# postlj -g1 -s0 -a0 -j0 init.ps try.ps
+#cat init.ps emulate.ps text_file | post_gc -g1 -s0
+#post_gc -g1 -s0 init.ps try.ps
+# post_tek init.ps ../post/try.ps
+# lpr00 -fm 1 par:
+cat init.ps emulate.ps text_file | post_tek

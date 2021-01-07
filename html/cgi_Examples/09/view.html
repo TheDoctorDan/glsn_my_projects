@@ -1,0 +1,27 @@
+<HTML>
+<HEAD><TITLE>Welcome to CGI Educational Center</TITLE></HEAD>
+<BODY>
+<H1>View Student Information</H1>
+<HR>
+<FORM ACTION="/cgi-bin/student.pl?view" METHOD="POST">
+Student Name: <INPUT TYPE="text" NAME="Student" SIZE=40>
+<P>
+Year of Graduation:
+<INPUT TYPE="radio" NAME="Sign" VALUE="greater"> Greater Than
+<INPUT TYPE="radio" NAME="Sign" VALUE="equal" CHECKED> Equal To
+<INPUT TYPE="radio" NAME="Sign" VALUE="less"> Less Than
+<INPUT TYPE="text" NAME="YOG" SIZE=4 MAXLENGTH=4>
+<P>
+Address Information: <INPUT TYPE="text" NAME="Address" SIZE=40>
+<P>
+<INPUT TYPE="submit" VALUE="View Student Information">
+<INPUT TYPE="reset"  VALUE="Clear the Information">
+</FORM>
+<HR>
+</BODY>
+</HTML>
+
+
+
+
+

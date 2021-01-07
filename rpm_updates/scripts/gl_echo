@@ -1,0 +1,17 @@
+#! /bin/sh
+# gl_echo
+
+#------------------------------------------------------------------------------|
+#       Copyright (c) 1985 thru 1994, 1995, 1996, 1997, 1998, 1999, 2000       |
+#       Gleeson and Associates                                                 |
+#       All Rights Reserved                                                    |
+#                                                                              |
+#       THIS IS UNPUBLISHED PROPRIETARY SOURCE CODE OF                         |
+#       Gleeson And Associates                                                 |
+#       The copyright notice above does not evidence any                       |
+#       actual or intended publication of such source code.                    |
+#------------------------------------------------------------------------------|
+
+#handles 2 different echo programs
+
+echo -e "$@"

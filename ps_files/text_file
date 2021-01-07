@@ -1,0 +1,13 @@
+total 184
+drwxr-x--x   2 gleeson  gleeson      512 Sep  3 16:48 Amiga.fonts
+-rwxr-xr-x   1 gleeson  gleeson      142 Sep 11 11:41 X
+drwxr-x--x   2 gleeson  gleeson      512 Aug 28 11:20 afms
+-rw-r-----   1 gleeson  gleeson    32130 Aug 28 11:20 badges.ps
+-rw-r-----   1 gleeson  gleeson     1791 Sep 11 11:39 emulate.ps
+-rw-r-----   1 gleeson  gleeson     7353 Sep 11 11:25 init.ps
+-rw-r-----   1 gleeson  gleeson    28206 Aug 28 11:20 post.doc
+-rw-r-----   1 gleeson  gleeson    17858 Aug 28 11:20 readme
+drwxr-x--x   2 gleeson  gleeson      512 Aug 28 11:20 save
+-rw-r-----   1 gleeson  gleeson        0 Sep 11 11:41 text_file
+-rw-r-----   1 gleeson  gleeson      255 Sep  3 16:50 try.ps
+-rw-r-----   1 gleeson  gleeson      825 Aug 28 11:20 x.ps
